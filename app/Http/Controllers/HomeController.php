@@ -28,10 +28,13 @@ class HomeController extends Controller
 
     public function handleAdmin()
     {
-        return view('handleAdmin');
+        return view('admin.dashboard');
     }    
     public function handleManager()
     {
-        return view('handleManager');
+        return view('manager.dashboard');
+    }
+    public function handleUser(){
+        return view('user.dashboard');
     }
 }
