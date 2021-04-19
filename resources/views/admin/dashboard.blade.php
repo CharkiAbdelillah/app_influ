@@ -15,7 +15,7 @@
               <div class="card-body">
                 <div class="table-responsive">
                   <table>
-                    <thead class=" text-primary">
+                    <thead class="text-primary">
                       <th>Name</th>
                       <th>Country</th>
                       <th>Country</th>

@@ -19,7 +19,7 @@ class Admin
             return $next($request);
         }
         else{
-            return redirect('home')->with('error',"Only admin can access!");
+            return redirect('home')->with('status',"Only admin can access!");
         }
     }
 }
