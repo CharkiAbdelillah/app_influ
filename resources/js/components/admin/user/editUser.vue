@@ -46,12 +46,12 @@ export default {
     props:['hello1'],
     methods:{
       update(){
-        axios.post('/admin/manager-update/'+this.hello1.id,{
+        axios.post('/admin/user-update/'+this.hello1.id,{
           name:this.hello1.name,
           email:this.hello1.email,
           password:this.hello1.password,
         })
-        .then(response=>this.$emit('manager-updated',response))
+        .then(response=>this.$emit('user-updated',response))
         .catch(error=>{console.log(error)});
       }
     }

@@ -27,7 +27,7 @@
               </div>
               <div class="card-body">
                 <div class="table-responsive">
-                    <search-component></search-component>
+                    <managers-component></managers-component>
                   </div>
                 </div>
 

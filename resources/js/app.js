@@ -21,10 +21,13 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('search-component', require('./components/admin/manager/managers.vue').default);
-// Vue.component('passdata-component', require('./components/passData.vue').default);
+Vue.component('managers-component', require('./components/admin/manager/managers.vue').default);
 Vue.component('add-manager', require('./components/admin/manager/addManager.vue').default);
 Vue.component('edit1-manager', require('./components/admin/manager/editManager.vue').default);
+//client
+Vue.component('users-component', require('./components/admin/user/users.vue').default);
+Vue.component('add-user', require('./components/admin/user/addUser.vue').default);
+Vue.component('edit1-user', require('./components/admin/user/editUser.vue').default);
 Vue.component('pagination', require('laravel-vue-pagination'));
 
 /**

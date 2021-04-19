@@ -22,11 +22,20 @@ Route::prefix('admin')->group(function() {
     Route::get('/gestion_manger','Admin\gstManagerController@all_liste')->middleware('admin');
     Route::post('/gestion_manger','Admin\gstManagerController@store')->middleware('admin');
     Route::get('/managers/{q?}','Admin\gstManagerController@index')->middleware('admin');
-    // Route::get('/manager-edit','Admin\gstManagerController@update')->middleware('admin');//{id}
     Route::get('/manager-edit/{id}','Admin\gstManagerController@edit');
     Route::post('/manager-update/{id}','Admin\gstManagerController@update');
-    // Route::post('/manager-update/{id}','Admin\gstManagerController@update');
     Route::delete('/manager-delete/{id}','Admin\gstManagerController@destroy');
+    //client 
+    Route::get('/gestion_user','Admin\gstManagerController@all_liste')->middleware('admin');
+    Route::post('/gestion_user','Admin\gstManagerController@store')->middleware('admin');
+    Route::get('/users/{q?}','Admin\gstManagerController@index')->middleware('admin');
+    Route::get('/user-edit/{id}','Admin\gstManagerController@edit');
+    Route::post('/user-update/{id}','Admin\gstManagerController@update');
+    Route::delete('/user-delete/{id}','Admin\gstManagerController@destroy');
+    // Route::get('/manager-edit','Admin\gstManagerController@update')->middleware('admin');//{id}
+
+    // Route::post('/manager-update/{id}','Admin\gstManagerController@update');
+    
     // Route::post('/manager-add','Admin\gstManagerController@add');
     // Route::get('/manager-search/{data}','Admin\gstManagerController@searchData')->name('api.datat');
     Route::get('/gestion_client','Admin\gstClientController@all_liste')->middleware('admin');

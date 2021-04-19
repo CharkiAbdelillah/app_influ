@@ -59,14 +59,14 @@ export default{
     },
     methods:{
         storeManager(){
-            axios.post('/admin/gestion_user',{
+            axios.post('/admin/gestion_manger',{
                 name:this.name,
                 email:this.email,
                 password:this.pass,
-                is_admin:0
+                is_admin:2
 
             })
-            .then(response=>this.$emit('user-added',response))
+            .then(response=>this.$emit('manager-added',response))
             .catch(error=>console.log(error));
         }               
        }
