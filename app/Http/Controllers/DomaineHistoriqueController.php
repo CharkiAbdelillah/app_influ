@@ -14,7 +14,8 @@ class DomaineHistoriqueController extends Controller
      */
     public function index()
     {
-        //
+        $domine=Domaine_historique::all();
+        return response()->json($domine);
     }
 
     /**
@@ -35,7 +36,8 @@ class DomaineHistoriqueController extends Controller
      */
     public function store(Request $request)
     {
-        //
+            
+        
     }
 
     /**

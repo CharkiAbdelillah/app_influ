@@ -8,6 +8,6 @@ class Extra_chiffre extends Model
 {
     protected $guarded=[];
     public function extra_type(){
-        return $this->hasOne(Extra_type::class);
+        return $this->belongsTo(Extra_type::class);
     }
 }

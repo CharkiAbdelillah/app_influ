@@ -24,3 +24,9 @@ Route::middleware('api')->resource('/personne','PersonneController')->only(['ind
 Route::middleware('api')->resource('/personneInfo','PersonneInfoController')->only(['index','show','store','create']);
 Route::middleware('api')->resource('/personneType','TypeActiviteController')->only(['index','show','store','create']);
 Route::middleware('api')->resource('/personneTypeDomaine','DomaineController')->only(['index','show','store','create']);
+Route::middleware('api')->resource('/personneTypeDomaineHis','DomaineHistoriqueController')->only(['index','show','store','create']);
+Route::middleware('api')->resource('/personneTypeDomaineHisDom','DomaineHistoDomaineController')->only(['index','show','store','create']);
+
+
+
+

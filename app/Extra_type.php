@@ -10,10 +10,10 @@ class Extra_type extends Model
 {
     protected $guarded=[];
     public function instagrame_extra_tye(){
-        return $this->hasOne(Instagrame::class);
+        return $this->belongsTo(Instagrame::class);
     }
 
     public function extra_chiffre(){
-        return $this->belongsTo(Extra_chiffre::class);
+        return $this->hasOne(Extra_chiffre::class);
     }
 }

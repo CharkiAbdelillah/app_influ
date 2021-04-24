@@ -3200,6 +3200,27 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3243,35 +3264,100 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      nomType: '',
       domaine: {},
-      domaineTab: []
+      domaineHis: {},
+      data: {
+        nomType: '',
+        domaineTab: []
+      },
+      data2: {
+        domaineTab2: '',
+        domaineTab3: []
+      }
     };
   },
   created: function created() {
-    this.getDomaine();
+    this.getDomaine(), this.getDomaineHis();
   },
   methods: {
     addInflType: function addInflType(e) {
-      e.preventDefault(); //pour ne pas actualiser la page
+      var _this = this;
 
-      var formData = new FormData(); //pour communiquer avec la form
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var res;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                e.preventDefault(); //pour ne pas actualiser la page
 
-      formData.append("nom", this.nomType);
-      formData.append("domtab", this.domaineTab);
-      axios.post("/api/personneType", formData).then(function (res) {
-        // $('#modal2').modal('hide');
-        console.log('hi');
-      })["catch"](function (err) {
-        return console.log('hahaha');
-      });
+                _context.next = 3;
+                return _this.callApi('post', '/api/personneType', _this.data);
+
+              case 3:
+                res = _context.sent;
+
+                if (res.status == 200) {
+                  _this.s('Success');
+                } else {
+                  _this.swr();
+                }
+
+              case 5:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    addInflDomHis: function addInflDomHis(e) {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var res;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                e.preventDefault(); //pour ne pas actualiser la page
+
+                _context2.next = 3;
+                return _this2.callApi('post', '/api/personneTypeDomaineHisDom', _this2.data2);
+
+              case 3:
+                res = _context2.sent;
+
+                if (res.status == 200) {
+                  _this2.s('Success');
+                } else {
+                  _this2.swr();
+                }
+
+              case 5:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
     },
     getDomaine: function getDomaine() {
-      var _this = this;
+      var _this3 = this;
 
       axios.get('/api/personneTypeDomaine').then(function (response) {
         console.log(response.data);
-        _this.domaine = response.data;
+        _this3.domaine = response.data;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    getDomaineHis: function getDomaineHis() {
+      var _this4 = this;
+
+      axios.get('/api/personneTypeDomaineHis').then(function (response) {
+        console.log(response.data);
+        _this4.domaineHis = response.data;
       })["catch"](function (error) {
         console.log(error);
       });
@@ -92805,8 +92891,8 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.nomType,
-                          expression: "nomType"
+                          value: _vm.data.nomType,
+                          expression: "data.nomType"
                         }
                       ],
                       staticClass: "custom-select",
@@ -92820,9 +92906,13 @@ var render = function() {
                               var val = "_value" in o ? o._value : o.value
                               return val
                             })
-                          _vm.nomType = $event.target.multiple
-                            ? $$selectedVal
-                            : $$selectedVal[0]
+                          _vm.$set(
+                            _vm.data,
+                            "nomType",
+                            $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          )
                         }
                       }
                     },
@@ -92832,7 +92922,7 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("option", { attrs: { value: "instagram" } }, [
-                        _vm._v("instagram")
+                        _vm._v("Instagram")
                       ]),
                       _vm._v(" "),
                       _c("option", { attrs: { value: "Facebook" } }, [
@@ -92858,17 +92948,27 @@ var render = function() {
                             placeholder: "Select domaine"
                           },
                           model: {
-                            value: _vm.domaineTab,
+                            value: _vm.data.domaineTab,
                             callback: function($$v) {
-                              _vm.domaineTab = $$v
+                              _vm.$set(_vm.data, "domaineTab", $$v)
                             },
-                            expression: "domaineTab"
+                            expression: "data.domaineTab"
                           }
                         },
                         _vm._l(_vm.domaine, function(c, i) {
                           return _c(
                             "Option",
-                            { key: i, attrs: { value: c.id } },
+                            {
+                              key: i,
+                              attrs: { value: c.id },
+                              model: {
+                                value: c.nom,
+                                callback: function($$v) {
+                                  _vm.$set(c, "nom", $$v)
+                                },
+                                expression: "c.nom"
+                              }
+                            },
                             [_vm._v(_vm._s(c.nom))]
                           )
                         }),
@@ -92878,8 +92978,86 @@ var render = function() {
                     1
                   ),
                   _vm._v(" "),
+                  _c(
+                    "Row",
+                    [
+                      _c(
+                        "Col",
+                        {
+                          staticStyle: { "padding-right": "10px" },
+                          attrs: { span: "12" }
+                        },
+                        [
+                          _c(
+                            "Select",
+                            {
+                              attrs: { filterable: "" },
+                              model: {
+                                value: _vm.data2.domaineTab2,
+                                callback: function($$v) {
+                                  _vm.$set(_vm.data2, "domaineTab2", $$v)
+                                },
+                                expression: "data2.domaineTab2"
+                              }
+                            },
+                            _vm._l(_vm.domaine, function(c, i) {
+                              return _c(
+                                "Option",
+                                { key: i, attrs: { value: c.id } },
+                                [_vm._v(_vm._s(c.nom))]
+                              )
+                            }),
+                            1
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "Col",
+                        { attrs: { span: "12" } },
+                        [
+                          _c(
+                            "Select",
+                            {
+                              attrs: { filterable: "", multiple: "" },
+                              model: {
+                                value: _vm.data2.domaineTab3,
+                                callback: function($$v) {
+                                  _vm.$set(_vm.data2, "domaineTab3", $$v)
+                                },
+                                expression: "data2.domaineTab3"
+                              }
+                            },
+                            _vm._l(_vm.domaineHis, function(c, i) {
+                              return _c(
+                                "Option",
+                                { key: i, attrs: { value: c.id } },
+                                [_vm._v(_vm._s(c.nom))]
+                              )
+                            }),
+                            1
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("Button", {
+                        attrs: {
+                          size: _vm.buttonSize,
+                          icon: "md-add",
+                          type: "primary",
+                          shape: "circle"
+                        },
+                        on: { click: _vm.addInflDomHis }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
                   _vm._m(1)
-                ]
+                ],
+                1
               )
             ])
           ])

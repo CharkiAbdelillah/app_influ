@@ -15,7 +15,6 @@ class CreateInstagramesTable extends Migration
     {
         Schema::create('instagrames', function (Blueprint $table) {
             $table->id();
-            $table->integer('extra_type_id');
             $table->integer('type_activite_id');
             $table->integer('nombre_abonne');
             $table->string('engagement');

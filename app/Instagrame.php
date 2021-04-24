@@ -13,6 +13,6 @@ class Instagrame extends Model
         return $this->belongsTo(Type_activite::class);
     }
     public function extra_type(){
-        return $this->belongsTo(Extra_type::class);
+        return $this->hasOne(Extra_type::class);
     }
 }

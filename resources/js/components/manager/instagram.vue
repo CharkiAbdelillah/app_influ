@@ -21,6 +21,48 @@
             <option value="Facebook">Facebook</option>
             <option value="Youtube">Youtube</option>
           </select>
+          <FormItem label="Nombre d’abonnés">
+            <Row>
+                <Col span="11">
+                    <FormItem prop="date">
+                        <Input v-model="value2" placeholder="Number" />
+                    </FormItem>
+                </Col>
+                <Col span="2" style="text-align: center">Engagement</Col>
+                <Col span="11">
+                    <FormItem prop="time">
+                        <Input v-model="value2" placeholder="default" />
+                    </FormItem>
+                </Col>
+            </Row>
+            </FormItem>
+            <FormItem label="Qualité d’audience" prop="name">
+              <Input v-model="value14" placeholder="Enter something..." clearable style="width: 200px" />
+            </FormItem>
+            <FormItem label="Moyenne des likes">
+            <Row>
+                <Col span="11">
+                    <FormItem prop="date">
+                        <Input v-model="value2" placeholder="Number" />
+                    </FormItem>
+                </Col>
+                <Col span="2" style="text-align: center">Moyenne des commentaires</Col>
+                <Col span="11">
+                    <FormItem prop="time">
+                        <Input v-model="value2" placeholder="default" />
+                    </FormItem>
+                </Col>
+            </Row>
+            </FormItem>
+            <FormItem label="Taille par rapport aux followers" prop="city">
+              <Select v-model="formValidate.city" placeholder="Select your city">
+                  <Option value="Nano(1k-10k)">Nano(1k-10k)</Option>
+                  <Option value="Micro(10k-50k)">Micro(10k-50k)</Option>
+                  <Option value="Mid-tier(50k-500k)">Mid-tier(50k-500k)</Option>
+                  <Option value="Macro(500k-1m)">Macro(500k-1m)</Option>
+                  <Option value="Mega(1m et +)">Mega(1m et +)</Option>
+              </Select>
+            </FormItem>
           <div class="_input_field">
           <Select filterable multiple v-model="data.domaineTab" placeholder="Select domaine">
                 <Option v-for="(c,i) in domaine" :value="c.id" v-model="c.nom" :key="i">{{ c.nom }}</Option>

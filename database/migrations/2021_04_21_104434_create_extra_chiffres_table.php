@@ -15,6 +15,7 @@ class CreateExtraChiffresTable extends Migration
     {
         Schema::create('extra_chiffres', function (Blueprint $table) {
             $table->id();
+            $table->integer('extra_types_id');
             $table->date('date_1er');
             $table->integer('nombre_publicaion');
             $table->integer('taux_reponse');

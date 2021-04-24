@@ -16,7 +16,7 @@ class CreateExtraTypesTable extends Migration
         Schema::create('extra_types', function (Blueprint $table) {
             $table->id();
             $table->string('nom');
-            $table->integer('extra_chiffre_id');
+            $table->integer('instagrames_id');
             $table->timestamps();
         });
     }

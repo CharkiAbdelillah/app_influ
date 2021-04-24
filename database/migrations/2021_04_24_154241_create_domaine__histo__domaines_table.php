@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDomaineHistoriqueDomaineTable extends Migration
+class CreateDomaineHistoDomainesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateDomaineHistoriqueDomaineTable extends Migration
      */
     public function up()
     {
-        Schema::create('domaine_historique_domaine', function (Blueprint $table) {
+        Schema::create('domaine__histo__domaines', function (Blueprint $table) {
             $table->id();
             $table->integer('domaine_id');
             $table->integer('domaine_historique_id');
@@ -28,6 +28,6 @@ class CreateDomaineHistoriqueDomaineTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('domaine_historique_domaine');
+        Schema::dropIfExists('domaine__histo__domaines');
     }
 }
