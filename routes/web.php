@@ -26,12 +26,12 @@ Route::prefix('admin')->group(function() {
     Route::post('/manager-update/{id}','Admin\gstManagerController@update');
     Route::delete('/manager-delete/{id}','Admin\gstManagerController@destroy');
     //client 
-    Route::get('/gestion_user','Admin\gstManagerController@all_liste')->middleware('admin');
-    Route::post('/gestion_user','Admin\gstManagerController@store')->middleware('admin');
-    Route::get('/users/{q?}','Admin\gstManagerController@index')->middleware('admin');
-    Route::get('/user-edit/{id}','Admin\gstManagerController@edit');
-    Route::post('/user-update/{id}','Admin\gstManagerController@update');
-    Route::delete('/user-delete/{id}','Admin\gstManagerController@destroy');
+    Route::get('/gestion_user','Admin\gstClientController@all_liste')->middleware('admin');
+    Route::post('/gestion_user','Admin\gstClientController@store')->middleware('admin');
+    Route::get('/users/{q?}','Admin\gstClientController@index')->middleware('admin');
+    Route::get('/user-edit/{id}','Admin\gstClientController@edit');
+    Route::post('/user-update/{id}','Admin\gstClientController@update');
+    Route::delete('/user-delete/{id}','Admin\gstClientController@destroy');
     // Route::get('/manager-edit','Admin\gstManagerController@update')->middleware('admin');//{id}
 
     // Route::post('/manager-update/{id}','Admin\gstManagerController@update');
@@ -41,10 +41,10 @@ Route::prefix('admin')->group(function() {
     Route::get('/gestion_client','Admin\gstClientController@all_liste')->middleware('admin');
 
    }) ;
+    // Route::post('/api/personne','Manager\PersonneController@store');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-
 // Route::view('/add', 'admin.dashboard');
 // Route::get('admin/home', 'HomeController@handleAdmin')->name('admin.route')->middleware('admin');
 Route::get('manager/home', 'HomeController@handleManager')->name('manager.route')->middleware('manager');

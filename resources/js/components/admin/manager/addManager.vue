@@ -35,7 +35,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Retour</button>
-            <button type="submit" class="btn btn-success" @click="storeManager" data-dismiss="modal">Cree</button>
+            <button type="submit" class="btn btn-success" @click="storeManager" >Cree</button>
           </div>
         </form>
       </div>

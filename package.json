@@ -24,6 +24,10 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
-        "laravel-vue-pagination": "^2.3.1"
+        "laravel-vue-pagination": "^2.3.1",
+        "smartwizard": "^5.1.1",
+        "sweetalert2": "^10.16.5",
+        "view-design": "^4.5.0",
+        "vue-form-wizard": "^0.8.4"
     }
 }

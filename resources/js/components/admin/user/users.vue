@@ -20,7 +20,7 @@
                     </thead>
                     <tbody>
                       <tr v-for="user3 in this.users.data"  :key="user3.id" >  
-                          <template v-if="user3.id ==0">
+                          <template v-if="user3.is_admin ==0">
                         <th scope="row">{{user3.name}}</th>
                         <td>{{user3.email}}</td>
                         <td>{{user3.created_at }}</td>
@@ -30,7 +30,8 @@
                         Editer</button>
                         </td>
                         <td><button type="button" class="btn btn-danger float-left"  @click="deleteUser(user3.id)">
-                        Supprimer</button>
+                        <Icon type="ios-trash" />
+                        </button>
                         </td>
                         </template>
                         </tr>
@@ -82,11 +83,58 @@
                 // .then(response1=>this.managerEdit=response1.name)
                 .catch(error=>console.log(error));
             },
-            deleteManager(id){
-                axios.delete('/admin/user-delete/'+id)
-                .then(response=>this.users=response.data) 
-                .catch(error=>console.log(error));
+            deleteUser(id){
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                    }).then((result) => {
+                        axios.delete('/admin/user-delete/'+id).then(()=>{
+                            response=>this.users=response.data;
+                            if (result.isConfirmed) {
+                             Swal.fire(
+                            'Deleted!',
+                            'Your file has been deleted.',
+                            'success'
+                            )
+                        }    
+                        }).catch(()=>{
+                             Swal.fire(
+                            'Failed!',
+                            'something wrong',
+                            'warning'
+                            )
+                        });
+                        
+                })
+                
+                // .then(response=>this.users=response.data) 
+                // .catch(error=>console.log(error));
+                                // Swal.fire({
+                // title: 'Are you sure?',
+                // text: "You won't be able to revert this!",
+                // icon: 'warning',
+                // showCancelButton: true,
+                // confirmButtonColor: '#3085d6',
+                // cancelButtonColor: '#d33',
+                // confirmButtonText: 'Yes, delete it!'
+                // }).then((result) => {
+                // if (result.isConfirmed) {
+                //     Swal.fire(
+                //     'Deleted!',
+                //     'Your file has been deleted.',
+                //     'success'
+                //     )
+                // }
+                // })
             },
+            test(){
+         Swal.fire('Test!', 'Hello test message','success');
+      } ,
             refresh(users){
                 this.users=users.data
             },

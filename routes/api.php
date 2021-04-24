@@ -18,4 +18,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// Route::middleware('api')->get('/managers','Admin\gstManagerController@index');
+// Route::middleware('api')->post('/personne','PersonneController@store');
+// Route::middleware('api')->get('/personnes','PersonneController@index');
+Route::middleware('api')->resource('/personne','PersonneController')->only(['index','show','store','create']);
+Route::middleware('api')->resource('/personneInfo','PersonneInfoController')->only(['index','show','store','create']);
+Route::middleware('api')->resource('/personneType','TypeActiviteController')->only(['index','show','store','create']);
+Route::middleware('api')->resource('/personneTypeDomaine','DomaineController')->only(['index','show','store','create']);

@@ -21,7 +21,7 @@
                     <tbody>
                         
                       <tr v-for="user3 in this.managers.data"  :key="user3.id" >  
-                        <!-- <template v-if="user3.id == 2">   -->
+                        <template v-if="user3.is_admin == 2">  
                         <th scope="row">{{user3.name}}</th>
                         <td>{{user3.email}}</td>
                         <td>{{user3.created_at }}</td>
@@ -32,7 +32,7 @@
                         <td><button type="button" class="btn btn-danger float-left"  @click="deleteManager(user3.id)">
                         Supprimer</button>
                         </td>
-                        <!-- </template> -->
+                        </template>
                         </tr>
                     </tbody>
                     <edit1-manager v-bind:hello1="hello1" @manager-updated="refresh"></edit1-manager>

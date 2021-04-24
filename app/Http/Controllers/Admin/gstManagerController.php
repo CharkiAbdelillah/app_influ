@@ -27,9 +27,10 @@ class gstManagerController extends Controller
     }
     public function store(Request $request){
         $users=User::create($request->all());
-        if($users){
-            return $this->refresh();
-        }
+        // if($users){
+        //     return $this->refresh();
+        // }
+        return $this->$users;
     }
     public function edit(Request $request,$id){
         $users=User::findOrFail($id);
@@ -58,7 +59,7 @@ class gstManagerController extends Controller
 
     
     private function refresh(){
-        $manager=User::orderBy('created_at','DESC')->paginate(5);
+        $manager=User::where('is_admin','2')->orderBy('created_at','DESC')->paginate(5);//where('is-admin','=', 0)->
         return response()->json($manager);        
     }
 }

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use DB;
 class gstClientController extends Controller
 {
     public function index(){
@@ -23,10 +23,23 @@ class gstClientController extends Controller
         return view('admin.gstClient');
     }
     public function store(Request $request){
-        $users=User::create($request->all());
+        // $users=User::create($request->all());
+        $this->validate($request,[
+            'name'=>'required',
+            'email'=>'bail|required|email',
+            'pass'=>'bail|required|min:6',
+        ]);
+        $password=bcrypt($request->pass);
+        $users=User::create([
+            'name'=>$request->name,
+            'email'=>$request->email,
+            'password'=>$password,
+            'is_admin'=>0
+        ]);
         if($users){
             return $this->refresh();
         }
+        // return $users;
     }
     public function edit(Request $request,$id){
         $users=User::findOrFail($id);
@@ -55,7 +68,15 @@ class gstClientController extends Controller
 
     
     private function refresh(){
-        $manager=User::orderBy('created_at','DESC')->paginate(5);
+        // $manager=DB::table('users');
+        //     // ->where('is-admin', 0);
+        //     // ->orderByRaw('updated_at - created_at DESC')
+        //     // ->paginate(5);
+        //     // ->get();
+        // $manager=User::where('is_admin','0')->paginate(5)->get();
+        // $manager = DB::select('select * from users where is-admin=0');
+        $manager=User::where('is_admin','0')->orderBy('created_at','DESC')->paginate(5);//where('is-admin','=', 0)->
         return response()->json($manager);        
     }
+    
 }
