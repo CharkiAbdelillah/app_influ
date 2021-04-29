@@ -17,23 +17,23 @@
           <!-- <input type="hidden" name="_token" v-bind:value="csrf"> -->
           <select class="custom-select" v-model="data.nomType">
             <option selected>Choisi le type</option>
-            <option value="instagram">Instagram</option>
+            <option value="Instagram">Instagram</option>
             <option value="Facebook">Facebook</option>
             <option value="Youtube">Youtube</option>
           </select>
           <div class="_input_field">
           <Select filterable multiple v-model="data.domaineTab" placeholder="Select domaine">
-                <Option v-for="(c,i) in domaine" :value="c.id" v-model="c.nom" :key="i">{{ c.nom }}</Option>
+                <Option v-for="(c,i) in domaine" :value="c.id" :key="i">{{ c.nom }}</Option>
             </Select>
             </div>
             <Row>
               <Col span="12" style="padding-right:10px">
-                  <Select v-model="data2.domaineTab2" filterable>
+                  <Select v-model="data2.domaineTab2" filterable placeholder="Select domaine">
                       <Option v-for="(c,i) in domaine" :value="c.id" :key="i">{{c.nom}}</Option>
                   </Select>
               </Col>
               <Col span="12">
-                  <Select v-model="data2.domaineTab3" filterable multiple>
+                  <Select v-model="data2.domaineTab3" filterable multiple placeholder="Select domaine hist">
                       <Option v-for="(c,i) in domaineHis" :value="c.id" :key="i">{{ c.nom }}</Option>
                   </Select>
               </Col>

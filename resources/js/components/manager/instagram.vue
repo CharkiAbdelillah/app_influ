@@ -1,9 +1,10 @@
+
 <template>
 <div>
-  <button type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#modal2">
-     Ajouter 3
+  <button type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#modal3">
+     Ajouter 4
   </button>
-    <div class="modal fade" id="modal2" ref="modal2" tabindex="-1" aria-labelledby="personneInfoLabel" aria-hidden="true">
+    <div class="modal fade" id="modal3" ref="modal3" tabindex="-1" aria-labelledby="personneInfoLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -13,77 +14,104 @@
         </button>
       </div>
       <div class="modal-body">
-        <form @submit="addInflType" enctype="multipart/form-data">
-          <!-- <input type="hidden" name="_token" v-bind:value="csrf"> -->
-          <select class="custom-select" v-model="data.nomType">
-            <option selected>Choisi le type</option>
-            <option value="instagram">Instagram</option>
-            <option value="Facebook">Facebook</option>
-            <option value="Youtube">Youtube</option>
-          </select>
-          <FormItem label="Nombre d’abonnés">
-            <Row>
-                <Col span="11">
-                    <FormItem prop="date">
-                        <Input v-model="value2" placeholder="Number" />
-                    </FormItem>
-                </Col>
-                <Col span="2" style="text-align: center">Engagement</Col>
-                <Col span="11">
-                    <FormItem prop="time">
-                        <Input v-model="value2" placeholder="default" />
-                    </FormItem>
-                </Col>
-            </Row>
-            </FormItem>
-            <FormItem label="Qualité d’audience" prop="name">
-              <Input v-model="value14" placeholder="Enter something..." clearable style="width: 200px" />
-            </FormItem>
-            <FormItem label="Moyenne des likes">
-            <Row>
-                <Col span="11">
-                    <FormItem prop="date">
-                        <Input v-model="value2" placeholder="Number" />
-                    </FormItem>
-                </Col>
-                <Col span="2" style="text-align: center">Moyenne des commentaires</Col>
-                <Col span="11">
-                    <FormItem prop="time">
-                        <Input v-model="value2" placeholder="default" />
-                    </FormItem>
-                </Col>
-            </Row>
-            </FormItem>
-            <FormItem label="Taille par rapport aux followers" prop="city">
-              <Select v-model="formValidate.city" placeholder="Select your city">
+        <form  @submit="addInstagrame" enctype="multipart/form-data">
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="">Nombre d’abonnés</label>
+            <input type="number" v-model="data3.nombre" class="form-control">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="">Engagement</label>
+            <input type="text" v-model="data3.engagement" class="form-control" >
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputAddress">Qualité d’audience</label>
+          <input type="text" v-model="data3.qualite" class="form-control">
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="">Moyenne des likes</label>
+            <input type="number" v-model="data3.like" class="form-control">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="">Moyenne des commentaires</label>
+            <input type="text" v-model="data3.comm" class="form-control" id="inputPassword4">
+          </div>
+        </div>
+        <Select v-model="data3.followers" placeholder="Select your city">
                   <Option value="Nano(1k-10k)">Nano(1k-10k)</Option>
                   <Option value="Micro(10k-50k)">Micro(10k-50k)</Option>
                   <Option value="Mid-tier(50k-500k)">Mid-tier(50k-500k)</Option>
                   <Option value="Macro(500k-1m)">Macro(500k-1m)</Option>
                   <Option value="Mega(1m et +)">Mega(1m et +)</Option>
               </Select>
-            </FormItem>
-          <div class="_input_field">
-          <Select filterable multiple v-model="data.domaineTab" placeholder="Select domaine">
-                <Option v-for="(c,i) in domaine" :value="c.id" v-model="c.nom" :key="i">{{ c.nom }}</Option>
-            </Select>
-            </div>
-            <Row>
-              <Col span="12" style="padding-right:10px">
-                  <Select v-model="data2.domaineTab2" filterable>
-                      <Option v-for="(c,i) in domaine" :value="c.id" :key="i">{{c.nom}}</Option>
-                  </Select>
-              </Col>
-              <Col span="12">
-                  <Select v-model="data2.domaineTab3" filterable multiple>
-                      <Option v-for="(c,i) in domaineHis" :value="c.id" :key="i">{{ c.nom }}</Option>
-                  </Select>
-              </Col>
-              <Button  icon="md-add" type="primary" shape="circle" @click="addInflDomHis"></Button>
-          </Row>
+              <!-- partie feed story collapse -->
+              <p>
+                  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                  Story
+                </button>
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample">
+                  Feed
+                </button>
+              </p>
+              <div class="collapse" id="collapseExample">
+                <div class="card card-body">
+                  <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <label for="">Date 1ere publication </label>
+                      <div class="col-10">
+                        <input class="form-control" type="date" value="2011-08-19" v-model="data3.date1s">
+                      </div>
+                      <!-- <input type="text" v-model="data3.date1s" class="form-control"> -->
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="">Nombre de publication par semaine</label>
+                      <input type="text" v-model="data3.nombrebs" class="form-control" id="inputPassword4">
+                    </div>
+                  </div>
+                  <div class="form-row">
+                          <div class="form-group col-md-6">
+                            <label for="">Taux de réponse des commentaires</label>
+                            <input type="text" v-model="data3.tauxs" class="form-control">
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="">Variation nombre de j’aime sur les publications ‘non sponsorisées</label>
+                            <input type="text" v-model="data3.jaimes" class="form-control" id="inputPassword4">
+                          </div>
+                        </div>
+                </div>
+              </div>
+              <div class="collapse" id="collapseExample2">
+                <div class="card card-body">
+                  <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <label for="">Date 1ere publication (Feed)</label>
+                      <!-- <input type="text" v-model="data3.date1d" class="form-control"> -->
+                      <div class="col-10">
+                        <input class="form-control" type="date" value="2011-08-19" v-model="data3.date1d">
+                      </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="">Nombre de publication par semaine</label>
+                      <input type="text" v-model="data3.nombrebd" class="form-control" id="inputPassword4">
+                    </div>
+                  </div>
+                  <div class="form-row">
+                          <div class="form-group col-md-6">
+                            <label for="">Taux de réponse des commentaires</label>
+                            <input type="text" v-model="data3.tauxd" class="form-control">
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="">Variation nombre de j’aime sur les publications ‘non sponsorisées</label>
+                            <input type="text" v-model="data3.jaimed" class="form-control" id="inputPassword4">
+                          </div>
+                        </div>
+                </div>
+              </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Retour</button>
-            <button type="submit"  class="btn btn-success">Cree</button>
+            <button type="submit"  class="btn btn-success">Cree2</button>
           </div>
         </form>
       </div>
@@ -99,56 +127,63 @@
 export default{
      data(){
           return {
-            domaine:{},
-            domaineHis:{},
-            data:{
-              nomType:'',
-              domaineTab:[],
-            },
-            data2:{
-              domaineTab2:'',
-              domaineTab3:[]
+            data3:{
+              nombre:'',
+              engagement:'',
+              qualite:'',
+              like:'',
+              comm:'',
+              followers:'',
+              date1s:'',
+              nombrebs:'',
+              tauxs:'',
+              jaimes:'',
+              followerd:'',
+              date1d:'',
+              nombrebd:'',
+              tauxd:'',
+              jaimed:'',
             }
             
        };
     },
-    created(){
-      this.getDomaine(),
-      this.getDomaineHis()
-    },
+    // created(){
+    //   this.getDomaine(),
+    //   this.getDomaineHis()
+    // },
     methods:{
-      async addInflType(e){
+      async addInstagrame(e){
         e.preventDefault();//pour ne pas actualiser la page
-        const res=await this.callApi('post','/api/personneType',this.data)
+        const res=await this.callApi('post','/api/personneTypeInstagram',this.data3)
         if(res.status==200){
           this.s('Success')
         }else{
           this.swr()
         }
       },
-      async addInflDomHis(e){
-        e.preventDefault();//pour ne pas actualiser la page
-        const res=await this.callApi('post','/api/personneTypeDomaineHisDom',this.data2)
-        if(res.status==200){
-          this.s('Success')
-        }else{
-          this.swr()
-        }
+    //   async addInflDomHis(e){
+    //     e.preventDefault();//pour ne pas actualiser la page
+    //     const res=await this.callApi('post','/api/personneTypeDomaineHisDom',this.data2)
+    //     if(res.status==200){
+    //       this.s('Success')
+    //     }else{
+    //       this.swr()
+    //     }
       },
-      getDomaine(){
-        axios.get('/api/personneTypeDomaine').then(response=>{
-                    console.log(response.data);
-                    this.domaine=response.data;
-                })
-                .catch(error=>{console.log(error)})
-      },
-      getDomaineHis(){
-        axios.get('/api/personneTypeDomaineHis').then(response=>{
-                    console.log(response.data);
-                    this.domaineHis=response.data;
-                })
-                .catch(error=>{console.log(error)})
-      }
-    }
+    //   getDomaine(){
+    //     axios.get('/api/personneTypeDomaine').then(response=>{
+    //                 console.log(response.data);
+    //                 this.domaine=response.data;
+    //             })
+    //             .catch(error=>{console.log(error)})
+    //   },
+    //   getDomaineHis(){
+    //     axios.get('/api/personneTypeDomaineHis').then(response=>{
+    //                 console.log(response.data);
+    //                 this.domaineHis=response.data;
+    //             })
+    //             .catch(error=>{console.log(error)})
+    //   }
+    // }
 }
 </script>

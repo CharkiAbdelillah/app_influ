@@ -45,6 +45,7 @@ Route::prefix('admin')->group(function() {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/test', 'PersonneController@test');
 // Route::view('/add', 'admin.dashboard');
 // Route::get('admin/home', 'HomeController@handleAdmin')->name('admin.route')->middleware('admin');
 Route::get('manager/home', 'HomeController@handleManager')->name('manager.route')->middleware('manager');

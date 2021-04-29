@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Domaine_Histo_Domaine;
+use App\Type_activite;
 use Illuminate\Http\Request;
 
 class DomaineHistoDomaineController extends Controller
@@ -35,13 +36,16 @@ class DomaineHistoDomaineController extends Controller
      */
     public function store(Request $request)
     {
+        $lastType=Type_activite::orderBy('created_at','DESC')->first();
+        $lastIdType=$lastType->id;
+        $lastNomType=$lastType->nom;
         $ativiteDom=[];
             $domaines=$request->domaineTab3;
             $domaineId=$request->domaineTab2;
             foreach($domaines as $k){ 
-                \Log::info($k);// hna nmxi ldik fichier laravel.log likayn f storage onxof taghyir    
-                \Log::info($domaineId);// hna nmxi ldik fichier laravel.log likayn f storage onxof taghyir    
-                array_push($ativiteDom,['domaine_historique_id'=> $k,'domaine_id'=>$domaineId]);
+                \Log::info($k);// /storage/laravel.log -> voir les info
+                \Log::info($domaineId);
+                array_push($ativiteDom,['domaine_historique_id'=> $k,'domaine_id'=>$domaineId,'type_id'=>$lastIdType,'type_nom'=>$lastNomType]);
                 
             }
             Domaine_Histo_Domaine::insert($ativiteDom);

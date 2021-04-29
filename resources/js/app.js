@@ -44,6 +44,7 @@ Vue.component('add-infl', require('./components/manager/addInfl.vue').default);
 Vue.component('addInflInfo', require('./components/manager/addInflInfo.vue').default);
 Vue.component('edit1-infl', require('./components/manager/editInfl.vue').default);
 Vue.component('type-activite', require('./components/manager/type_activite.vue').default);
+Vue.component('instagrame', require('./components/manager/instagram.vue').default);
 
 
 /**

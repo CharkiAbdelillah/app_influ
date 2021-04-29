@@ -6,6 +6,7 @@ use App\Type_activite;
 use Illuminate\Http\Request;
 use App\Personne;
 use App\ActiviteDomaine;
+
 class TypeActiviteController extends Controller
 {
     /**
@@ -36,10 +37,6 @@ class TypeActiviteController extends Controller
      */
     public function store(Request $request)
     {
-
-
-        
-        
             $personne=Personne::orderBy('created_at', 'desc')->first();
             $personne->type_activites()->create([
                 'nom'=>$request->nomType,
@@ -48,7 +45,7 @@ class TypeActiviteController extends Controller
             $type=Type_activite::orderBy('created_at', 'desc')->first();//bax njibo akhi id dyl activite
             $domaines=$request->domaineTab;
             foreach($domaines as $k){ 
-                // \Log::info($k);// hna nmxi ldik fichier laravel.log likayn f storage onxof taghyir    
+                \Log::info($k);// hna nmxi ldik fichier laravel.log likayn f storage onxof taghyir    
                 // \Log::info($domaines);// hna nmxi ldik fichier laravel.log likayn f storage onxof taghyir    
                 array_push($ativiteDom,['type_activite_id'=> $type->id,'domaine_id'=>$k]);
                 // ActiviteDomaine::create({
