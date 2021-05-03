@@ -87,9 +87,11 @@ class PersonneController extends Controller
      * @param  \App\Personne  $personne
      * @return \Illuminate\Http\Response
      */
-    public function show(Personne $personne)
+    public function show($id)
     {
-        //
+        $per=Personne::find($id);
+        return response()->json($per);
+        
     }
 
     /**
@@ -98,11 +100,17 @@ class PersonneController extends Controller
      * @param  \App\Personne  $personne
      * @return \Illuminate\Http\Response
      */
-    public function edit(Personne $personne)
+    public function edit(Personne $personne,$id)
     {
-        //
+        // $personnes=findOrFail($personne->id);
+        // return response()->json($personnes);
+        // $users=User::findOrFail($id);
+        // return response()->json($users);
     }
-
+    public function editPersonne($id){
+        $per=Personne::findOrFail($id);
+        return response()->json($per);
+    }
     /**
      * Update the specified resource in storage.
      *
@@ -112,9 +120,24 @@ class PersonneController extends Controller
      */
     public function update(Request $request, Personne $personne)
     {
-        //
-    }
-
+        $name=null;
+        $photo=$personne->photo;
+        if($request->hasFile('image')){
+            $name=time().'.'.$request->image->getClientOriginalExtension();
+            $request->image->move(public_path('images'),$name);
+            $photo='/images/'.$name;
+        }
+        // $url=explode('/',url()->current());
+        $personne->update([
+            'nom'=>$request->name,
+            'prenom'=>$request->prenom,
+            'photo'=>$photo,
+            'ville'=>$request->ville,
+            'date'=>$request->daten,
+        ]);
+        // Personne_info::create(['personne_id'=>$personne->id]);
+        return response()->json(['message'=>'Ajout bien fait']);
+        }
     /**
      * Remove the specified resource from storage.
      *
@@ -162,38 +185,43 @@ class PersonneController extends Controller
 
                 // $rr=Type_activite::orderBy('created_at','DESC')->first();
                 // \Log::info('type '.$rr->id);  
-
-        $dom=Type_activite::where('personne_id',25)->get();
-                foreach ($dom as $d){
-                    $typeid=$d->id;
-                    $typenom=$d->nom;
-                    \Log::info('type id '.$typeid);  
-                    \Log::info('type nom '.$typenom);
-                    // if($d->nom=='Instagram'){
-                    //     $ff2=$d->instagrame->id;  
-                    //     // \Log::info('insta '.$d->instagrame->id);  
-                    // }
-                        foreach($d->domaine as $his){
-                            \Log::info('dom '.$his->nom);
-                            $domId=$his->id;
-                            $activeDom=$his->pivot->id;
-                            DB::table('activite_domaines')->where('id', $activeDom)->delete();        
-                            foreach($his->domaine_historique as $his2){
-                                    if($his2->pivot->type_id==$typeid && $typenom==$his2->pivot->type_nom && $domId==$his2->pivot->domaine_id){
-                                        \Log::info('his '.$his2->nom); //&& $typenom==$kk->type_id
-                                        $id_his_dom=$his2->pivot->id;
-                                        DB::table('domaine__histo__domaines')->where('id', $id_his_dom)->delete();        
-                                    }   
-                            }   
-                       }   
-                       DB::table('type_activites')->where('id', $typeid)->delete();        
-                }
-                if(isset($ff2)){
-                    DB::table('feeds')->where('instagrames_id', $ff2)->delete();        
-                    DB::table('stories')->where('instagrames_id', $ff2)->delete();        
-                    DB::table('instagrames')->where('id', $ff2)->delete();        
-                }
-
+        $per=Personne::find(24);
+        \Log::info($per->getpersonne_info);
+        // return response()->json($per);
+//delete verifier
+        // $dom=Type_activite::where('personne_id',24)->get();
+        //         foreach ($dom as $d){
+        //             $typeid=$d->id;
+        //             $typenom=$d->nom;
+        //             \Log::info('type id '.$typeid);  
+        //             \Log::info('type nom '.$typenom);
+        //             // if($d->nom=='Instagram'){
+        //             //     $ff2=$d->instagrame->id;  
+        //             //     // \Log::info('insta '.$d->instagrame->id);  
+        //             // }
+        //                 foreach($d->domaine as $his){
+        //                     \Log::info('dom '.$his->nom);
+        //                     $domId=$his->id;
+        //                     \Log::info('dom id : '.$domId);
+        //                     $activeDom=$his->pivot->id;
+        //                     DB::table('activite_domaines')->where('id', $activeDom)->delete();        
+        //                     foreach($his->domaine_historique as $his2){
+        //                             if($his2->pivot->type_id==$typeid && $typenom==$his2->pivot->type_nom && $domId==$his2->pivot->domaine_id){
+        //                                 \Log::info('his '.$his2->nom); //&& $typenom==$kk->type_id
+        //                                 \Log::info('his id '.$his2->pivot->id);
+        //                                 $id_his_dom=$his2->pivot->id;
+        //                                 DB::table('domaine__histo__domaines')->where('id', $id_his_dom)->delete();        
+        //                             }   
+        //                     }   
+        //                }   
+        //                DB::table('type_activites')->where('id', $typeid)->delete();        
+        //         }
+        //         if(isset($ff2)){
+        //             DB::table('feeds')->where('instagrames_id', $ff2)->delete();        
+        //             DB::table('stories')->where('instagrames_id', $ff2)->delete();        
+        //             DB::table('instagrames')->where('id', $ff2)->delete();        
+        //         }
+//delete ver
 //verifier
         //     $personne=Personne::where('id',25)->get();
         //     \Log::info('personne '.$personne);
@@ -407,10 +435,10 @@ class PersonneController extends Controller
             $typenom=$d->nom;
             \Log::info('type id '.$typeid);  
             \Log::info('type nom '.$typenom);
-            if($d->nom=='Instagram'){
-                $ff2=$d->instagrame->id;  
-                // \Log::info('insta '.$d->instagrame->id);  
-            }
+            // if($d->nom=='Instagram'){
+            //     $ff2=$d->instagrame->id;  
+            //     // \Log::info('insta '.$d->instagrame->id);  
+            // }
                 foreach($d->domaine as $his){
                     \Log::info('dom '.$his->nom);
                     $domId=$his->id;

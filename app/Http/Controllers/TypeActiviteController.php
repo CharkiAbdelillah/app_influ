@@ -74,10 +74,13 @@ class TypeActiviteController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function show(Type_activite $type_activite)
-    {
-        //
+    public function show($id)
+    {       
+        $per=Personne::find($id);
+        \Log::info('type :'.$per->type_activites);
+        return response()->json($per->type_activites);
     }
+
 
     /**
      * Show the form for editing the specified resource.

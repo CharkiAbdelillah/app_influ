@@ -62,9 +62,11 @@ class PersonneInfoController extends Controller
      * @param  \App\Personne_info  $personne_info
      * @return \Illuminate\Http\Response
      */
-    public function show(Personne_info $personne_info)
+    public function show($id)
     {
-        //
+        $per=Personne::find($id);
+        // \Log::info($per->getpersonne_info);
+        return response()->json($per->getpersonne_info);
     }
 
     /**
@@ -85,10 +87,27 @@ class PersonneInfoController extends Controller
      * @param  \App\Personne_info  $personne_info
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Personne_info $personne_info)
-    {
-        //
-    }
+    public function update(Request $request, Personne_info $personne_info){
+        // \Log::info('taille info per : '.$request->cm);
+        // \Log::info('info per : '.$request->id);
+            $personne_info->where('id',$request->id)->update([
+            // $personne_info->update([
+            'cheveux'=>$request->cheveux,
+            'kg'=>$request->kg,
+            'cm'=>$request->cm,
+            'couleur'=>$request->couleur,
+            'longueur'=>$request->longueur,
+            'niveux'=>$request->niveux,
+            'nombre'=>$request->nombre,
+            'situation'=>$request->situation,
+            'specialite'=>$request->specialite,
+            'situation'=>$request->situation,
+            'yeux'=>$request->yeux,
+        ]);
+        
+        // Personne_info::create(['personne_id'=>$personne->id]);
+        return response()->json(['message'=>'modification bien fait']);
+        }
 
     /**
      * Remove the specified resource from storage.

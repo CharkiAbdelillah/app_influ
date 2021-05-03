@@ -28,6 +28,7 @@
         "smartwizard": "^5.1.1",
         "sweetalert2": "^10.16.5",
         "view-design": "^4.5.0",
-        "vue-form-wizard": "^0.8.4"
+        "vue-form-wizard": "^0.8.4",
+        "vue-step-wizard": "^0.1.17"
     }
 }

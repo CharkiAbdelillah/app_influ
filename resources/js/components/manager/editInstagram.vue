@@ -1,0 +1,212 @@
+<template>
+<div>
+  <!-- <button type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#updateInfl">
+     <Icon type="md-create" />
+  </button> -->
+  <div class="modal fade" id="updateInflInsta" tabindex="-1" role="dialog" aria-labelledby="updateInflInsta" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modifier les informations </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form @submit="updateInstagram" enctype="multipart/form-data">
+        <div v-for="(insta,i) in this.personne4.data.insta"  :key="i">
+          <div class="form-row" >
+          <div class="form-group col-md-6">
+            <label for="">Nombre d’abonnés</label>
+            <input type="number" v-model="nombre" :value="insta.nombre_abonne" class="form-control">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="">Engagement</label>
+            <input type="text" v-model="insta.engagement" class="form-control" >
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputAddress">Qualité d’audience</label>
+          <input type="text" v-model="insta.qualite" class="form-control">
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="">Moyenne des likes</label>
+            <input type="number" v-model="insta.like" class="form-control">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="">Moyenne des commentaires</label>
+            <input type="text" v-model="insta.commentaire" class="form-control" id="inputPassword4">
+          </div>
+        </div>
+        <Select v-model="insta.followers" placeholder="Select your city">
+                  <Option value="Nano(1k-10k)">Nano(1k-10k)</Option>
+                  <Option value="Micro(10k-50k)">Micro(10k-50k)</Option>
+                  <Option value="Mid-tier(50k-500k)">Mid-tier(50k-500k)</Option>
+                  <Option value="Macro(500k-1m)">Macro(500k-1m)</Option>
+                  <Option value="Mega(1m et +)">Mega(1m et +)</Option>
+              </Select>
+              </div>
+              <!-- partie feed story collapse -->
+              <p>
+                  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                  Story
+                </button>
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample">
+                  Feed
+                </button>
+              </p>
+              <div class="collapse" id="collapseExample">
+                <div class="card card-body" v-for="(story,i) in this.personne4.data.story"  :key="i">
+                  <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <label for="">Date 1ere publication (Story)</label>
+                      <!-- <input type="text" v-model="data3.date1d" class="form-control"> -->
+                      <div class="col-10">
+                        <input class="form-control" type="date" value="2011-08-19" v-model="story.date_1er">
+                      </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="">Nombre de publication par semaine</label>
+                      <input type="text" v-model="story.nombre_publicaion" class="form-control" id="inputPassword4">
+                    </div>
+                  </div>
+                  <div class="form-row">
+                          <div class="form-group col-md-6">
+                            <label for="">Taux de réponse des commentaires</label>
+                            <input type="text" v-model="story.taux_reponse" class="form-control">
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="">Variation nombre de j’aime sur les publications non sponsorisées</label>
+                            <input type="text" v-model="story.nombre_jaime" class="form-control" id="inputPassword4">
+                          </div>
+                        </div>
+                </div>
+              </div>
+              <div class="collapse" id="collapseExample2">
+
+                <div class="card card-body" v-for="(feed,i) in this.personne4.data.feed"  :key="i">
+                  <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <label for="">Date 1ere publication (Feed)</label>
+                      <!-- <input type="text" v-model="data3.date1d" class="form-control"> -->
+                      <div class="col-10">
+                        <input class="form-control" type="date" value="2011-08-19" v-model="feed.date_1er">
+                      </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="">Nombre de publication par semaine</label>
+                      <input type="text" v-model="feed.nombre_publicaion" class="form-control" id="inputPassword4">
+                    </div>
+                  </div>
+                  <div class="form-row">
+                          <div class="form-group col-md-6">
+                            <label for="">Taux de réponse des commentaires</label>
+                            <input type="text" v-model="feed.taux_reponse" class="form-control">
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="">Variation nombre de j’aime sur les publications non sponsorisées</label>
+                            <input type="text" v-model="feed.nombre_jaime" class="form-control" id="inputPassword4">
+                          </div>
+                        </div>
+                </div>
+              </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Retour</button>
+            <button type="submit"  class="btn btn-success">Cree4</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</template>
+
+<script>
+
+import addInflInfo from "./addInflInfo";
+export default{
+     data(){
+          return {
+            name:'',
+            prenom:'',
+            ville:'',
+            daten:'',
+            test:'',
+            nombre:'',
+            image:null,
+            personnes44:{},
+       };
+    },
+    created(){
+            this.getPersonnes();
+            // axios.get('/admin/users').then(response=>this.users=response.data)
+            //         // console.log(response.data); 
+            //     .catch(error=>console.log(error));
+        },
+    props:['personne4'],
+    methods:{
+      getPersonnes(){
+                axios.get('/api/personne').then(response=>{
+                    console.log(response.data);
+                    this.personnes=response.data;
+                    this.personnes2=response.data;
+                    this.lastId=response.data[0].id;
+                    this.lastId2=personnes.data[0].id;
+                })
+                .catch(error=>{console.log(error)})
+            },
+            getResults(page = 1) {
+			axios.get('/api/personne?page=' + page)
+				.then(response => {
+					this.personnes = response.data;
+				});
+      },
+      onImageChange(e){
+        console.log('image: '+e.target.files[0]);
+        this.image=e.target.files[0];
+      },
+      updateInstagram(e){
+        e.preventDefault();//pour ne pas actualiser la page
+        const config={
+          headers:{"content-type":"multipart/form-data"}
+        }
+        let formData=new FormData();//pour communiquer avec la form
+        // formData.append("id",this.insta.id);
+        formData.append("nombre_abonne",insta.nombre_abonne);
+        formData.append("engagement",insta.engagement);
+        formData.append("qualite",insta.qualite);
+        formData.append("like",insta.like);
+        formData.append("followers",insta.followers);
+        formData.append("commentaire",insta.commentaire);
+        formData.append("date_1erf",feed.date_1er);
+        formData.append("nombre_publicaionf",feed.nombre_publicaion);
+        formData.append("taux_reponsef",feed.taux_reponse);
+        formData.append("nombre_jaimef",feed.nombre_jaime);
+        formData.append("date_1ers",story.date_1er);
+        formData.append("nombre_publicaions",story.nombre_publicaion);
+        formData.append("taux_reponses",story.taux_reponse);
+        formData.append("nombre_jaimes",story.nombre_jaime);
+        formData.append("_method","put");//pour dire que on a en train de modifer
+        // formData.append("image",this.image);
+        axios.post("/api/personneTypeInstagram/"+this.personne4.data.insta.id,formData,config).then(res=>{
+        this.$emit('personneInsta-updated',res)
+        // $('#updateInfl').modal('hide');  
+        
+        // this.$refs.modalComponent.show(); 
+        console.log('update pers');
+        Swal.fire({
+          position:"center",
+          icon:"success",
+          title:"Personne modifie",
+          showConfirmButton:false,
+          timer:1500
+        });
+        
+        // this.$emit('infl-added');
+      }).catch(err=>console.log('hahaha'));
+      }
+    }
+}
+</script>

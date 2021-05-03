@@ -79,7 +79,9 @@ export default{
         e.preventDefault();//pour ne pas actualiser la page
         const res=await this.callApi('post','/api/personneType',this.data)
         if(res.status==200){
-          this.s('Success')
+          this.s('Success'),
+          setTimeout(function(){$('#addInfl').modal('hide')}, 10)
+          $('#addInfl').modal('hide');  
         }else{
           this.swr()
         }

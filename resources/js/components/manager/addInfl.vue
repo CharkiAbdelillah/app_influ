@@ -1,7 +1,7 @@
 <template>
 <div>
   <button type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#addInfl">
-     Ajouter 
+     Ajouter 1
   </button>
     <div class="modal fade" id="addInfl" tabindex="-1" role="dialog" aria-labelledby="addInfl" aria-hidden="true">
   <div class="modal-dialog">
@@ -93,6 +93,7 @@ export default{
         // $('#addInfl').modal('hide');  
         // this.$emit('infl-added')
         // this.$refs.modalComponent.show();
+        $('#addInfl').modal('hide');  
         console.log('hi')
       }).catch(err=>console.log('hahaha'));
       }

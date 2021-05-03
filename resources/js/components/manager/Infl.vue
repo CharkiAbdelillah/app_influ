@@ -12,7 +12,8 @@
         <addInflInfo></addInflInfo>
         <type-activite></type-activite>
         <instagrame></instagrame>
-        
+        <!-- <wizard></wizard> -->
+        <wizard2></wizard2>
      <table id="dataTable" class="table table-stripped">
                     <thead class="text-primary">
                       <th>Nom</th>
@@ -47,28 +48,27 @@
                                 <i class="bi bi-info-circle"></i>
                                 </button>
                         </td>
-                         <td v-for="(item,i) in user3.type" :key="i">
+                        <div v-if="user3.type !== null">
+                          <td v-for="(item,i) in user3.type"  :key="i">
                           <ul>
                             <li v-if="item.nom == 'Facebook'"><Icon type="logo-facebook"/></li>
                             <li v-if="item.nom == 'Youtube'"><Icon type="logo-youtube" /></li>
                             <li v-if="item.nom == 'Instagram'"><Icon type="logo-instagram" /></li>
                           </ul>
-                          <!-- <ul>
-                            <li >a</li>
-                            <li >b</li>
-                            <li >c</li>
-                          </ul> -->
                         </td>
+                        </div>                        
                         <td>{{user3.added }}</td>
                         <td>{{user3.updated }}</td>
-                        <td>
-                          <a @click="deletePersonne(user3.id)">
-                            <i class="bi bi-pencil-square"></i>
-                            <Icon type="ios-trash" />
-                          </a>
-                          <!-- <button type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#editModal" @click="getManager(user3.id)">
-                        Editer</button> -->
-                        </td>
+                          <td><button type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#updateInfl" @click="getPersonne(user3.id)">
+                          Editer1</button>
+                          <button type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#updateInflInfo" @click="getPersonneInfo(user3.id)">
+                          Editer2</button>
+                          <button type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#updateInflType" @click="getPersonneType(user3.id)">
+                          Editer3</button>
+                          <button type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#updateInflInsta" @click="getPersonneInstagram(user3.id)">
+                          Editer4</button>
+                          </td>
+                          <!-- <edit-infl></edit-infl> -->
                         <td>
                           <a @click="deletePersonne(user3.id)">
                             <i class="bi bi-pencil-square"></i>
@@ -165,7 +165,12 @@
                     </tbody>
                     </table>
                     <pagination :data="personnes" @pagination-change-page="getResults" class="mt-5"></pagination>
+                    <edit-infl v-bind:personne1="personne1" @personne-updated="refresh"></edit-infl>
+                    <edit-inflInfo v-bind:personne2="personne2" @personneInfo-updated="refresh"></edit-inflInfo>
+                    <edit-inflType v-bind:personne3="personne3" @personneType-updated="refresh"></edit-inflType>
+                    <edit-inflInsta v-bind:personne4="personne4" @personneInsta-updated="refresh"></edit-inflInsta>
     
+    <!-- <edit-infl @infl-updated="getPersonnes"></edit-infl> -->
     </div>
     
 </template>
@@ -182,7 +187,10 @@
                 id:[],
                 id_per:'',
                 lastId2:'',
-                hello1:{},
+                personne1:{},
+                personne2:{},
+                personne3:{},
+                personne4:{},
                 q:''
             }
         },
@@ -209,12 +217,24 @@
 					this.personnes = response.data;
 				});
 		    },
-            getManager(id){
-                axios.get('/admin/user-edit/'+id)
-                .then(response=>this.hello1=response.data)
-                // .then(response1=>console.log(response1.data))
-                // .then(response1=>this.managerEdit=response1.name)
-                // .then(response1=>this.managerEdit=response1.name)
+            getPersonne(id){
+                axios.get('/api/personne/'+id)
+                .then(response=>this.personne1=response.data)
+                .catch(error=>console.log(error));
+            },
+            getPersonneInfo(id){
+                axios.get('/api/personneInfo/'+id)
+                .then(response=>this.personne2=response.data)
+                .catch(error=>console.log(error));
+            },
+            getPersonneType(id){
+                axios.get('/api/personneType/'+id)
+                .then(response=>this.personne3=response.data)
+                .catch(error=>console.log(error));
+            },
+            getPersonneInstagram(id){
+                axios.get('/api/personneTypeInstagram/'+id)
+                .then(response=>this.personne4=response)
                 .catch(error=>console.log(error));
             },
             deletePersonne(id){
@@ -254,8 +274,9 @@
                     }
                     )
                     },
-            refresh(users){
-                this.users=users.data
+            refresh(personnes){
+                // this.personnes.perso=personnes.perso.data;
+                this.getPersonnes();
             },
             searchUser(){
                    if(this.q.length>3){
