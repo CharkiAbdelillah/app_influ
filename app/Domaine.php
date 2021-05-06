@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Type_activite;
-use App\Domaine_historique;
+use App\Instagrame;
 class Domaine extends Model
 {
 
@@ -12,7 +12,7 @@ class Domaine extends Model
     public function type_activite_domaine(){
         return $this->belongsToMany(Type_activite::class,'activite_domaines');
     }
-    public function domaine_historique(){
-        return $this->belongsToMany(Domaine_historique::class,'domaine__histo__domaines')->withPivot('type_id','type_nom','id');;
+    public function instagram(){
+        return $this->belongsToMany(Instagrame::class,'instagrame_domaine');//->withPivot('type_id','type_nom','id');
     }
 }

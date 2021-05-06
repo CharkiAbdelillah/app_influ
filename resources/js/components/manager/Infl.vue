@@ -10,7 +10,7 @@
         
         <add-infl></add-infl>
         <addInflInfo></addInflInfo>
-        <type-activite></type-activite>
+        <!-- <type-activite></type-activite> -->
         <instagrame></instagrame>
         <!-- <wizard></wizard> -->
         <wizard2></wizard2>
@@ -22,7 +22,6 @@
                       <th>Ville</th>
                       <th>Date de naissance</th>
                       <th>Plus info</th>
-                      <th>Type</th>
                       <th>Créé à</th>
                       <th>Mettre à jour</th>
                       <th>Modifier</th>
@@ -48,25 +47,16 @@
                                 <i class="bi bi-info-circle"></i>
                                 </button>
                         </td>
-                        <div v-if="user3.type !== null">
-                          <td v-for="(item,i) in user3.type"  :key="i">
-                          <ul>
-                            <li v-if="item.nom == 'Facebook'"><Icon type="logo-facebook"/></li>
-                            <li v-if="item.nom == 'Youtube'"><Icon type="logo-youtube" /></li>
-                            <li v-if="item.nom == 'Instagram'"><Icon type="logo-instagram" /></li>
-                          </ul>
-                        </td>
-                        </div>                        
                         <td>{{user3.added }}</td>
                         <td>{{user3.updated }}</td>
                           <td><button type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#updateInfl" @click="getPersonne(user3.id)">
                           Editer1</button>
                           <button type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#updateInflInfo" @click="getPersonneInfo(user3.id)">
                           Editer2</button>
-                          <button type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#updateInflType" @click="getPersonneType(user3.id)">
-                          Editer3</button>
+                          <!-- <button type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#updateInflType2" @click="getPersonneType(user3.id)">
+                           Editer3</button>-->
                           <button type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#updateInflInsta" @click="getPersonneInstagram(user3.id)">
-                          Editer4</button>
+                          Editer4</button> 
                           </td>
                           <!-- <edit-infl></edit-infl> -->
                         <td>
@@ -151,7 +141,6 @@
                                 <!-- <input type="text" class="form-control"  :value="user3.info.nombre"> -->
                               </div>
                             </div>
-                            
                           </div>
                               <div class="modal-footer">
                                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -167,7 +156,7 @@
                     <pagination :data="personnes" @pagination-change-page="getResults" class="mt-5"></pagination>
                     <edit-infl v-bind:personne1="personne1" @personne-updated="refresh"></edit-infl>
                     <edit-inflInfo v-bind:personne2="personne2" @personneInfo-updated="refresh"></edit-inflInfo>
-                    <edit-inflType v-bind:personne3="personne3" @personneType-updated="refresh"></edit-inflType>
+                    <edit-inflType v-bind:personne3="[personne3,personneid]" @personneType-updated="refresh"></edit-inflType>
                     <edit-inflInsta v-bind:personne4="personne4" @personneInsta-updated="refresh"></edit-inflInsta>
     
     <!-- <edit-infl @infl-updated="getPersonnes"></edit-infl> -->
@@ -191,6 +180,7 @@
                 personne2:{},
                 personne3:{},
                 personne4:{},
+                personneid:'',
                 q:''
             }
         },
@@ -227,11 +217,13 @@
                 .then(response=>this.personne2=response.data)
                 .catch(error=>console.log(error));
             },
-            getPersonneType(id){
-                axios.get('/api/personneType/'+id)
-                .then(response=>this.personne3=response.data)
-                .catch(error=>console.log(error));
-            },
+            // getPersonneType(id){
+            //   this.personneid=id
+            //     axios.get('/api/personneType/'+id)
+            //     .then(response=>this.personne3=response.data)
+                
+            //     .catch(error=>console.log(error));
+            // },
             getPersonneInstagram(id){
                 axios.get('/api/personneTypeInstagram/'+id)
                 .then(response=>this.personne4=response)

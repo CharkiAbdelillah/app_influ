@@ -22,6 +22,9 @@ import VueStepWizard from 'vue-step-wizard'
 import 'vue-step-wizard/dist/vue-step-wizard.css'
 Vue.use(VueStepWizard);
 
+// import Multiselect from 'vue-multiselect'
+
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -47,13 +50,15 @@ Vue.component('pagination', require('laravel-vue-pagination'));
 Vue.component('influenceur-component', require('./components/manager/Infl.vue').default);
 Vue.component('add-infl', require('./components/manager/addInfl.vue').default);
 Vue.component('addInflInfo', require('./components/manager/addInflInfo.vue').default);
-Vue.component('type-activite', require('./components/manager/type_activite.vue').default);
+// Vue.component('type-activite', require('./components/manager/type_activite.vue').default);
 Vue.component('instagrame', require('./components/manager/instagram.vue').default);
 // Vue.component('wizard', require('./components/manager/wizard.vue').default);
 // Vue.component('wizard2', require('./components/manager/wizard2.vue').default);
 Vue.component('edit-infl', require('./components/manager/editInfl.vue').default);
-Vue.component('edit-inflInfo', require('./components/manager/editInfInfo.vue').default);
+// Vue.component('edit-inflInfo', require('./components/manager/editInfInfo.vue').default);
 Vue.component('edit-inflInsta', require('./components/manager/editInstagram.vue').default);
+// Vue.component('edit-inflType', require('./components/manager/editInfType.vue').default);
+// Vue.component('edit-inflInsta', require('./components/manager/editInstagram.vue').default);
 
 
 /**

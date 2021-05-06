@@ -26,21 +26,13 @@ class PersonneController extends Controller
         Carbon::setlocale('fr');
         $personne=Personne::orderBy('created_at','DESC')->paginate(5);//where('is-admin','=', 0)->  
         foreach($personne as $p){
-            $p->setAttribute('type',$p->type_activites);//had user deja kayna f model User 7it kola post endo user//->where('personne_id',$p->id)
-            $p->setAttribute('info',$p->getpersonne_info);
             $p->setAttribute('added',Carbon::parse($p->created_at)->diffForHumans());
+            $p->setAttribute('info',$p->getpersonne_info);
             $p->setAttribute('updated',Carbon::parse($p->updated_at)->diffForHumans());
         }
-        $type=Type_activite::with(['instagrame','domaine'])->get();//where('is-admin','=', 0)->  
-        // foreach($type as $t){
-        //     $t->setAttribute('type2',$t->instagrame);//had user deja kayna f model User 7it kola post endo user
-        //     $t->setAttribute('info2',$t->domaine);
-        // }
-        // array_push($type);
-        // return response()->json($personne);
-        // return response()->json($type);
-        return response()->json(['perso'=>$personne,'type'=>$type]);
+        return response()->json(['perso'=>$personne]);
     }
+    
     public function getLastId()
     {
         $personne=Personne::orderBy('created_at', 'desc')->first();
@@ -153,6 +145,22 @@ class PersonneController extends Controller
         //     \Log::info($key->id);    
         //     // ActiviteDomaine::where('type_activite_id',$key->id)->delete();
         // }
+        // $per=Personne::all();
+        // $insta=(Object)Instagrame::where('type_activite_id',19)->get();
+        // // \Log::info('idd : '.$insta[0]['id']);
+        // // foreach ($insta as $i){
+        // //         $id_insta_feed=$i->id;
+        // // }
+        // $feed=Feed::where('instagrames_id',4)->get();
+        // $story=Story::where('instagrames_id',4)->get();                
+        // // $instao = (object) $insta;
+        // // \Log::info('insta o :'.$instao->toJson());
+        // \Log::info('insta :'.$insta[0]['nombre_abonne']);
+        // \Log::info('feed :'.$feed);
+        // // dd($feed);
+        // \Log::info('story :'.$story);
+        
+        // return response()->json([$insta,$feed,$story]);
         // $insta=Instagrame::where('type_activite_id',2)->get()->first();
         // $insta=Instagrame::where('id',4)->get()->first();
         //     Feed::where('instagrames_id',$insta->id)->delete();
@@ -185,8 +193,10 @@ class PersonneController extends Controller
 
                 // $rr=Type_activite::orderBy('created_at','DESC')->first();
                 // \Log::info('type '.$rr->id);  
-        $per=Personne::find(24);
-        \Log::info($per->getpersonne_info);
+        // $per=Personne::find(24);
+        // \Log::info($per->getpersonne_info);
+        // $insta=Instagrame::where('type_activite_id',19)->get();
+        // \Log::info('feed :'.$insta);
         // return response()->json($per);
 //delete verifier
         // $dom=Type_activite::where('personne_id',24)->get();
@@ -223,38 +233,38 @@ class PersonneController extends Controller
         //         }
 //delete ver
 //verifier
-        //     $personne=Personne::where('id',25)->get();
-        //     \Log::info('personne '.$personne);
-        //     // \Log::info('personne info '.$personne->getpersonne_info);
-        // $dom=Type_activite::where('personne_id',25)->get();
+            $personne=Personne::where('id',27)->get();
+            \Log::info('personne '.$personne);
+            // \Log::info('personne info '.$personne->getpersonne_info);
+        $dom=Type_activite::where('personne_id',27)->get();
         // \Log::info('dom objetc '.$dom);
-        //     foreach ($dom as $d){
-        //         $typeid=$d->id;
-        //         $typenom=$d->nom;
-        //         \Log::info('type id '.$typeid);  
-        //         \Log::info('type nom '.$typenom);
-        //         // if($d->nom=='Instagram'){
-        //         //     // $ff2=$d->instagrame;  
-        //         //     \Log::info('insta id '.$d->instagrame->id);  
-        //         // }
-        //             foreach($d->domaine as $his){
-        //                 \Log::info('dom '.$his->nom);
-        //                 $domId=$his->id;
-        //                 // \Log::info('dom id :'.$domId);
-        //                 foreach($his->domaine_historique as $his2){
-        //                         if($his2->pivot->type_id==$typeid && $typenom==$his2->pivot->type_nom && $domId==$his2->pivot->domaine_id){
-        //                             \Log::info('his '.$his2->nom); //&& $typenom==$kk->type_id
-        //                             // \Log::info('his total : '.$his2->pivot->id); //&& $typenom==$kk->type_id
-        //                         }   
-        //                 }   
-        //            }   
-        //     }
-        //     if(isset($ff2)){
-        //         $dom2=Feed::where('instagrames_id',$ff2)->get();
-        //         $dom3=Story::where('instagrames_id',$ff2)->get();
-        //         \Log::info('feed '.$dom2);
-        //         \Log::info('story '.$dom3);
-        //     }
+            foreach ($dom as $d){
+                $typeid=$d->id;
+                $typenom=$d->nom;
+                \Log::info('type id '.$typeid);  
+                \Log::info('type nom '.$typenom);
+                // if($d->nom=='Instagram'){
+                //     // $ff2=$d->instagrame;  
+                //     \Log::info('insta id '.$d->instagrame->id);  
+                // }
+                    foreach($d->domaine as $his){
+                        \Log::info('dom '.$his->nom);
+                        $domId=$his->id;
+                        // \Log::info('dom id :'.$domId);
+                        foreach($his->domaine_historique as $his2){
+                                if($his2->pivot->type_id==$typeid && $typenom==$his2->pivot->type_nom && $domId==$his2->pivot->domaine_id){
+                                    \Log::info('his '.$his2->nom); //&& $typenom==$kk->type_id
+                                    // \Log::info('his total : '.$his2->pivot->id); //&& $typenom==$kk->type_id
+                                }   
+                        }   
+                   }   
+            }
+            if(isset($ff2)){
+                $dom2=Feed::where('instagrames_id',$ff2)->get();
+                $dom3=Story::where('instagrames_id',$ff2)->get();
+                \Log::info('feed '.$dom2);
+                \Log::info('story '.$dom3);
+            }
 //verifier************            
 
 

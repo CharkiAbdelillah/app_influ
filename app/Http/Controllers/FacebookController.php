@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Extra_chiffre;
+use App\Facebook;
 use Illuminate\Http\Request;
 
-class ExtraChiffreController extends Controller
+class FacebookController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -26,7 +26,7 @@ class ExtraChiffreController extends Controller
     {
         //
     }
-    
+
     /**
      * Store a newly created resource in storage.
      *
@@ -41,10 +41,10 @@ class ExtraChiffreController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Extra_chiffre  $extra_chiffre
+     * @param  \App\Facebook  $facebook
      * @return \Illuminate\Http\Response
      */
-    public function show(Extra_chiffre $extra_chiffre)
+    public function show(Facebook $facebook)
     {
         //
     }
@@ -52,10 +52,10 @@ class ExtraChiffreController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Extra_chiffre  $extra_chiffre
+     * @param  \App\Facebook  $facebook
      * @return \Illuminate\Http\Response
      */
-    public function edit(Extra_chiffre $extra_chiffre)
+    public function edit(Facebook $facebook)
     {
         //
     }
@@ -64,10 +64,10 @@ class ExtraChiffreController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Extra_chiffre  $extra_chiffre
+     * @param  \App\Facebook  $facebook
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Extra_chiffre $extra_chiffre)
+    public function update(Request $request, Facebook $facebook)
     {
         //
     }
@@ -75,10 +75,10 @@ class ExtraChiffreController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Extra_chiffre  $extra_chiffre
+     * @param  \App\Facebook  $facebook
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Extra_chiffre $extra_chiffre)
+    public function destroy(Facebook $facebook)
     {
         //
     }

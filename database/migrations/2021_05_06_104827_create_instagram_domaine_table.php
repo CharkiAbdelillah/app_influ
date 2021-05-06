@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDomaineHistoDomainesTable extends Migration
+class CreateInstagramDomaineTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateDomaineHistoDomainesTable extends Migration
      */
     public function up()
     {
-        Schema::create('domaine__histo__domaines', function (Blueprint $table) {
+        Schema::create('instagrame_domaine', function (Blueprint $table) {
             $table->id();
             $table->integer('domaine_id');
-            $table->integer('domaine_historique_id');
+            $table->integer('instagrame_id');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateDomaineHistoDomainesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('domaine__histo__domaines');
+        Schema::dropIfExists('instagram_domaine');
     }
 }

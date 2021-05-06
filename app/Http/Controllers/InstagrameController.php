@@ -6,7 +6,6 @@ use App\Feed;
 use App\Instagrame;
 use App\Story;
 use App\Personne;
-use App\Type_activite;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
@@ -39,14 +38,12 @@ class InstagrameController extends Controller
      */
     public function store(Request $request)
     {
-
+        // dd('HELLO');
         DB::beginTransaction();
         try {
-            
-            // $last_id_type=Type_activite::orderBy('created_at', 'desc')->first()->where('nom','Instagram')->get();//mn hadi man 9adax ndir $last_id_type->id,
-            $last_id_type=Type_activite::orderBy('created_at', 'desc')->where('nom','Instagram')->first();
+            $last_id_Personne=Personne::orderBy('created_at', 'desc')->first();
             $insta=Instagrame::create([
-                'type_activite_id'=>$last_id_type->id,
+                'personne_id'=>$last_id_Personne->id,
                 'nombre_abonne'=>$request->nombre,
                 'engagement'=>$request->engagement,
                 'qualite'=>$request->qualite,
@@ -54,21 +51,24 @@ class InstagrameController extends Controller
                 'commentaire'=>$request->comm,
                 'followers'=>$request->followers,
             ]);
+            // dd($insta->id);
+            $insta->domaine()->attach($request->domaineTab);
             // \Log:info($insta->id);
             Story::create([
-                'instagrames_id'=>$insta->id,
+                'instagrame_id'=>$insta->id,
                 'date_1er'=>$request->date1s,
                 'nombre_publicaion'=>$request->nombrebs, 
                 'taux_reponse'=>$request->tauxs,
                 'nombre_jaime'=>$request->jaimes,
             ]);
             Feed::create([
-                'instagrames_id'=>$insta->id,
+                'instagrame_id'=>$insta->id,
                 'date_1er'=>$request->date1d,
                 'nombre_publicaion'=>$request->nombrebd, 
                 'taux_reponse'=>$request->tauxd,
                 'nombre_jaime'=>$request->jaimed,
             ]);
+
             DB::commit();
             return response()->json(['message'=>'Ajout bien fait insta feed story']);
         } catch (Exception $e) {
@@ -87,28 +87,9 @@ class InstagrameController extends Controller
      */
     public function show($id)
     {
-        $dom=Type_activite::where('personne_id',$id)->get();
-            foreach ($dom as $d){
-                if($d->nom=='Instagram'){
-                    $id_insta=$d->id;
-                    // \Log::info('insta id '.$d->id);
-                }
-            }
-        $insta=Instagrame::where('type_activite_id',$id_insta)->get();
-        foreach ($insta as $i){
-                $id_insta_feed=$i->id;
-        }
-        $feed=Feed::where('instagrames_id',$id_insta_feed)->get();
-        $story=Story::where('instagrames_id',$id_insta_feed)->get();                
-        // $instao = (object) $insta;
-        // \Log::info('insta o :'.$instao->toJson());
-        // // \Log::info('insta :'.$insta->toJson()->id);
-        \Log::info('feed :'.$feed);
-        // dd($feed);
-        \Log::info('story :'.$story);
+        $insta=Instagrame::with('domaine','feed','story')->where('personne_id',$id)->first();
+        return response()->json(['insta'=>$insta]);
         
-        return response()->json(['insta'=>$insta,'feed'=>$feed,'story'=>$story]);
-        // return response()->json($per->type_activites);
     }
 
     /**
@@ -129,50 +110,42 @@ class InstagrameController extends Controller
      * @param  \App\Instagrame  $instagrame
      * @return \Illuminate\Http\Response
      */
+
+     
     public function update(Request $request, Instagrame $instagrame)
     {
-        \Log::info('insta id : '.$request->id);
+        $insta=Instagrame::where('id',$request->id)->first();
+        // dd($insta);
         DB::beginTransaction();
         try {
-            
-            // $last_id_type=Type_activite::orderBy('created_at', 'desc')->first()->where('nom','Instagram')->get();//mn hadi man 9adax ndir $last_id_type->id,
-            // $last_id_type=Type_activite::orderBy('created_at', 'desc')->where('nom','Instagram')->first();
-            \Log::info('insta id : '.$request->id);
-            // $instagrame->where('id',$request->id)->update([
-            //     // $personne_info->update([
-            //     'cheveux'=>$request->cheveux,
-            //     'kg'=>$request->kg,
-            //     'cm'=>$request->cm,
-            //     'couleur'=>$request->couleur,
-            //     'longueur'=>$request->longueur,
-            //     'niveux'=>$request->niveux,
-            //     'nombre'=>$request->nombre,
-            //     'situation'=>$request->situation,
-            //     'specialite'=>$request->specialite,
-            //     'situation'=>$request->situation,
-            //     'yeux'=>$request->yeux,
-            // ]);
-            // \Log:info($insta->id);
-            // Story::update([
-            //     'instagrames_id'=>$insta->id,
-            //     'date_1er'=>$request->date1s,
-            //     'nombre_publicaion'=>$request->nombrebs, 
-            //     'taux_reponse'=>$request->tauxs,
-            //     'nombre_jaime'=>$request->jaimes,
-            // ]);
-            // Feed::update([
-            //     'instagrames_id'=>$insta->id,
-            //     'date_1er'=>$request->date1d,
-            //     'nombre_publicaion'=>$request->nombrebd, 
-            //     'taux_reponse'=>$request->tauxd,
-            //     'nombre_jaime'=>$request->jaimed,
-            // ]);
+            $insta->update([
+                // $personne_info->update([
+                'nombre_abonne'=>$request->nombre_abonne,
+                'engagement'=>$request->engagement,
+                'qualite'=>$request->qualite,
+                'like'=>$request->like,
+                'followers'=>$request->followers,
+                'commentaire'=>$request->commentaire
+            ]);
+            $insta->domaine()->sync($request->arr);
+            Story::where('instagrame_id',$request->id)->update([
+                'date_1er'=>$request->date_1ers,
+                'nombre_publicaion'=>$request->nombre_publicaions, 
+                'taux_reponse'=>$request->taux_reponses,
+                'nombre_jaime'=>$request->nombre_jaimes,
+            ]);
+            Feed::where('instagrame_id',$request->id)->update([
+                'date_1er'=>$request->date_1erf,
+                'nombre_publicaion'=>$request->nombre_publicaionf, 
+                'taux_reponse'=>$request->taux_reponsef,
+                'nombre_jaime'=>$request->nombre_jaimef,
+            ]);
             DB::commit();
-            return response()->json(['message'=>'Ajout bien fait insta feed story']);
+            return response()->json(['message'=>'modification bien fait insta feed story']);
         } catch (Exception $e) {
         // } catch (\Throwable $th) {
             DB::rollback();
-            return response()->json(['message'=>'Ajout failed']);
+            return response()->json(['message'=>'modification failed']);
             // return response()->json(['message1'=>'l\'Ajout failed','error'=>$th->getMessage()]);
         }
     }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddTypeNomToDomaineHistoDomaines extends Migration
+class CreateHistoriquesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,10 @@ class AddTypeNomToDomaineHistoDomaines extends Migration
      */
     public function up()
     {
-        Schema::table('domaine__histo__domaines', function (Blueprint $table) {
-            $table->string('type_nom');
+        Schema::create('historiques', function (Blueprint $table) {
+            $table->id();
+            $table->string('nom');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +27,6 @@ class AddTypeNomToDomaineHistoDomaines extends Migration
      */
     public function down()
     {
-        Schema::table('domaine__histo__domaines', function (Blueprint $table) {
-            $table->dropColumn('type_nom'); 
-        });
+        Schema::dropIfExists('historiques');
     }
 }

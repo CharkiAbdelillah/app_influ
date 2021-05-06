@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class TypeActiviteSeeder extends Seeder
+class YoutubeSeeder extends Seeder
 {
     /**
      * Run the database seeds.

@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class DomaineHistoDomaineSeeder extends Seeder
+class FacebookSeeder extends Seeder
 {
     /**
      * Run the database seeds.

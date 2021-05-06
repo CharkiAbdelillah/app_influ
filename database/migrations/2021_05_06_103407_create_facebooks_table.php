@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateInstagramesTable extends Migration
+class CreateFacebooksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateInstagramesTable extends Migration
      */
     public function up()
     {
-        Schema::create('instagrames', function (Blueprint $table) {
+        Schema::create('facebooks', function (Blueprint $table) {
             $table->id();
             $table->integer('personne_id');
             $table->integer('nombre_abonne');
@@ -33,6 +33,6 @@ class CreateInstagramesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('instagrames');
+        Schema::dropIfExists('facebooks');
     }
 }

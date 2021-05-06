@@ -125,15 +125,8 @@ export default{
       show(){
               this.$refs.modal1.show();
             },
-      onImageChange(e){
-        console.log(e.target.files[0]);
-        this.image=e.target.files[0];
-      },
       addInflInfo(e){
         e.preventDefault();//pour ne pas actualiser la page
-        const config={
-          headers:{"content-type":"multipart/form-data"}
-        }
         let formData=new FormData();//pour communiquer avec la form
         formData.append("cm",this.cm);
         formData.append("kg",this.kg);
@@ -146,7 +139,7 @@ export default{
         formData.append("specialite",this.specialite);
         formData.append("situation",this.situation);
         formData.append("nombre",this.nombre);
-        axios.post("/api/personneInfo",formData,config).then(res=>{
+        axios.post("/api/personneInfo",formData).then(res=>{
         // $('#personneInfo').modal('hide');
         console.log('hi')
       }).catch(err=>console.log('hahaha'));

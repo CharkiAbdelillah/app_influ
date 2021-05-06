@@ -29,6 +29,7 @@
         "sweetalert2": "^10.16.5",
         "view-design": "^4.5.0",
         "vue-form-wizard": "^0.8.4",
+        "vue-multiselect": "^2.1.6",
         "vue-step-wizard": "^0.1.17"
     }
 }

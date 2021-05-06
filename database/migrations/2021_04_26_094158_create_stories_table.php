@@ -15,7 +15,7 @@ class CreateStoriesTable extends Migration
     {
         Schema::create('stories', function (Blueprint $table) {
             $table->id();
-            $table->integer('instagrames_id');
+            $table->integer('instagrame_id');
             $table->date('date_1er');
             $table->integer('nombre_publicaion');
             $table->integer('taux_reponse');

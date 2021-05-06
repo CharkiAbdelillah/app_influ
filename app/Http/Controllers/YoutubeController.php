@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Extra_type;
+use App\Youtube;
 use Illuminate\Http\Request;
 
-class ExtraTypeController extends Controller
+class YoutubeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class ExtraTypeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Extra_type  $extra_type
+     * @param  \App\Youtube  $youtube
      * @return \Illuminate\Http\Response
      */
-    public function show(Extra_type $extra_type)
+    public function show(Youtube $youtube)
     {
         //
     }
@@ -52,10 +52,10 @@ class ExtraTypeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Extra_type  $extra_type
+     * @param  \App\Youtube  $youtube
      * @return \Illuminate\Http\Response
      */
-    public function edit(Extra_type $extra_type)
+    public function edit(Youtube $youtube)
     {
         //
     }
@@ -64,10 +64,10 @@ class ExtraTypeController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Extra_type  $extra_type
+     * @param  \App\Youtube  $youtube
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Extra_type $extra_type)
+    public function update(Request $request, Youtube $youtube)
     {
         //
     }
@@ -75,10 +75,10 @@ class ExtraTypeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Extra_type  $extra_type
+     * @param  \App\Youtube  $youtube
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Extra_type $extra_type)
+    public function destroy(Youtube $youtube)
     {
         //
     }

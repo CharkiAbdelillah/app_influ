@@ -17,9 +17,7 @@
           <!-- <input type="hidden" name="_token" v-bind:value="csrf"> -->
           <select class="custom-select" v-model="data.nomType">
             <option selected>Choisi le type</option>
-            <option value="Instagram">Instagram</option>
-            <option value="Facebook">Facebook</option>
-            <option value="Youtube">Youtube</option>
+            <option v-for="(c,i) in type" :value="c.id" :key="i">{{c.nom}}</option>
           </select>
           <div class="_input_field">
           <Select filterable multiple v-model="data.domaineTab" placeholder="Select domaine">
@@ -28,12 +26,12 @@
             </div>
             <Row>
               <Col span="12" style="padding-right:10px">
-                  <Select v-model="data2.domaineTab2" filterable placeholder="Select domaine">
+                  <Select v-model="data.domaineTab2" filterable placeholder="Select domaine">
                       <Option v-for="(c,i) in domaine" :value="c.id" :key="i">{{c.nom}}</Option>
                   </Select>
               </Col>
               <Col span="12">
-                  <Select v-model="data2.domaineTab3" filterable multiple placeholder="Select domaine hist">
+                  <Select v-model="data.domaineTab3" filterable multiple placeholder="Select domaine hist">
                       <Option v-for="(c,i) in domaineHis" :value="c.id" :key="i">{{ c.nom }}</Option>
                   </Select>
               </Col>
@@ -62,16 +60,18 @@ export default{
             data:{
               nomType:'',
               domaineTab:[],
-            },
-            data2:{
               domaineTab2:'',
               domaineTab3:[]
-            }
+            },
+            // data:{
+              
+            // }
             
        };
     },
     created(){
       this.getDomaine(),
+      this.getType(),
       this.getDomaineHis()
     },
     methods:{
@@ -88,7 +88,7 @@ export default{
       },
       async addInflDomHis(e){
         e.preventDefault();//pour ne pas actualiser la page
-        const res=await this.callApi('post','/api/personneTypeDomaineHisDom',this.data2)
+        const res=await this.callApi('post','/api/personneTypeDomaineHisDom',this.data)
         if(res.status==200){
           this.s('Success')
         }else{
@@ -99,6 +99,13 @@ export default{
         axios.get('/api/personneTypeDomaine').then(response=>{
                     console.log(response.data);
                     this.domaine=response.data;
+                })
+                .catch(error=>{console.log(error)})
+      },
+      getType(){
+        axios.get('/api/personneType').then(response=>{
+                    console.log(response.data);
+                    this.type=response.data;
                 })
                 .catch(error=>{console.log(error)})
       },

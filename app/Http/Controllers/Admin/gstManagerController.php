@@ -17,25 +17,21 @@ class gstManagerController extends Controller
         }else{
             return $this->refresh();
         } 
-        // $manager=User::orderBy('created_at','DESC')->paginate(5);
-        // return response()->json($manager);
-
     }
     public function all_liste(){
-        // $users2=User::all();
         return view('admin.gstManager');
     }
+
     public function store(Request $request){
         $users=User::create($request->all());
-        // if($users){
-        //     return $this->refresh();
-        // }
         return $this->$users;
     }
+
     public function edit(Request $request,$id){
         $users=User::findOrFail($id);
         return response()->json($users);
     }
+    
     public function update($id){
         $users=User::find($id);
         $users->name=request('name');

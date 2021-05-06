@@ -3,7 +3,7 @@
   <!-- <button type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#updateInfl">
      <Icon type="md-create" />
   </button> -->
-    <div class="modal fade" id="updateInflInfo" tabindex="-1" role="dialog" aria-labelledby="updateInflInfo" aria-hidden="true">
+    <div class="modal fade" id="updateInflType2" tabindex="-1" role="dialog" aria-labelledby="updateInflType2" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -13,7 +13,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form @submit="updateInflInfo" enctype="multipart/form-data">
+        <form @submit="updateInflType"  enctype="multipart/form-data">
         <select class="custom-select" v-model="data.nomType">
             <option selected>Choisi le type</option>
             <option value="Instagram">Instagram</option>
@@ -27,16 +27,16 @@
             </div>
             <Row>
               <Col span="12" style="padding-right:10px">
-                  <Select v-model="data2.domaineTab2" filterable placeholder="Select domaine">
+                  <Select v-model="data.domaineTab2" filterable placeholder="Select domaine">
                       <Option v-for="(c,i) in domaine" :value="c.id" :key="i">{{c.nom}}</Option>
                   </Select>
               </Col>
               <Col span="12">
-                  <Select v-model="data2.domaineTab3" filterable multiple placeholder="Select domaine hist">
+                  <Select v-model="data.domaineTab3" filterable multiple placeholder="Select domaine hist">
                       <Option v-for="(c,i) in domaineHis" :value="c.id" :key="i">{{ c.nom }}</Option>
                   </Select>
               </Col>
-              <Button  icon="md-add" type="primary" shape="circle" @click="addInflDomHis"></Button>
+              <Button  icon="md-add" type="primary" shape="circle" @click="updateInflTypeDom"></Button>
           </Row>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Retour</button>
@@ -56,7 +56,17 @@ import addInflInfo from "./addInflInfo";
 export default{
      data(){
           return {
-            name:'',
+            domaine:{},
+            domaineHis:{},
+            data:{
+              nomType:'',
+              domaineTab:[],
+              domaineTab2:'',
+              domaineTab3:[]
+            },
+            data:{
+              
+            },
             prenom:'',
             ville:'',
             daten:'',
@@ -67,11 +77,13 @@ export default{
     },
     created(){
             this.getPersonnes();
+            this.getDomaine();
+      this.getDomaineHis();
             // axios.get('/admin/users').then(response=>this.users=response.data)
             //         // console.log(response.data); 
             //     .catch(error=>console.log(error));
         },
-    props:['personne3'],
+    props:['personne3','personneid'],
     methods:{
       getPersonnes(){
                 axios.get('/api/personne').then(response=>{
@@ -89,27 +101,25 @@ export default{
 					this.personnes = response.data;
 				});
       },
-      updateInflInfo(e){
+      getDomaine(){
+        axios.get('/api/personneTypeDomaine').then(response=>{
+                    console.log(response.data);
+                    this.domaine=response.data;
+                })
+                .catch(error=>{console.log(error)})
+      },
+      getDomaineHis(){
+        axios.get('/api/personneTypeDomaineHis').then(response=>{
+                    console.log(response.data);
+                    this.domaineHis=response.data;
+                })
+                .catch(error=>{console.log(error)})
+      },
+      updateInflType(e){
         e.preventDefault();//pour ne pas actualiser la page
-        let formData=new FormData();//pour communiquer avec la form
-        formData.append("id",this.personne2.id);
-        formData.append("cheveux",this.personne2.cheveux);
-        formData.append("kg",this.personne2.kg);
-        formData.append("cm",this.personne2.cm);
-        formData.append("couleur",this.personne2.couleur);
-        formData.append("longueur",this.personne2.longueur);
-        formData.append("niveux",this.personne2.niveux);
-        formData.append("nombre",this.personne2.nombre);
-        formData.append("situation",this.personne2.situation);
-        formData.append("specialite",this.personne2.specialite);
-        formData.append("situation",this.personne2.situation);
-        formData.append("yeux",this.personne2.yeux);
-        formData.append("_method","put");//pour dire que on a en train de modifer
-        // formData.append("image",this.image);
-        axios.post("/api/personneInfo/"+this.personne2.id,formData).then(res=>{
+        axios.post("/api/personneTypeUpdate/"+this.personne3[1],this.data).then(res=>{
         this.$emit('personneInfo-updated',res)
         // $('#updateInfl').modal('hide');  
-        
         // this.$refs.modalComponent.show(); 
         console.log('update pers info');
         Swal.fire({
@@ -122,7 +132,27 @@ export default{
         
         // this.$emit('infl-added');
       }).catch(err=>console.log('hahaha'));
-      }
+      },
+       updateInflTypeDom(e){
+        e.preventDefault();//pour ne pas actualiser la page
+        axios.post('/api/personneTypeUpdateDom/'+this.personne3[1],this.data).then(res=>{
+        this.$emit('personneInfo-updated',res)
+        // $('#updateInfl').modal('hide');  
+        // this.$refs.modalComponent.show(); 
+        console.log('update pers info');
+        Swal.fire({
+          position:"center",
+          icon:"success",
+          title:"Personne modifie",
+          showConfirmButton:false,
+          timer:1500
+        });
+        
+        // this.$emit('infl-added');
+      }).catch(err=>console.log('hahaha'));
+      },
+    },
+    
     }
-}
+
 </script>

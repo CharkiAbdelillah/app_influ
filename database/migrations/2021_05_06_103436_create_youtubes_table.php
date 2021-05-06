@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTypeActivitesTable extends Migration
+class CreateYoutubesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,15 @@ class CreateTypeActivitesTable extends Migration
      */
     public function up()
     {
-        Schema::create('type_activites', function (Blueprint $table) {
+        Schema::create('youtubes', function (Blueprint $table) {
             $table->id();
-            $table->string('nom');
             $table->integer('personne_id');
+            $table->integer('nombre_abonne');
+            $table->string('engagement');
+            $table->string('qualite');
+            $table->string('like');
+            $table->string('commentaire');
+            $table->string('followers');
             $table->timestamps();
         });
     }
@@ -28,6 +33,6 @@ class CreateTypeActivitesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('type_activites');
+        Schema::dropIfExists('youtubes');
     }
 }

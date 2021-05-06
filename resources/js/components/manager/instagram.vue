@@ -46,6 +46,10 @@
                   <Option value="Macro(500k-1m)">Macro(500k-1m)</Option>
                   <Option value="Mega(1m et +)">Mega(1m et +)</Option>
               </Select>
+                  <Select v-model="data3.domaineTab" filterable multiple placeholder="Select domaine">
+                      <Option v-for="(c,i) in domaine" :value="c.id" :key="i">{{c.nom}}</Option>
+                  </Select>
+              
               <!-- partie feed story collapse -->
               <p>
                   <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
@@ -127,7 +131,13 @@
 export default{
      data(){
           return {
+            domaine:{
+            },
+            data:{
+              
+            },
             data3:{
+              domaineTab:[],
               nombre:'',
               engagement:'',
               qualite:'',
@@ -147,10 +157,10 @@ export default{
             
        };
     },
-    // created(){
-    //   this.getDomaine(),
+    created(){
+      this.getDomaine()
     //   this.getDomaineHis()
-    // },
+    },
     methods:{
       async addInstagrame(e){
         e.preventDefault();//pour ne pas actualiser la page
@@ -160,6 +170,13 @@ export default{
         }else{
           this.swr()
         }
+      },
+      getDomaine(){
+        axios.get('/api/personneTypeDomaine').then(response=>{
+                    console.log(response.data);
+                    this.domaine=response.data;
+                })
+                .catch(error=>{console.log(error)})
       },
     //   async addInflDomHis(e){
     //     e.preventDefault();//pour ne pas actualiser la page

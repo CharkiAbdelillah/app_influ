@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class ActiviteDomaineSeeder extends Seeder
+class SnapchatSeeder extends Seeder
 {
     /**
      * Run the database seeds.
