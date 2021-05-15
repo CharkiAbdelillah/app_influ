@@ -13,6 +13,9 @@ use App\ActiviteDomaine;
 use Illuminate\Support\Facades\DB;
 use App\Domaine;
 use App\Domaine_Histo_Domaine;
+use App\Facebook;
+use App\Snapchat;
+use App\Youtube;
 use Illuminate\Support\Carbon;
 class PersonneController extends Controller
 {
@@ -23,8 +26,22 @@ class PersonneController extends Controller
      */
     public function index()
     {
+            return $this->refresh();
+        
+    }
+    public function index2()
+    {
+            return $this->refresh2();
+        
+    }
+    public function indexSearch($q)
+    {
+            $per=Personne::where('nom','like','%'.$q.'%')->paginate(5);
+            return response()->json(['perso'=>$per]);    
+    }   
+    private function refresh(){
         Carbon::setlocale('fr');
-        $personne=Personne::orderBy('created_at','DESC')->paginate(5);//where('is-admin','=', 0)->  
+        $personne=Personne::orderBy('created_at','DESC')->with('historique')->paginate(5);//where('is-admin','=', 0)->  
         foreach($personne as $p){
             $p->setAttribute('added',Carbon::parse($p->created_at)->diffForHumans());
             $p->setAttribute('info',$p->getpersonne_info);
@@ -32,7 +49,16 @@ class PersonneController extends Controller
         }
         return response()->json(['perso'=>$personne]);
     }
-    
+    private function refresh2(){
+        Carbon::setlocale('fr');
+        $personne=Personne::orderBy('created_at','DESC')->with('historique')->get();//where('is-admin','=', 0)->  
+        foreach($personne as $p){
+            $p->setAttribute('added',Carbon::parse($p->created_at)->diffForHumans());
+            $p->setAttribute('info',$p->getpersonne_info);
+            $p->setAttribute('updated',Carbon::parse($p->updated_at)->diffForHumans());
+        }
+        return response()->json(['perso'=>$personne]);
+    }
     public function getLastId()
     {
         $personne=Personne::orderBy('created_at', 'desc')->first();
@@ -69,6 +95,8 @@ class PersonneController extends Controller
             'ville'=>$request->ville,
             'date'=>$request->daten,
         ]);
+        $personne->historique()->attach($request->hist);
+        
         // Personne_info::create(['personne_id'=>$personne->id]);
         return response()->json(['message'=>'Ajout bien fait']);
     }
@@ -79,11 +107,16 @@ class PersonneController extends Controller
      * @param  \App\Personne  $personne
      * @return \Illuminate\Http\Response
      */
+    public function lastInfl(){
+        return Personne::orderBy('created_at','DESC')->first();
+    }
     public function show($id)
     {
-        $per=Personne::find($id);
+        // $insta=Instagrame::with('domaine','feed','story')->where('personne_id',$id)->first();
+        $per=Personne::with('historique')->where('id',$id)->first();
+        // dd($id);
+        // dd($per);
         return response()->json($per);
-        
     }
 
     /**
@@ -127,6 +160,7 @@ class PersonneController extends Controller
             'ville'=>$request->ville,
             'date'=>$request->daten,
         ]);
+        $personne->historique()->sync($request->arrHis);
         // Personne_info::create(['personne_id'=>$personne->id]);
         return response()->json(['message'=>'Ajout bien fait']);
         }
@@ -436,39 +470,27 @@ class PersonneController extends Controller
     }
     public function destroy(Personne $personne)
     {
-        
-        $dom=Type_activite::where('personne_id',$personne->id)->get();
+        // dd($personne->getpersonne_info);
+        DB::beginTransaction();
+        try {
+        $insta=Instagrame::where('personne_id',$personne->id)->first();
+        $fb=Facebook::where('personne_id',$personne->id)->first();
+        $ytb=Youtube::where('personne_id',$personne->id)->first();
+        $snap=Snapchat::where('personne_id',$personne->id)->first();
+        $fb->domaine()->detach();
+        if($insta)
+           $insta->domaine()->detach();
+        $ytb->domaine()->detach();
+        $snap->domaine()->detach();
+        $personne->historique()->detach();
+        if($personne->getpersonne_info)
+            $personne->getpersonne_info->delete();
         $personne->delete();
-        $personne->getpersonne_info->delete();
-        foreach ($dom as $d){
-            $typeid=$d->id;
-            $typenom=$d->nom;
-            \Log::info('type id '.$typeid);  
-            \Log::info('type nom '.$typenom);
-            // if($d->nom=='Instagram'){
-            //     $ff2=$d->instagrame->id;  
-            //     // \Log::info('insta '.$d->instagrame->id);  
-            // }
-                foreach($d->domaine as $his){
-                    \Log::info('dom '.$his->nom);
-                    $domId=$his->id;
-                    $activeDom=$his->pivot->id;
-                    DB::table('activite_domaines')->where('id', $activeDom)->delete();        
-                    foreach($his->domaine_historique as $his2){
-                            if($his2->pivot->type_id==$typeid && $typenom==$his2->pivot->type_nom && $domId==$his2->pivot->domaine_id){
-                                \Log::info('his '.$his2->nom); //&& $typenom==$kk->type_id
-                                $id_his_dom=$his2->pivot->id;
-                                DB::table('domaine__histo__domaines')->where('id', $id_his_dom)->delete();        
-                            }   
-                    }   
-               }   
-               DB::table('type_activites')->where('id', $typeid)->delete();        
+        DB::commit();
+        return response()->json(['message'=>'suppression bien fait personne']);
+        } catch (Exception $e) {
+        DB::rollback();
+            return response()->json(['message'=>'suppression failed']);
         }
-        if(isset($ff2)){
-            DB::table('feeds')->where('instagrames_id', $ff2)->delete();        
-            DB::table('stories')->where('instagrames_id', $ff2)->delete();        
-            DB::table('instagrames')->where('id', $ff2)->delete();        
-        }
-
     }
 }

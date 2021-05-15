@@ -22,6 +22,7 @@ Route::prefix('admin')->group(function() {
     Route::get('/gestion_manger','Admin\gstManagerController@all_liste')->middleware('admin');
     Route::post('/gestion_manger','Admin\gstManagerController@store')->middleware('admin');
     Route::get('/managers/{q?}','Admin\gstManagerController@index')->middleware('admin');
+    // Route::get('/personne/{q?}','PersonneController@index');
     Route::get('/manager-edit/{id}','Admin\gstManagerController@edit');
     Route::post('/manager-update/{id}','Admin\gstManagerController@update');
     Route::delete('/manager-delete/{id}','Admin\gstManagerController@destroy');
@@ -52,4 +53,5 @@ Route::get('/test3', 'TypeActiviteController@getDomaineType');
 // Route::get('admin/home', 'HomeController@handleAdmin')->name('admin.route')->middleware('admin');
 Route::get('manager/home', 'HomeController@handleManager')->name('manager.route')->middleware('manager');
 Route::get('user/home', 'HomeController@handleUser')->name('user.route')->middleware('user');
+Route::get('user/home2', 'HomeController@handleUser2')->name('user.route2')->middleware('user');
 

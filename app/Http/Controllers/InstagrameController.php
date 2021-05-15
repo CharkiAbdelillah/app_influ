@@ -38,7 +38,7 @@ class InstagrameController extends Controller
      */
     public function store(Request $request)
     {
-        // dd('HELLO');
+       
         DB::beginTransaction();
         try {
             $last_id_Personne=Personne::orderBy('created_at', 'desc')->first();
@@ -89,7 +89,6 @@ class InstagrameController extends Controller
     {
         $insta=Instagrame::with('domaine','feed','story')->where('personne_id',$id)->first();
         return response()->json(['insta'=>$insta]);
-        
     }
 
     /**
@@ -112,8 +111,10 @@ class InstagrameController extends Controller
      */
 
      
-    public function update(Request $request, Instagrame $instagrame)
+    public function update(Request $request,Instagrame $instagrame)
     {
+        // dd($request);
+        // // dd('hello');
         $insta=Instagrame::where('id',$request->id)->first();
         // dd($insta);
         DB::beginTransaction();

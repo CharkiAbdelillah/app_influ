@@ -35,6 +35,9 @@ class HomeController extends Controller
         return view('manager.dashboard');
     }
     public function handleUser(){
-        return view('user.dashboard');
+        return view('user.home');
+    }
+    public function handleUser2(){
+        return view('user.home2');
     }
 }

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Snapchat;
 use Illuminate\Http\Request;
+use App\Personne;
+use Illuminate\Support\Facades\DB;
 
 class SnapchatController extends Controller
 {
@@ -35,7 +37,27 @@ class SnapchatController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        DB::beginTransaction();
+        try {
+            $last_id_Personne=Personne::orderBy('created_at', 'desc')->first();
+            $snap=Snapchat::create([
+                'personne_id'=>$last_id_Personne->id,
+                'nombre_abonne'=>$request->nombre,
+                'engagement'=>$request->engagement,
+                'qualite'=>$request->qualite,
+                'like'=>$request->like,
+                'commentaire'=>$request->comm,
+                'followers'=>$request->followers,
+            ]);
+            $snap->domaine()->attach($request->domaineTab);
+
+            DB::commit();
+            return response()->json(['message'=>'Ajout bien fait snap ']);
+        } catch (Exception $e) {
+        // } catch (\Throwable $th) {
+            DB::rollback();
+            return response()->json(['message'=>'Ajout failed']);
+        }
     }
 
     /**
@@ -44,9 +66,10 @@ class SnapchatController extends Controller
      * @param  \App\Snapchat  $snapchat
      * @return \Illuminate\Http\Response
      */
-    public function show(Snapchat $snapchat)
+    public function show($id)
     {
-        //
+        $snap=Snapchat::with('domaine')->where('personne_id',$id)->first();
+        return response()->json(['snap'=>$snap]);
     }
 
     /**
@@ -67,9 +90,29 @@ class SnapchatController extends Controller
      * @param  \App\Snapchat  $snapchat
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Snapchat $snapchat)
+    public function update(Request $request)
     {
-        //
+        $snap=Snapchat::where('id',$request->id)->first();
+        // dd($insta);
+        DB::beginTransaction();
+        try {
+            $snap->update([
+                // $personne_info->update([
+                'nombre_abonne'=>$request->nombre_abonne,
+                'engagement'=>$request->engagement,
+                'qualite'=>$request->qualite,
+                'like'=>$request->like,
+                'followers'=>$request->followers,
+                'commentaire'=>$request->commentaire
+            ]);
+            $snap->domaine()->sync($request->arr);
+            DB::commit();
+            return response()->json(['message'=>'modification bien fait snap']);
+        } catch (Exception $e) {
+        // } catch (\Throwable $th) {
+            DB::rollback();
+            return response()->json(['message'=>'modification failed']);
+    }
     }
 
     /**

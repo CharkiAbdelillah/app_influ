@@ -12,7 +12,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body"  v-if="(personne4.data.insta)"> 
         <form @submit="updateInstagram" enctype="multipart/form-data">
         <!-- <form action="{{ route('test.route',[this.personne4.data.insta.id]) }}" method="POST"> -->
           <div class="form-row" >
@@ -51,7 +51,7 @@
               <Select v-model="domaineTab" filterable multiple placeholder="Select domaine">
                       <Option v-for="(c,i) in domaine" :value="c.id" :key="i">{{c.nom}}</Option>
               </Select>
-              
+<multiselect v-model="personne4.data.insta.domaine" :options="options" :multiple="true"  placeholder="Select domaine" label="nom" track-by="nom"></multiselect>
               <!-- partie feed story collapse -->
               <p>
                   <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
@@ -129,11 +129,14 @@
 </template>
 
 <script>
-
+import Multiselect from 'vue-multiselect'
 import addInflInfo from "./addInflInfo";
 export default{
+  components: { Multiselect },
      data(){
           return {
+            selected: null,
+            // options: ['Laravel', 'Laravel 5', 'Vue JS', 'HDTuto.com', 'HDTuto.com'],
             name:'',
             prenom:'',
             ville:'',
@@ -144,43 +147,23 @@ export default{
             domaine:{},
             personnes44:{},
             domaineTab:[],
+            domaineTab2:[],
+            options:[]
        };
     },
     created(){
-            this.getPersonnes()
+            // this.getPersonnes()
             this.getDomaine()
-            // axios.get('/admin/users').then(response=>this.users=response.data)
-            //         // console.log(response.data); 
-            //     .catch(error=>console.log(error));
         },
-    props:['personne4'],
+    props:['personne4','personneid'],
     methods:{
-      getPersonnes(){
-                axios.get('/api/personne').then(response=>{
-                    console.log(response.data);
-                    this.personnes=response.data;
-                    this.personnes2=response.data;
-                    this.lastId=response.data[0].id;
-                    this.lastId2=personnes.data[0].id;
-                })
-                .catch(error=>{console.log(error)})
-            },
-            getResults(page = 1) {
-			axios.get('/api/personne?page=' + page)
-				.then(response => {
-					this.personnes = response.data;
-				});
-      },
+
       getDomaine(){
         axios.get('/api/personneTypeDomaine').then(response=>{
                     console.log(response.data);
-                    this.domaine=response.data;
+                    this.options=response.data;
                 })
                 .catch(error=>{console.log(error)})
-      },
-      onImageChange(e){
-        console.log('image: '+e.target.files[0]);
-        this.image=e.target.files[0];
       },
       updateInstagram(e){
         e.preventDefault();//pour ne pas actualiser la page
@@ -188,8 +171,9 @@ export default{
           headers:{"content-type":"multipart/form-data"}
         }
         let formData=new FormData();//pour communiquer avec la form
-        for (var i = 0; i < this.domaineTab.length; i++) {
-            formData.append('arr[]', this.domaineTab[i]);
+        for (var i = 0; i < this.personne4.data.insta.domaine.length; i++) {
+          // console.log('hjihjh ');
+            formData.append('arr[]', this.personne4.data.insta.domaine[i]['id']);
         }
         formData.append("id",this.personne4.data.insta.id);
         formData.append("nombre_abonne",this.personne4.data.insta.nombre_abonne);
@@ -228,3 +212,4 @@ export default{
     }
 }
 </script>
+<style src="vue-multiselect/dist/vue-multiselect.min.css">

@@ -1,14 +1,14 @@
 
 <template>
 <div>
-  <button type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#modal3">
-     Ajouter 4
+  <button type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#insta">
+     Instagram
   </button>
-    <div class="modal fade" id="modal3" ref="modal3" tabindex="-1" aria-labelledby="personneInfoLabel" aria-hidden="true">
+    <div class="modal fade" id="insta" ref="insta" tabindex="-1" aria-labelledby="personneInfoLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="personneInfoLabel">Modal title</h5>
+        <h5 class="modal-title" id="personneInfoLabel">Instagram ({{lastInfl.nom}})</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -153,12 +153,14 @@ export default{
               nombrebd:'',
               tauxd:'',
               jaimed:'',
-            }
+              
+            },lastInfl:''
             
        };
     },
     created(){
       this.getDomaine()
+      this.getLastInfl()
     //   this.getDomaineHis()
     },
     methods:{
@@ -175,6 +177,13 @@ export default{
         axios.get('/api/personneTypeDomaine').then(response=>{
                     console.log(response.data);
                     this.domaine=response.data;
+                })
+                .catch(error=>{console.log(error)})
+      },
+      getLastInfl(){
+        axios.get('/api/personneLast').then(response=>{
+                    console.log(response.data);
+                    this.lastInfl=response.data;
                 })
                 .catch(error=>{console.log(error)})
       },

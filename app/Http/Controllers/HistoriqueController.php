@@ -14,7 +14,8 @@ class HistoriqueController extends Controller
      */
     public function index()
     {
-        //
+        $his=Historique::all();
+        return response()->json($his);
     }
 
     /**

@@ -6,14 +6,16 @@
     <div class="modal fade" id="updateInflInfo" tabindex="-1" role="dialog" aria-labelledby="updateInflInfo" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modifier info</h5>
+      <div class="modal-header" >
+        <div v-for="(v,i) in personnes.perso.data" :key="i" >
+        <h5 class="modal-title" id="exampleModalLabel" v-if="(v.id==personne2.personne_id)===true">Modifier info de <strong>{{v.nom}}</strong></h5>
+        </div>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <form @submit="updateInfType" enctype="multipart/form-data">
+        <form @submit="updateInfInfo" enctype="multipart/form-data">
         <!-- <input type="hidden" v-model="personne2.id"> -->
           <div class="row">
             Taille:
@@ -139,7 +141,7 @@ export default{
 					this.personnes = response.data;
 				});
       },
-      updateInfType(e){
+      updateInfInfo(e){
         e.preventDefault();//pour ne pas actualiser la page
         let formData=new FormData();//pour communiquer avec la form
         formData.append("id",this.personne2.id);

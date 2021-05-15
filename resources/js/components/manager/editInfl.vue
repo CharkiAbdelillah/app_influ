@@ -41,6 +41,10 @@
           </div>
         </div>
         <div class="form-group">
+          <label >Editer Historique de <strong>{{personne1.nom}}</strong></label>
+          <multiselect v-model="personne1.historique" :options="options" :multiple="true"  placeholder="Select Historique" label="nom" track-by="nom"></multiselect>
+        </div>
+        <div class="form-group">
           <label for="exampleInputFile">Photo</label>
           <input type="file" name="image" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp" v-on:change="onImageChange">
           <small id="fileHelp" class="form-text text-muted"><Icon type="ios-images" /></small>
@@ -59,9 +63,10 @@
 </template>
 
 <script>
-
+import Multiselect from 'vue-multiselect'
 import addInflInfo from "./addInflInfo";
 export default{
+  components: { Multiselect },
      data(){
           return {
             name:'',
@@ -71,16 +76,22 @@ export default{
             test:'',
             image:null,
             personnes:{},
+            historiqueTab:[],
+            options:[]
        };
     },
     created(){
-            this.getPersonnes();
-            // axios.get('/admin/users').then(response=>this.users=response.data)
-            //         // console.log(response.data); 
-            //     .catch(error=>console.log(error));
+            this.getHistorique();
         },
     props:['personne1'],
     methods:{
+      getHistorique(){
+        axios.get('/api/personneHistorique').then(response=>{
+                    console.log('histo : '+response.data);
+                    this.options=response.data;
+                })
+                .catch(error=>{console.log(error)})
+      },
       getPersonnes(){
                 axios.get('/api/personne').then(response=>{
                     console.log(response.data);
@@ -107,6 +118,10 @@ export default{
           headers:{"content-type":"multipart/form-data"}
         }
         let formData=new FormData();//pour communiquer avec la form
+        for (var i = 0; i < this.personne1.historique.length; i++) {
+          // console.log('hjihjh ');
+            formData.append('arrHis[]', this.personne1.historique[i]['id']);
+        }
         formData.append("image",this.image);
         formData.append("name",this.personne1.nom);
         formData.append("prenom",this.personne1.prenom);
@@ -117,7 +132,6 @@ export default{
         axios.post("/api/personne/"+this.personne1.id,formData,config).then(res=>{
         this.$emit('personne-updated',res)
         // $('#updateInfl').modal('hide');  
-        
         // this.$refs.modalComponent.show(); 
         console.log('update pers');
         Swal.fire({

@@ -2,7 +2,7 @@
     <div class="container">
         <div class="form-row">
             <div class="col-row">
-                <input type="text" class="form-control" @keyup="searchUser" v-model="q" 
+                <input type="text" class="form-control" @keyup="searchInfl" v-model="q" 
                 placeholder="Rechercher ..."
                 >
             </div>
@@ -12,8 +12,11 @@
         <addInflInfo></addInflInfo>
         <!-- <type-activite></type-activite> -->
         <instagrame></instagrame>
+        <facebook></facebook>
+        <youtube></youtube>
+        <snapchat></snapchat>
         <!-- <wizard></wizard> -->
-        <wizard2></wizard2>
+        <!-- <wizard2></wizard2> -->
      <table id="dataTable" class="table table-stripped">
                     <thead class="text-primary">
                       <th>Nom</th>
@@ -56,7 +59,13 @@
                           <!-- <button type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#updateInflType2" @click="getPersonneType(user3.id)">
                            Editer3</button>-->
                           <button type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#updateInflInsta" @click="getPersonneInstagram(user3.id)">
-                          Editer4</button> 
+                          Instagram</button> 
+                          <button type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#updateInflFb" @click="getPersonneFacebook(user3.id)">
+                          Facebook</button> 
+                          <button type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#updateInflYtb" @click="getPersonneYoutube(user3.id)">
+                          Youtube</button> 
+                          <button type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#updateInflSnap" @click="getPersonneSnapchat(user3.id)">
+                          Snapchat</button> 
                           </td>
                           <!-- <edit-infl></edit-infl> -->
                         <td>
@@ -153,12 +162,14 @@
                     </div>                    
                     </tbody>
                     </table>
-                    <pagination :data="personnes" @pagination-change-page="getResults" class="mt-5"></pagination>
+                    <pagination :data="personnes.perso" @pagination-change-page="getResults" class="mt-5"></pagination>
                     <edit-infl v-bind:personne1="personne1" @personne-updated="refresh"></edit-infl>
                     <edit-inflInfo v-bind:personne2="personne2" @personneInfo-updated="refresh"></edit-inflInfo>
-                    <edit-inflType v-bind:personne3="[personne3,personneid]" @personneType-updated="refresh"></edit-inflType>
-                    <edit-inflInsta v-bind:personne4="personne4" @personneInsta-updated="refresh"></edit-inflInsta>
-    
+                    <edit-inflInsta v-bind:personne4="personne4" v-bind:personneid="personneid" @personneInsta-updated="refresh"></edit-inflInsta>
+                    <edit-inflFb v-bind:personne5="personne5"  @personneInsta-updated="refresh"></edit-inflFb>
+                    <edit-inflYtb v-bind:personne6="personne6" @personneInsta-updated="refresh"></edit-inflYtb> 
+                    <edit-inflSnap v-bind:personne7="personne7"  @personneInsta-updated="refresh"></edit-inflSnap> 
+
     <!-- <edit-infl @infl-updated="getPersonnes"></edit-infl> -->
     </div>
     
@@ -180,6 +191,9 @@
                 personne2:{},
                 personne3:{},
                 personne4:{},
+                personne5:{},
+                personne6:{},
+                personne7:{},
                 personneid:'',
                 q:''
             }
@@ -195,7 +209,7 @@
                 axios.get('/api/personne').then(response=>{
                     console.log(response.data);
                     this.personnes=response.data;
-                    this.personnes2=response.data;
+                    // this.personnes2=response.data;
                     this.lastId=response.data[0].id;
                     this.lastId2=personnes.data[0].id;
                 })
@@ -217,17 +231,44 @@
                 .then(response=>this.personne2=response.data)
                 .catch(error=>console.log(error));
             },
-            // getPersonneType(id){
-            //   this.personneid=id
-            //     axios.get('/api/personneType/'+id)
-            //     .then(response=>this.personne3=response.data)
-                
-            //     .catch(error=>console.log(error));
-            // },
             getPersonneInstagram(id){
                 axios.get('/api/personneTypeInstagram/'+id)
-                .then(response=>this.personne4=response)
+                .then(response=>this.personne4=response,
+                this.personneid=id
+                )
                 .catch(error=>console.log(error));
+            },
+            getPersonneFacebook(id){
+                axios.get('/api/personneTypeFacebook/'+id)
+                .then(response=>this.personne5=response,
+                this.personneid=id
+                )
+                .catch(error=>console.log(error));
+            },
+            getPersonneYoutube(id){
+                axios.get('/api/personneTypeYoutube/'+id)
+                .then(response=>this.personne6=response,
+                this.personneid=id
+                )
+                .catch(error=>console.log(error));
+            },
+            getPersonneSnapchat(id){
+                axios.get('/api/personneTypeSnapchat/'+id)
+                .then(response=>this.personne7=response,
+                this.personneid=id
+                )
+                .catch(error=>console.log(error));
+            },
+            searchInfl(){
+                   if(this.q.length>3){
+                    axios.get('/api/personneSearch/'+this.q).then(response=>this.personnes=response.data)
+                    // console.log(response.data); 
+                    .catch(error=>console.log(error));
+                }else{
+                    axios.get('/api/personne/').then(response=>this.personnes=response.data)
+                    // console.log(response.data); 
+                    .catch(error=>console.log(error));
+                }
             },
             deletePersonne(id){
                 Swal.fire({
@@ -267,21 +308,8 @@
                     )
                     },
             refresh(personnes){
-                // this.personnes.perso=personnes.perso.data;
                 this.getPersonnes();
             },
-            searchUser(){
-                   if(this.q.length>3){
-                    axios.get('/admin/users/'+this.q).then(response=>this.users=response.data)
-                    // console.log(response.data); 
-                    .catch(error=>console.log(error));
- 
-                }else{
-                    axios.get('/admin/users').then(response=>this.users=response.data)
-                    // console.log(response.data); 
-                    .catch(error=>console.log(error));
-                }
-            }
         
         // mounted() {
         //     this.fetchManagers();
