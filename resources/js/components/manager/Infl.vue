@@ -58,13 +58,13 @@
                           Editer2</button>
                           <!-- <button type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#updateInflType2" @click="getPersonneType(user3.id)">
                            Editer3</button>-->
-                          <button type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#updateInflInsta" @click="getPersonneInstagram(user3.id)">
+                          <button v-if="user3.instagram" type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#updateInflInsta" @click="getPersonneInstagram(user3.id)">
                           Instagram</button> 
-                          <button type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#updateInflFb" @click="getPersonneFacebook(user3.id)">
+                          <button v-if="user3.facebook" type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#updateInflFb" @click="getPersonneFacebook(user3.id)">
                           Facebook</button> 
-                          <button type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#updateInflYtb" @click="getPersonneYoutube(user3.id)">
+                          <button v-if="user3.youtube" type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#updateInflYtb" @click="getPersonneYoutube(user3.id)">
                           Youtube</button> 
-                          <button type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#updateInflSnap" @click="getPersonneSnapchat(user3.id)">
+                          <button v-if="user3.snapchat" type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#updateInflSnap" @click="getPersonneSnapchat(user3.id)">
                           Snapchat</button> 
                           </td>
                           <!-- <edit-infl></edit-infl> -->

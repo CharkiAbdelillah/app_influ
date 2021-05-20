@@ -16,7 +16,6 @@ class gstClientController extends Controller
         } 
         // $manager=User::orderBy('created_at','DESC')->paginate(5);
         // return response()->json($manager);
-
     }
     public function all_liste(){
         // $users2=User::all();
@@ -46,14 +45,27 @@ class gstClientController extends Controller
         return response()->json($users);
     }
     public function update($id){
-        $users=User::find($id);
-        $users->name=request('name');
-        $users->email=request('email');
-        $users->password=request('password');
-        $users->save();
-        if($users){
-            return $this->refresh();
+        // dd(request('password'));
+        if(request('password')!=null){
+            $users=User::find($id);
+            $users->name=request('name');
+            $users->email=request('email');
+            $users->password=bcrypt(request('password'));
+            $users->save();
+            if($users){
+                return $this->refresh();
+            }
         }
+        else{
+            $users=User::find($id);
+            $users->name=request('name');
+            $users->email=request('email');
+            $users->save();
+            if($users){
+                return $this->refresh();
+            }
+        }
+        
 
     }
     public function destroy($id){

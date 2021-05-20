@@ -41,7 +41,7 @@ class PersonneController extends Controller
     }   
     private function refresh(){
         Carbon::setlocale('fr');
-        $personne=Personne::orderBy('created_at','DESC')->with('historique')->paginate(5);//where('is-admin','=', 0)->  
+        $personne=Personne::orderBy('created_at','DESC')->with('historique','instagram.domaine','instagram.feed','instagram.story','facebook.domaine','snapchat.domaine','youtube.domaine')->paginate(5);//where('is-admin','=', 0)->  
         foreach($personne as $p){
             $p->setAttribute('added',Carbon::parse($p->created_at)->diffForHumans());
             $p->setAttribute('info',$p->getpersonne_info);
@@ -51,7 +51,7 @@ class PersonneController extends Controller
     }
     private function refresh2(){
         Carbon::setlocale('fr');
-        $personne=Personne::orderBy('created_at','DESC')->with('historique')->get();//where('is-admin','=', 0)->  
+        $personne=Personne::orderBy('created_at','DESC')->with('historique','instagram.domaine','instagram.feed','instagram.story','facebook.domaine','snapchat.domaine','youtube.domaine')->get();//where('is-admin','=', 0)->  
         foreach($personne as $p){
             $p->setAttribute('added',Carbon::parse($p->created_at)->diffForHumans());
             $p->setAttribute('info',$p->getpersonne_info);
@@ -59,6 +59,7 @@ class PersonneController extends Controller
         }
         return response()->json(['perso'=>$personne]);
     }
+
     public function getLastId()
     {
         $personne=Personne::orderBy('created_at', 'desc')->first();

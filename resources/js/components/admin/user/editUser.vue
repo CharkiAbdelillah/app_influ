@@ -25,9 +25,9 @@
           </div>
           <div class="form-group">
             <label for="" class="col-from-label">
-              Mot de passe: 
+              Mot de passe2: 
             </label>
-            <input type="password" name="pass1" v-model="hello1.password" class="form-control">
+            <input type="password" id="pass" name="password" v-model="newPass" class="form-control">
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
@@ -43,13 +43,18 @@
 </template>
 <script>
 export default {
+    data(){
+            return{
+                newPass:'',
+            }
+    },
     props:['hello1'],
     methods:{
       update(){
         axios.post('/admin/user-update/'+this.hello1.id,{
           name:this.hello1.name,
           email:this.hello1.email,
-          password:this.hello1.password,
+          password:this.newPass,
         })
         .then(response=>this.$emit('user-updated',response))
         .catch(error=>{console.log(error)});

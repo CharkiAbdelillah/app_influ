@@ -68,14 +68,15 @@ Vue.component('edit-inflSnap', require('./components/manager/editSnapchat.vue').
 // Vue.component('edit-inflInsta', require('./components/manager/editInstagram.vue').default);
 
 //*user*
-Vue.component('user_home', require('./components/user/home.vue').default);
-Vue.component('user_home2', require('./components/user/home2.vue').default);
+// Vue.component('user_home', require('./components/user/home.vue').default);
+Vue.component('app-home', require('./AppHome.vue').default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page.d Then, you may begin adding components to this application
  * or customize the JavaScript scafkfolding to fit your unique needs.
  */
-
+import router from './routes/routes.js';
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    router
 });

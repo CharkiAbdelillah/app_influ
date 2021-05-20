@@ -53,5 +53,12 @@ Route::get('/test3', 'TypeActiviteController@getDomaineType');
 // Route::get('admin/home', 'HomeController@handleAdmin')->name('admin.route')->middleware('admin');
 Route::get('manager/home', 'HomeController@handleManager')->name('manager.route')->middleware('manager');
 Route::get('user/home', 'HomeController@handleUser')->name('user.route')->middleware('user');
-Route::get('user/home2', 'HomeController@handleUser2')->name('user.route2')->middleware('user');
+// Route::get('user/home2', 'HomeController@handleUser2')->name('user.route2')->middleware('user','manager');
+Route::get('user/details', 'HomeController@handleUser2')->name('user.details')->middleware('user');
+Route::get('user/instagram', 'HomeController@handleUser2')->name('user.details')->middleware('user');
 
+
+Route::group(['prefix'=>'user','middleware' => ['user']], function () {
+    //
+    Route::get('home2', 'HomeController@handleUser2')->name('user.route2');
+});

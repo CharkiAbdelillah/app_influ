@@ -8,8 +8,6 @@ use Illuminate\Http\Request;
 
 class gstManagerController extends Controller
 {
-
-
     public function index(){
         if(request('q')!=null){
             $users['data']=User::where('name','like','%'.request('q').'%')->get();

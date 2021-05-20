@@ -93,8 +93,10 @@
                     cancelButtonColor: '#d33',
                     confirmButtonText: 'Yes, delete it!'
                     }).then((result) => {
-                        axios.delete('/admin/user-delete/'+id).then(()=>{
-                            response=>this.users=response.data;
+                        axios.delete('/admin/user-delete/'+id).then((response)=>{
+                            this.users=response.data;
+                            refresh();
+                            // response=>this.$emit('user-updated',response)
                             if (result.isConfirmed) {
                              Swal.fire(
                             'Deleted!',

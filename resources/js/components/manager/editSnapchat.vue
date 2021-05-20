@@ -1,5 +1,5 @@
 <template>
-<div>
+<div v-if="personne7.data!=null">
   <!-- <button type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#updateInfl">
      <Icon type="md-create" />
   </button> -->
@@ -12,7 +12,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body"  v-if="(personne7.data.snap)"> 
+      <div class="modal-body"> 
         <form @submit="updateSnapchat" enctype="multipart/form-data">
         <!-- <form action="{{ route('test.route',[this.personne7.data.snap.id]) }}" method="POST"> -->
           <div class="form-row" >

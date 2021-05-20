@@ -81,7 +81,7 @@ export default{
               if(res.status==422){
               for(let i in res.data.errors){
                               this.e(res.data.errors[i][0])
-                          }
+              }
               }else{
                 this.swr()
               }
