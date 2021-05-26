@@ -17,10 +17,11 @@
 						</div>
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
-								<li><a href="/user/home2">Home</a></li>	
-                                <!-- <router-link to="/user/home2">
+								<li>
+									<router-link to="/user/home2">
                                     Home
-                                </router-link> -->
+                                </router-link>
+								</li>
 								<li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
                                         <li><a href="blog.html">Blog List</a></li>
@@ -49,34 +50,43 @@
 					<div class="left-sidebar">
 						<h2>Select</h2>
 						<div class="panel-group category-products" id="accordian"><!--category-productsr-->
-							<div class="panel panel-default" v-if="user1.instagram">
+							<div class="panel panel-default" v-if="getOnePersonne[0].instagram">
 								<div class="panel-heading">
 									<h4 class="panel-title" >
-                                        <router-link :to="{name:'Instagram',params:{user1}}">
+                                        <router-link :to="{name:'Instagram'}">
 												<p>Instagram<Icon type="logo-instagram" /></p>
 										</router-link>
 									</h4>
 								</div>
 							</div>
-							<div class="panel panel-default" v-if="user1.facebook">
+							<div class="panel panel-default" v-if="getOnePersonne[0].facebook">
 								<div class="panel-heading">
 									<h4 class="panel-title" >
-										<router-link :to="{name:'Facebook',params:{user1}}">
+										<router-link :to="{name:'Facebook'}">
 												<p>Facebook<Icon type="logo-facebook" /></p>
 										</router-link>
 									</h4>
 								</div>
 							</div>
-                            <div class="panel panel-default" v-if="user1.youtube">
+                            <div class="panel panel-default" v-if="getOnePersonne[0].youtube">
 								<div class="panel-heading">
 									<h4 class="panel-title" >
-										<router-link :to="{name:'Youtube',params:{user1}}">
+										<router-link :to="{name:'Youtube'}">
 												<p>Youtube<Icon type="logo-youtube" /></p>
 										</router-link>
 									</h4>
 								</div>
 							</div>
-                            <div class="panel panel-default" v-if="user1.snapchat">
+                            <div class="panel panel-default" v-if="getOnePersonne[0].snapchat">
+								<div class="panel-heading">
+									<h4 class="panel-title" >
+										<router-link :to="{name:'Snapchat'}">
+												<p>Snapchat<Icon type="logo-snapchat" /></p>
+										</router-link>
+									</h4>
+								</div>
+							</div>
+							<!-- <div class="panel panel-default" v-if="user1.snapchat">
 								<div class="panel-heading">
 									<h4 class="panel-title" >
 										<router-link :to="{name:'Snapchat',params:{user1}}">
@@ -84,11 +94,11 @@
 										</router-link>
 									</h4>
 								</div>
-							</div>
+							</div> -->
 							<div class="panel panel-default">
 								<div class="panel-heading">
 									<h4 class="panel-title" >
-										<router-link :to="{name:'UserDetails',params:{user1}}">
+										<router-link :to="{name:'UserDetails'}">
 												<p>Info Personelle<Icon type="md-person" /></p>
 										</router-link>
 									</h4>
@@ -105,7 +115,7 @@
 						<div class="col-sm-5">
 							<div class="view-product">
 								<img src="images/product-details/insta_png.png" alt="" />
-								<h3>{{user1.nom}}</h3>
+								<h3>{{getOnePersonne[0].nom}}</h3>
 							</div>
 
 						</div>
@@ -114,12 +124,12 @@
 								<span>
 									<span>test hi : </span>
 								</span>
-								<p><b>Nombre d’abonnés: </b>{{user1.instagram.nombre_abonne}}</p>
-								<p><b>Moyenne des likes: </b>{{user1.instagram.like}}</p>
-								<p><b>Moyenne des commentaires: </b>{{user1.instagram.commentaire}}</p>
-								<p><b>Taille par rapport aux followers: </b>{{user1.instagram.followers}}</p>
-								<p><b>Qualité d’audience: </b>{{user1.instagram.qualite}}</p>
-								<p><b>Engagement: </b>{{user1.instagram.engagement}}</p>
+								<p><b>Nombre d’abonnés: </b>{{getOnePersonne[0].instagram.nombre_abonne}}</p>
+								<p><b>Moyenne des likes: </b>{{getOnePersonne[0].instagram.like}}</p>
+								<p><b>Moyenne des commentaires: </b>{{getOnePersonne[0].instagram.commentaire}}</p>
+								<p><b>Taille par rapport aux followers: </b>{{getOnePersonne[0].instagram.followers}}</p>
+								<p><b>Qualité d’audience: </b>{{getOnePersonne[0].instagram.qualite}}</p>
+								<p><b>Engagement: </b>{{getOnePersonne[0].instagram.engagement}}</p>
 							</div><!--/product-information-->
 						</div>
 					</div><!--/product-details-->
@@ -135,23 +145,23 @@
 						<div class="tab-content">
 							<div class="tab-pane fade active in" id="tag" >
 									<!-- <Tag color="purple">{{c.nom}}</Tag> -->
-									<div v-for="(c,i) in user1.facebook.domaine" :key="i">
+									<div v-for="(c,i) in getOnePersonne[0].instagram.domaine" :key="i">
 										<!-- <li>{{c.nom}}</li> -->
 										<Tag color="purple">{{c.nom}}</Tag>
 									</div>
 							</div>
 							<div class="tab-pane fade" id="details">
-								<p><b>Date 1ere publication: </b>{{user1.instagram.feed.date_1er}}</p>
-								<p><b>Nombre de publication par semaine: </b>{{user1.instagram.feed.nombre_publicaion}}</p>
-								<p><b>Taux de réponse des commentaires: </b>{{user1.instagram.feed.taux_reponse}}</p>
-								<p><b>Variation nombre de j’aime sur les publications ‘non sponsorisées': </b>{{user1.instagram.feed.nombre_jaime}}</p>
+								<p><b>Date 1ere publication: </b>{{getOnePersonne[0].instagram.feed.date_1er}}</p>
+								<p><b>Nombre de publication par semaine: </b>{{getOnePersonne[0].instagram.feed.nombre_publicaion}}</p>
+								<p><b>Taux de réponse des commentaires: </b>{{getOnePersonne[0].instagram.feed.taux_reponse}}</p>
+								<p><b>Variation nombre de j’aime sur les publications ‘non sponsorisées': </b>{{getOnePersonne[0].instagram.feed.nombre_jaime}}</p>
 							</div>
 							
 							<div class="tab-pane fade" id="companyprofile" >
-								<p><b>Date 1ere publication: </b>{{user1.instagram.story.date_1er}}</p>
-								<p><b>Nombre de publication par semaine: </b>{{user1.instagram.story.nombre_publicaion}}</p>
-								<p><b>Taux de réponse des commentaires: </b>{{user1.instagram.story.taux_reponse}}</p>
-								<p><b>Variation nombre de j’aime sur les publications ‘non sponsorisées': </b>{{user1.instagram.story.nombre_jaime}}</p>
+								<p><b>Date 1ere publication: </b>{{getOnePersonne[0].instagram.story.date_1er}}</p>
+								<p><b>Nombre de publication par semaine: </b>{{getOnePersonne[0].instagram.story.nombre_publicaion}}</p>
+								<p><b>Taux de réponse des commentaires: </b>{{getOnePersonne[0].instagram.story.taux_reponse}}</p>
+								<p><b>Variation nombre de j’aime sur les publications ‘non sponsorisées': </b>{{getOnePersonne[0].instagram.story.nombre_jaime}}</p>
 							</div>
 							
 							
@@ -324,85 +334,18 @@
     </div>
 </template>
 <script>
+import {mapGetters} from 'vuex'
 export default{
      data(){
           return {
-            id_user:this.$route.params.id,
-            prenom:'',
-            ville:'',
-            daten:'',
-            test:'',
-            image:null,
-            personnes:{},
-            historiqueTab:[],
-            options:[]
        };
     },
     created(){
-            this.getHistorique();
         },
-    props:['user1'],
+	computed:{
+		...mapGetters(['getOnePersonne']),
+	},
     methods:{
-      getHistorique(){
-        axios.get('/api/personneHistorique').then(response=>{
-                    console.log('histo : '+response.data);
-                    this.options=response.data;
-                })
-                .catch(error=>{console.log(error)})
-      },
-      getPersonnes(){
-                axios.get('/api/personne').then(response=>{
-                    console.log(response.data);
-                    this.personnes=response.data;
-                    this.personnes2=response.data;
-                    this.lastId=response.data[0].id;
-                    this.lastId2=personnes.data[0].id;
-                })
-                .catch(error=>{console.log(error)})
-            },
-            getResults(page = 1) {
-			axios.get('/api/personne?page=' + page)
-				.then(response => {
-					this.personnes = response.data;
-				});
-      },
-      onImageChange(e){
-        console.log('image: '+e.target.files[0]);
-        this.image=e.target.files[0];
-      },
-      updateInfl(e){
-        e.preventDefault();//pour ne pas actualiser la page
-        const config={
-          headers:{"content-type":"multipart/form-data"}
-        }
-        let formData=new FormData();//pour communiquer avec la form
-        for (var i = 0; i < this.personne1.historique.length; i++) {
-          // console.log('hjihjh ');
-            formData.append('arrHis[]', this.personne1.historique[i]['id']);
-        }
-        formData.append("image",this.image);
-        formData.append("name",this.personne1.nom);
-        formData.append("prenom",this.personne1.prenom);
-        formData.append("ville",this.personne1.ville);
-        formData.append("daten",this.personne1.date);
-        formData.append("_method","put");//pour dire que on a en train de modifer
-        // formData.append("image",this.image);
-        axios.post("/api/personne/"+this.personne1.id,formData,config).then(res=>{
-        this.$emit('personne-updated',res)
-        // $('#updateInfl').modal('hide');  
-        // this.$refs.modalComponent.show(); 
-        console.log('update pers');
-        Swal.fire({
-          position:"center",
-          icon:"success",
-          title:"Personne modifie",
-          showConfirmButton:false,
-          timer:1500
-        });
-        
-        // this.$emit('infl-added');
-      }).catch(err=>console.log('hahaha'));
-      }
     }
 }
 </script>

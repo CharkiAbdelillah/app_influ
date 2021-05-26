@@ -32,6 +32,8 @@
         "vue-form-wizard": "^0.8.4",
         "vue-multiselect": "^2.1.6",
         "vue-router": "^3.5.1",
-        "vue-step-wizard": "^0.1.17"
+        "vue-step-wizard": "^0.1.17",
+        "vuex": "^3.6.2",
+        "vuex-persistedstate": "^4.0.0-beta.3"
     }
 }

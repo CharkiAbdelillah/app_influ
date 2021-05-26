@@ -27,7 +27,7 @@
             <label for="" class="col-from-label">
               Mot de passe: 
             </label>
-            <input type="password" name="pass1" v-model="hello1.password" class="form-control">
+            <input type="password" name="pass1" v-model="newPass" class="form-control">
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
@@ -43,15 +43,31 @@
 </template>
 <script>
 export default {
+  data(){
+            return{
+                newPass:'',
+            }
+    },
     props:['hello1'],
     methods:{
-      update(){
+       update(){
+          if(this.hello1.name.trim()=='') return this.e('Name is required')
+          if(this.hello1.email.trim()=='') return this.e('Email is required')
         axios.post('/admin/manager-update/'+this.hello1.id,{
           name:this.hello1.name,
           email:this.hello1.email,
-          password:this.hello1.password,
+          password:this.newPass,
         })
-        .then(response=>this.$emit('manager-updated',response))
+        .then(response=>{
+          this.$emit('manager-updated',response);
+            Swal.fire({
+            position:"center",
+            icon:"success",
+            title:"Manager modifie",
+            showConfirmButton:false,
+            timer:1500
+          });
+        })
         .catch(error=>{console.log(error)});
       }
     }

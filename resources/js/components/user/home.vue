@@ -60,7 +60,7 @@
 									<button type="button" class="btn btn-default get">Get it now</button>
 								</div>
 								<div class="col-sm-6">
-									<img src="images/home/slide5.png" class="girl img-responsive" alt="" />
+									<img src="images/home/slide2.png" class="girl img-responsive" alt="" />
 									<!-- <img src="images/home/logo3_miniv.png"  class="pricing" alt="" /> -->
 								</div>
 							</div>
@@ -73,7 +73,7 @@
 								</div>
 								<div class="col-sm-6">
 									<img src="images/home/slide2.png" class="girl img-responsive" alt="" />
-									<!-- <img src="images/home/logo3_miniv.png"  class="pricing" alt="" /> -->
+									<img src="images/home/logo.png"  class="pricing" alt="" />
 								</div>
 							</div>
 							
@@ -85,11 +85,10 @@
 									<button type="button" class="btn btn-default get">Get it now</button>
 								</div>
 								<div class="col-sm-6">
-									<img src="images/home/slide6.png" class="girl img-responsive" alt="" />
-									<!-- <img src="images/home/logo3_miniv.png" align="left" class="pricing" alt="" /> -->
+									<img src="images/home/slide2.png" class="girl img-responsive" alt="" />
+									<img src="images/home/logo3_miniv.png" align="left" class="pricing" alt="" />
 								</div>
 							</div>
-							
 						</div>
 						
 						<a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
@@ -123,6 +122,9 @@
 										<Icon type="ios-pin"/>
 										<span>Ville</span>
 									</Radio>
+									<Radio label="All">
+										<span>All</span>
+									</Radio>
 								</RadioGroup>	
 							<div class="well text-center">
 								 <input v-model="filterNom" style="text-align: center" :placeholder="select_search"/>
@@ -142,7 +144,7 @@
 								<div id="sportswear" class="panel-collapse collapse">
 									<div class="panel-body">
 										<ul v-for="(v,i) in this.Domoptions" :key="i">
-											<li @click="selectedDomInstagram(v.id)"><a href="#person_target">{{v.nom}}</a></li>
+											<li @click="selectedTypeDomFun(v.id,'insta')"><a href="#person_target">{{v.nom}}</a></li>
 										</ul>
 									</div>
 								</div>
@@ -159,7 +161,7 @@
 								<div id="mens" class="panel-collapse collapse">
 									<div class="panel-body">
 										<ul v-for="(v,i) in this.Domoptions" :key="i">
-											<li @click="selectedDomFacebook(v.id)"><a href="#person_target">{{v.nom}}</a></li>
+											<li @click="selectedTypeDomFun(v.id,'fb')"><a href="#person_target">{{v.nom}}</a></li>
 										</ul>
 									</div>
 								</div>
@@ -176,7 +178,7 @@
 								<div id="snap" class="panel-collapse collapse">
 									<div class="panel-body">
 										<ul v-for="(v,i) in this.Domoptions" :key="i">
-											<li @click="selectedDomSnapchat(v.id)"><a href="#person_target">{{v.nom}}</a></li>
+											<li @click="selectedTypeDomFun(v.id,'snap')"><a href="#person_target">{{v.nom}}</a></li>
 										</ul>
 									</div>
 								</div>
@@ -194,7 +196,7 @@
 								<div id="ytb" class="panel-collapse collapse">
 									<div class="panel-body">
 										<ul v-for="(v,i) in this.Domoptions" :key="i">
-											<li @click="selectedDomYoutube(v.id)"><a href="#person_target">{{v.nom}}</a></li>
+											<li @click="selectedTypeDomFun(v.id,'ytb')"><a href="#person_target">{{v.nom}}</a></li>
 										</ul>
 									</div>
 								</div>
@@ -231,16 +233,20 @@
 												</Radio>
 											</RadioGroup>	
 											<div class="text-center">
-											<Slider v-model="valueInsta" range></Slider>
+											<!-- <Slider v-model="valueInsta" range></Slider> -->
+											<input type="range" v-model="valueInsta[0]" min="0" max="10000" step="10"/> 
+											min : {{this.valueInsta[0]}}
+											<input type="range" v-model="valueInsta[1]" min="0" max="10000" step="10"/> 
+											max : {{this.valueInsta[1]}}
 											</div>
 											<label for="">Followers</label>
 											<!-- <div class="text-center"> -->
 												<ul class="nav nav-pills nav-stacked">
-													<li @click="selectedFolowInstagram(folow1)"><a href="#person_target">Nano(1k-10k)</a></li>
-													<li @click="selectedFolowInstagram(folow2)"><a href="#person_target">Micro(10k-50k)</a></li>
-													<li @click="selectedFolowInstagram(folow3)"><a href="#person_target">Mid-tier(50k-500k)</a></li>
-													<li @click="selectedFolowInstagram(folow4)"><a href="#person_target">Macro(500k-1m)</a></li>
-													<li @click="selectedFolowInstagram(folow5)"><a href="#person_target">Mega(1m et +)</a></li>
+													<li @click="selectedFollowers(folow1,'insta')"><a href="#person_target">Nano(1k-10k)</a></li>
+													<li @click="selectedFollowers(folow2,'insta')"><a href="#person_target">Micro(10k-50k)</a></li>
+													<li @click="selectedFollowers(folow3,'insta')"><a href="#person_target">Mid-tier(50k-500k)</a></li>
+													<li @click="selectedFollowers(folow4,'insta')"><a href="#person_target">Macro(500k-1m)</a></li>
+													<li @click="selectedFollowers(folow5,'insta')"><a href="#person_target">Mega(1m et +)</a></li>
 												</ul>
 											<!-- <input v-model="this.selectNumInsta" class="text-center" style="text-align: center" :placeholder="select_search"/> -->
 											<!-- </div> -->
@@ -270,16 +276,19 @@
 												</Radio>
 											</RadioGroup>	
 											<div class="text-center">
-											<Slider v-model="valueFb" range></Slider>
+													<input type="range" v-model="valueFb[0]" min="0" max="10000" step="10"/> 
+												min : {{this.valueFb[0]}}
+												<input type="range" v-model="valueFb[1]" min="0" max="10000" step="10"/> 
+												max : {{this.valueFb[1]}}
 											</div>
 											<label for="">Followers</label>
 											<!-- <div class="text-center"> -->
 												<ul class="nav nav-pills nav-stacked">
-													<li @click="selectedFolowFacebook(folow1)"><a href="#person_target">Nano(1k-10k)</a></li>
-													<li @click="selectedFolowFacebook(folow2)"><a href="#person_target">Micro(10k-50k)</a></li>
-													<li @click="selectedFolowFacebook(folow3)"><a href="#person_target">Mid-tier(50k-500k)</a></li>
-													<li @click="selectedFolowFacebook(folow4)"><a href="#person_target">Macro(500k-1m)</a></li>
-													<li @click="selectedFolowFacebook(folow5)"><a href="#person_target">Mega(1m et +)</a></li>
+													<li @click="selectedFollowers(folow1,'fb')"><a href="#person_target">Nano(1k-10k)</a></li>
+													<li @click="selectedFollowers(folow2,'fb')"><a href="#person_target">Micro(10k-50k)</a></li>
+													<li @click="selectedFollowers(folow3,'fb')"><a href="#person_target">Mid-tier(50k-500k)</a></li>
+													<li @click="selectedFollowers(folow4,'fb')"><a href="#person_target">Macro(500k-1m)</a></li>
+													<li @click="selectedFollowers(folow5,'fb')"><a href="#person_target">Mega(1m et +)</a></li>
 												</ul>
 											<!-- <input v-model="this.selectNumInsta" class="text-center" style="text-align: center" :placeholder="select_search"/> -->
 											<!-- </div> -->
@@ -309,16 +318,19 @@
 												</Radio>
 											</RadioGroup>	
 											<div class="text-center">
-											<Slider v-model="valueSnap" range></Slider>
+												<input type="range" v-model="valueSnap[0]" min="0" max="10000" step="10"/> 
+												min : {{this.valueSnap[0]}}
+												<input type="range" v-model="valueSnap[1]" min="0" max="10000" step="10"/> 
+												max : {{this.valueSnap[1]}}
 											</div>
 											<label for="">Followers</label>
 											<!-- <div class="text-center"> -->
 												<ul class="nav nav-pills nav-stacked">
-													<li @click="selectedFolowSnapchat(folow1)"><a href="#person_target">Nano(1k-10k)</a></li>
-													<li @click="selectedFolowSnapchat(folow2)"><a href="#person_target">Micro(10k-50k)</a></li>
-													<li @click="selectedFolowSnapchat(folow3)"><a href="#person_target">Mid-tier(50k-500k)</a></li>
-													<li @click="selectedFolowSnapchat(folow4)"><a href="#person_target">Macro(500k-1m)</a></li>
-													<li @click="selectedFolowSnapchat(folow5)"><a href="#person_target">Mega(1m et +)</a></li>
+													<li @click="selectedFollowers(folow1,'snap')"><a href="#person_target">Nano(1k-10k)</a></li>
+													<li @click="selectedFollowers(folow2,'snap')"><a href="#person_target">Micro(10k-50k)</a></li>
+													<li @click="selectedFollowers(folow3,'snap')"><a href="#person_target">Mid-tier(50k-500k)</a></li>
+													<li @click="selectedFollowers(folow4,'snap')"><a href="#person_target">Macro(500k-1m)</a></li>
+													<li @click="selectedFollowers(folow5,'snap')"><a href="#person_target">Mega(1m et +)</a></li>
 												</ul>
 											<!-- <input v-model="this.selectNumInsta" class="text-center" style="text-align: center" :placeholder="select_search"/> -->
 											<!-- </div> -->
@@ -349,16 +361,19 @@
 												</Radio>
 											</RadioGroup>	
 											<div class="text-center">
-											<Slider v-model="valueYtb" range></Slider>
+												<input type="range" v-model="valueYtb[0]" min="0" max="10000" step="10"/> 
+												min : {{this.valueYtb[0]}}
+												<input type="range" v-model="valueYtb[1]" min="0" max="10000" step="10"/> 
+												max : {{this.valueYtb[1]}}
 											</div>
 											<label for="">Followers</label>
 											<!-- <div class="text-center"> -->
 												<ul class="nav nav-pills nav-stacked">
-													<li @click="selectedFolowYoutube(folow1)"><a href="#person_target">Nano(1k-10k)</a></li>
-													<li @click="selectedFolowYoutube(folow2)"><a href="#person_target">Micro(10k-50k)</a></li>
-													<li @click="selectedFolowYoutube(folow3)"><a href="#person_target">Mid-tier(50k-500k)</a></li>
-													<li @click="selectedFolowYoutube(folow4)"><a href="#person_target">Macro(500k-1m)</a></li>
-													<li @click="selectedFolowYoutube(folow5)"><a href="#person_target">Mega(1m et +)</a></li>
+													<li @click="selectedFollowers(folow1,'ytb')"><a href="#person_target">Nano(1k-10k)</a></li>
+													<li @click="selectedFollowers(folow2,'ytb')"><a href="#person_target">Micro(10k-50k)</a></li>
+													<li @click="selectedFollowers(folow3,'ytb')"><a href="#person_target">Mid-tier(50k-500k)</a></li>
+													<li @click="selectedFollowers(folow4,'ytb')"><a href="#person_target">Macro(500k-1m)</a></li>
+													<li @click="selectedFollowers(folow5,'ytb')"><a href="#person_target">Mega(1m et +)</a></li>
 												</ul>
 											<!-- <input v-model="this.selectNumInsta" class="text-center" style="text-align: center" :placeholder="select_search"/> -->
 											<!-- </div> -->
@@ -382,16 +397,16 @@
 							</div>
 						</div><!--/brands_products-->
 						<div class="price-range"><!--price-range-->
-							<h2>Price Range</h2>
+							<h2>number test</h2>
 							<div class="well text-center">
-								 <input type="text" class="span2" value="" data-slider-min="0" data-slider-max="600" data-slider-step="5" data-slider-value="[250,450]" id="sl2" ><br />
-								 <b class="pull-left">$ 0</b> <b class="pull-right">$ 600</b>
+									<label for="vol">Price (between 0 and 1000):</label>
+									<input type="range" v-model="range" min="0" max="1000" step="10"/> 
+									Selected : {{this.range}}
+									<Slider v-model="value" range></Slider>
 							</div>
-							<label for="vol">Price (between 0 and 1000):</label>
-							<input type="range" v-model="range" min="0" max="1000" step="10"/> 
-							Selected : {{this.range}}
+						
 						</div><!--/price-range-->
-							<Slider v-model="value" range></Slider>
+							
 					</div>
 				</div>
 				
@@ -405,7 +420,8 @@
 										<div class="productinfo text-center">
                                             <img :src="user1.photo" alt="" />
 											<router-link :to="{name:'UserDetails',params:{user1,date_per:user1.date}}">
-												<p>{{user1.nom}}</p>
+												<p @click="passId(user1.id)">{{user1.nom}}</p>
+
 											</router-link>
 											<!-- <router-link :to="{name:'UserDetails',params:{id:user1.id}}">
 												<p>{{user1.nom}}</p>
@@ -627,8 +643,10 @@
 				valueSnap: [0, 0],
 				value: [0, 0],
                 filterNom: undefined,
+				selectedType:'All',
+				selectedTypeDomaine:'',
+				selectedTypeFollowers:'',
                 range:0,
-				
             }
         },
         created(){
@@ -639,7 +657,7 @@
         },
         mounted() {
             console.log('moooonted');
-},
+		},
         methods:{
             getHistorique(){
         		axios.get('/api/personneHistorique').then(response=>{
@@ -686,55 +704,34 @@
 		    },
             selectedHis(id){
                 this.selectedHistorique=id;
+				this.selectedType="historique";
             },
-			selectedDomInstagram(id){
-                this.selectedInstagram=id;
-            },
-			selectedDomYoutube(id){
-                this.selectedYoutube=id;
-            },
-			selectedDomFacebook(id){
-                this.selectedFacebook=id;
-            },
-			selectedDomSnapchat(id){
-                this.selectedSnapchat=id;
-            },
-			selectedFolowInstagram(str){
+			selectedTypeDomFun(id,type){
+				this.selectedYoutube=id;
+				this.selectedInstagram=id;
+				this.selectedSnapchat=id;
+				this.selectedFacebook=id;
+				this.selectedTypeDomaine=type;
+				this.selectedType="domaine";
+			},
+			selectedFollowers(str,type){
+				this.selectedType="followers";
+				this.selectedTypeFollowers=type;
                 this.selectedInstagramFL=str;
-            },
-			selectedFolowYoutube(str){
-                this.selectedYoutubeFL=str;
-            },
-			selectedFolowFacebook(str){
-                this.selectedFacebookFL=str;
-            },
-			selectedFolowSnapchat(str){
-                this.selectedSnapchatFL=str;
+				this.selectedYoutubeFL=str;
+				this.selectedFacebookFL=str;
+				this.selectedSnapchatFL=str;
             },
             refresh(personnes){
                 this.getPersonnes();
             },
     },
     computed:{
-        filterInfl:function(){
-            var vm=this;
-            var historique=vm.selectedHistorique;
-                if(historique===''){
-                    return vm.personnes;
-                }else{
-                    // return vm.personnes.perso.data.filter((pers)=>pers.id===7);
-                    return vm.personnes.perso.data.filter(function(person) {
-					// return this.data.some(has=>person.data.id.includes(has));
-                        return person.nom.includes('laravel');
-				});
-                }   
-        },
         filteredPersonnes () {
             if(this.personnes.perso){
                 console.log('deeeeeeeeeeeefined');
                 var per = this.personnes.perso.data;
     	        var per2 = this.personnes2.perso
-                
             }
     	
             if (this.filterNom && this.select_search!=='all') {
@@ -755,236 +752,107 @@
                 	})
 				}
 				else{
+					this.selectedType="All";
+					this.select_search=='All';
 					return per;
 				}
-                return per2;
-            }
-			this.select_search='all';
-            if(this.selectedHistorique && this.selectedHistorique !== 'all') {
-				console.log('inside filter histo hhhh');
-                per2 = per2.filter((p) => {
-                            let foundHistorique = p.historique.findIndex((c) => {
-                             return c.id === this.selectedHistorique
-                })
-                return foundHistorique !== -1
-                })
-                this.selectedHistorique='all';
 				
                 return per2;
+				
             }
-
-
-			if(this.selectedInstagram && this.selectedInstagram !== 'all') {
-                per2 = per2.filter((p) => {
-					// alert('doom1 : '+p);
-					var jsonStr = JSON.stringify(p);
-					console.log('doooooooom: '+jsonStr);
-					if(jsonStr.instagram){
-						console.log('doooooooom: '+jsonStr.instagram);
-					}
-							if(p.instagram!=null){
-								console.log('doooooooom2222: '+p.instagram);
-								let foundDomInsta = p.instagram.domaine.findIndex((c) => {
-									console.log('doooooooom2222333333: '+c.id);
-								return c.id === this.selectedInstagram
-								})
-								return foundDomInsta !== -1
-							 }
-                })
-                this.selectedInstagram='all';
-                return per2;
-            }
-			if(this.selectedYoutube && this.selectedYoutube !== 'all') {
-                per2 = per2.filter((p) => {
-							if(p.youtube!=null){
-								let foundDomYtb = p.youtube.domaine.findIndex((c) => {
-								return c.id === this.selectedYoutube
-								})
-								return foundDomYtb !== -1
-							 }
-                })
-                this.selectedYoutube='all';
-                return per2;
-            }
-			if(this.selectedFacebook && this.selectedFacebook !== 'all') {
-                per2 = per2.filter((p) => {
-							if(p.facebook!=null){
-								let foundDomFb = p.facebook.domaine.findIndex((c) => {
-								return c.id === this.selectedFacebook
-								})
-								return foundDomFb !== -1
-							 }
-                })
-                this.selectedFacebook='all';
-                return per2;
-            }
-			if(this.selectedSnapchat && this.selectedSnapchat !== 'all') {
-                per2 = per2.filter((p) => {
-							if(p.snapchat!=null){
-								let foundDomSnap = p.snapchat.domaine.findIndex((c) => {
-								return c.id === this.selectedSnapchat
-								})
-								return foundDomSnap !== -1
-							 }
-                })
-                this.selectedSnapchat='all';
-                return per2;
-            }
-			//filer by followers
-			if(this.selectedFacebookFL && this.selectedFacebookFL !== 'all') {
-                per2 = per2.filter((p) => {
-							if(p.facebook!=null){	 
-								return p.facebook.followers === this.selectedFacebookFL
-							
-							 }
-                })
-                this.selectedFacebookFL='all';
-                return per2;
-            }
-			if(this.selectedInstagramFL && this.selectedInstagramFL !== 'all') {
-                per2 = per2.filter((p) => {
-							if(p.instagram!=null){	 
-								return p.instagram.followers === this.selectedInstagramFL				
-							 }
-                })
-                this.selectedInstagramFL='all';
-                return per2;
-            }
-			if(this.selectedFacebookFL && this.selectedFacebookFL !== 'all') {
-                per2 = per2.filter((p) => {
-							if(p.facebook!=null){	 
-								return p.facebook.followers === this.selectedFacebookFL
-							
-							 }
-                })
-                this.selectedFacebookFL='all';
-                return per2;
-            }
-			if(this.selectedYoutubeFL && this.selectedYoutubeFL !== 'all') {
-                per2 = per2.filter((p) => {
-							if(p.youtube!=null){	 
-								return p.youtube.followers === this.selectedYoutubeFL
-							
-							 }
-                })
-                this.selectedYoutubeFL='all';
-                return per2;
-            }
-			//filter nombre d'abonne
-
-			// if(this.range !== 0) {
-			// 	// console.log('1er : '+this.value[0]+' 2eme : '+this.value[1]);
-            //     per2 = per2.filter((p) => {
-			// 				if(p.instagram!=null){
-			// 					console.log('range 22 : '+p.instagram.nombre_abonne+' range : '+this.range);				
-			// 					return p.instagram.nombre_abonne > 0 && p.instagram.nombre_abonne<this.range;
-			// 				 }
-            //     })
-            //     this.range=0;
-            //     return per2;
-            // }
-
-			// if( this.selectNumInsta!=='all') {
-			if( this.valueInsta[1]!==0 && this.valueInsta[0]!==0) {
-				console.log('1er insta : '+this.valueInsta[0]+' 2eme insta : '+this.valueInsta[1]);
+			else if( this.valueInsta[1]!=0 && this.valueInsta[0]!=0) {
 				if(this.nombre.selectNumInsta =='Like'){
 					per2 = per2.filter((p) => {
 								if(p.instagram!=null){
-									return p.instagram.like > this.valueInsta[0] && p.instagram.like<this.valueInsta[1];
+									return p.instagram.like > Number(this.valueInsta[0]) && p.instagram.like<Number(this.valueInsta[1]);
 								}
 					})
 				}
 				else if(this.nombre.selectNumInsta =='Abonne'){
 					per2 = per2.filter((p) => {
 								if(p.instagram!=null){
-									return p.instagram.nombre_abonne > this.valueInsta[0] && p.instagram.nombre_abonne<this.valueInsta[1];
+									return p.instagram.nombre_abonne > Number(this.valueInsta[0]) && p.instagram.nombre_abonne<Number(this.valueInsta[1]);
 								}
 					})
 				}
-				if(this.nombre.selectNumInsta =='Comm'){
+				else if(this.nombre.selectNumInsta =='Comm'){
 					per2 = per2.filter((p) => {
 								if(p.instagram!=null){
-									return p.instagram.commentaire > this.valueInsta[0] && p.instagram.commentaire<this.valueInsta[1];
+									return p.instagram.commentaire > Number(this.valueInsta[0]) && p.instagram.commentaire<Number(this.valueInsta[1]);
 								}
 					})
 				}
-				// this.nombre.selectNumInsta='all';
 				return per2;
             }
-			// if( this.nombre.selectNumFb!=='all') {
-			if( this.valueFb[1]!==0 && this.valueFb[0]!==0) {
+			else if( this.valueFb[1]!==0 && this.valueFb[0]!==0) {
 				if(this.nombre.selectNumFb =='Like'){
 					per2 = per2.filter((p) => {
 								if(p.facebook!=null){
-									return p.facebook.like > this.valueFb[0] && p.facebook.like<this.valueFb[1];
+									return p.facebook.like > Number(this.valueFb[0]) && p.facebook.like<Number(this.valueFb[1]);
 								}
 					})
 				}
 				else if(this.nombre.selectNumFb =='Abonne'){
 					per2 = per2.filter((p) => {
 								if(p.facebook!=null){
-									return p.facebook.nombre_abonne > this.valueFb[0] && p.facebook.nombre_abonne<this.valueFb[1];
+									return p.facebook.nombre_abonne > Number(this.valueFb[0]) && p.facebook.nombre_abonne<Number(this.valueFb[1]);
 								}
 					})
 				}
-				if(this.nombre.selectNumInsta =='Comm'){
+				else if(this.nombre.selectNumFb =='Comm'){
 					per2 = per2.filter((p) => {
-								if(p.instagram!=null){
-									return p.instagram.commentaire > this.valueInsta[0] && p.instagram.commentaire<this.valueInsta[1];
+								if(p.facebook!=null){
+									return p.facebook.commentaire > Number(this.valueFb[0]) && p.facebook.commentaire<Number(this.valueFb[1]);
 								}
 					})
 				}
-				// this.nombre.selectNumFb='all';
 				return per2;
             }
-			// if( this.selectNumYtb!=='all') {
-			if( this.valueYtb[1]!==0 && this.valueYtb[0]!==0) {
-				// console.log('1er insta : '+this.valueInsta[0]+' 2eme insta : '+this.valueInsta[1]);
+			else if( this.valueYtb[1]!==0 && this.valueYtb[0]!==0) {
 				if(this.nombre.selectNumYtb =='Like'){
 					per2 = per2.filter((p) => {
 								if(p.youtube!=null){
-									return p.youtube.like > this.valueYtb[0] && p.youtube.like<this.valueYtb[1];
+									return p.youtube.like > Number(this.valueYtb[0]) && p.youtube.like<Number(this.valueYtb[1]);
 								}
 					})
 				}
 				else if(this.nombre.selectNumYtb =='Abonne'){
 					per2 = per2.filter((p) => {
 								if(p.youtube!=null){
-									return p.youtube.nombre_abonne > this.valueYtb[0] && p.youtube.nombre_abonne<this.valueYtb[1];
+									return p.youtube.nombre_abonne > Number(this.valueYtb[0]) && p.youtube.nombre_abonne<Number(this.valueYtb[1]);
 								}
 					})
 				}
-				if(this.nombre.selectNumYtb =='Comm'){
+				else if(this.nombre.selectNumYtb =='Comm'){
 					per2 = per2.filter((p) => {
 								if(p.youtube!=null){
-									return p.youtube.commentaire > this.valueYtb[0] && p.youtube.commentaire<this.valueYtb[1];
+									return p.youtube.commentaire > Number(this.valueYtb[0]) && p.youtube.commentaire<Number(this.valueYtb[1]);
 								}
 					})
 				}
-				// this.nombre.selectNumInsta='all';
+
 				return per2;
             }
-			// if( this.selectNumSnap!=='all') {
-			if( this.valueSnap[1]!==0 && this.valueSnap[0]!==0) {
+			else if( this.valueSnap[1]!==0 && this.valueSnap[0]!==0) {
 				console.log('1er Snap : '+this.valueSnap[0]+' 2eme Snap : '+this.valueSnap[1]);
 				if(this.nombre.selectNumSnap =='Like'){
 					per2 = per2.filter((p) => {
 								if(p.snapchat!=null){
-									return p.snapchat.like > this.valueSnap[0] && p.snapchat.like<this.valueSnap[1];
+									return p.snapchat.like > Number(this.valueSnap[0]) && p.snapchat.like<Number(this.valueSnap[1]);
 								}
 					})
 				}
 				else if(this.nombre.selectNumSnap =='Abonne'){
 					per2 = per2.filter((p) => {
 								if(p.snapchat!=null){
-									return p.snapchat.nombre_abonne > this.valueSnap[0] && p.snapchat.nombre_abonne<this.valueSnap[1];
+									return p.snapchat.nombre_abonne > Number(this.valueSnap[0]) && p.snapchat.nombre_abonne<Number(this.valueSnap[1]);
 								}
 					})
 				}
-				if(this.nombre.selectNumSnap =='Comm'){
+				else if(this.nombre.selectNumSnap =='Comm'){
 					per2 = per2.filter((p) => {
 								if(p.snapchat!=null){
-									return p.snapchat.commentaire > this.valueSnap[0] && p.snapchat.commentaire<this.valueSnap[1];
+									return p.snapchat.commentaire > Number(this.valueSnap[0]) && p.snapchat.commentaire<Number(this.valueSnap[1]);
 								}
 					})
 				}
@@ -993,7 +861,137 @@
             }
 			// ********* filter nombre ************
 			else
-            return per
+			switch (this.selectedType)
+				{
+				case "historique":
+					per2 = per2.filter((p) => {
+								let foundHistorique = p.historique.findIndex((c) => {
+								return c.id === this.selectedHistorique
+					})
+						return foundHistorique !== -1
+					})
+						this.selectedHistorique='all';
+                	return per2;
+				case "domaine":
+					switch(this.selectedTypeDomaine){
+							case "fb":
+							// console.log('fbbbbb');
+							per2 = per2.filter((p) => {
+								var jsonStr = JSON.stringify(p);
+								// console.log('fb pers : '+jsonStr);
+								// alert('fb per '+p);
+										if(p.facebook!=null){
+											// alert('fb per '+p.nom);
+											let foundDomFb = p.facebook.domaine.findIndex((c) => {
+												// alert('fb id '+c.id+' = '+this.selectedFacebook);
+											return c.id === this.selectedFacebook
+											})
+											// console.log('fbbb1 : '+this.selectedFacebook);
+											// this.selectedFacebook='all';
+											// console.log('fbbb2 : '+this.selectedFacebook);
+
+											return foundDomFb !== -1
+										}
+							})
+							// this.selectedFacebook='all';
+							// this.selectedInstagram='all';
+							return per2;	
+						
+						case "insta": 
+							per2 = per2.filter((p) => {
+							// alert('doom1 : '+p);
+							var jsonStr = JSON.stringify(p);
+							// console.log('doooooooom: '+jsonStr);
+						if(jsonStr.instagram){
+							// console.log('doooooooom: '+jsonStr.instagram);
+						}
+								if(p.instagram!=null){
+									// alert('nom dom insta : '+p.nom)
+									// console.log('doooooooom2222: '+p.instagram);
+									let foundDomInsta = p.instagram.domaine.findIndex((c) => {
+										// console.log('doooooooom2222333333: '+c.id);
+									return c.id === this.selectedInstagram
+									})
+									// this.selectedInstagram='all';
+									// alert('foundDomInsta : '+foundDomInsta);
+									return foundDomInsta !== -1
+									}
+						})
+						return per2;
+						break;
+					case "ytb":
+						per2 = per2.filter((p) => {
+								if(p.youtube!=null){
+									let foundDomYtb = p.youtube.domaine.findIndex((c) => {
+									return c.id === this.selectedYoutube
+									})
+									return foundDomYtb !== -1
+								}
+						})
+						this.selectedYoutube='all';
+						return per2;
+					case "snap":
+						per2 = per2.filter((p) => {
+								if(p.snapchat!=null){
+									let foundDomSnap = p.snapchat.domaine.findIndex((c) => {
+									return c.id === this.selectedSnapchat
+									})
+									return foundDomSnap !== -1
+								}
+						})
+						this.selectedSnapchat='all';
+						return per2;		
+					default: 
+						return per		
+					}
+					
+					break;
+				case "followers":
+					switch(this.selectedTypeFollowers){
+							case "fb":
+											per2 = per2.filter((p) => {
+											if(p.facebook!=null){	 
+												return p.facebook.followers === this.selectedFacebookFL
+											
+											}
+								})
+								// this.selectedFacebookFL='all';
+								return per2;
+						
+						case "insta": 
+							per2 = per2.filter((p) => {
+							if(p.instagram!=null){	 
+								return p.instagram.followers === this.selectedInstagramFL				
+							 }
+							})
+							// this.selectedInstagramFL='all';
+							return per2;
+						break;
+					case "ytb":
+						per2 = per2.filter((p) => {
+							if(p.youtube!=null){	 
+								return p.youtube.followers === this.selectedYoutubeFL
+							
+							 }
+						})
+						// this.selectedYoutubeFL='all';
+						return per2;
+					case "snap":
+						per2 = per2.filter((p) => {
+							if(p.snapchat!=null){	 
+								return p.snapchat.followers === this.selectedSnapchatFL
+							
+							 }
+						})
+						// this.selectedYoutubeFL='all';
+						return per2;	
+					default: 
+						return per			
+					}
+				break;
+				default: 
+					return per
+				}
         },
         filteredPersonnesCount: function() {
             return this.filteredPersonnes.length;

@@ -41,6 +41,11 @@
 								<li><a href="#"><i class="fa fa-linkedin"></i></a></li>
 								<li><a href="#"><i class="fa fa-dribbble"></i></a></li>
 								<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+								@if(auth()->user()->is_admin == 2)
+									<li><a href="/manager/home"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+								@elseif(auth()->user()->is_admin == 1)
+									<li><a href="/admin/home"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+								@endif
 							</ul>
 						</div>
 					</div>
@@ -63,6 +68,7 @@
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav">
 								<li><a href="#"><i class="fa fa-user"></i> Account</a></li>
+								
                                 <li class="dropdown">
                                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                         {{ Auth::user()->name }}

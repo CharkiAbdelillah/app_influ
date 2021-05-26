@@ -1,9 +1,9 @@
 <template>
 <div>
-  <button type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#exampleModal">
+  <button type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#add_user">
      Ajouter 
   </button>
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="add_user" tabindex="0" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -58,36 +58,52 @@ export default{
               pass:''
             },
             test:''
-
-            
        }
     },
     methods:{
-        async storeManager(){
+          hideModal() {
+            $("#add_user").removeClass("in");
+            $(".modal-backdrop").remove();
+            $("#add_user").hide();
+          },
+         async storeManager(){
             if(this.data.name.trim()=='') return this.e('name is required')
             if(this.data.email.trim()=='') return this.e('Email is required')
 			      if(this.data.pass.trim()=='') return this.e('Password is required')
             // const res=axios.post('/admin/gestion_user',this.data)
             const res =await this.callApi('post', '/admin/gestion_user',this.data)
+            
             if(res.status===200){
+              this.hideModal();
               this.s('User has been created successfully!')
-              //  document.getElementById("test").innerHTML='data-dismiss="modal"'
-              // this.test='data-dismiss="modal"'
               this.$emit('user-added',res)
-            //  then(response=>this.$emit('user-added',res))
             }
             else{
-              // this.test=0
               if(res.status==422){
-              for(let i in res.data.errors){
-                              this.e(res.data.errors[i][0])
-              }
+                for(let i in res.data.errors){
+                      // this.e(res.data.errors[i][0])
+                      Swal.fire({
+                        position:"center",
+                        icon:"warning",
+                        title:res.data.errors[i][0],
+                        showConfirmButton:false,
+                        timer:1500
+                      });
+                }
               }else{
-                this.swr()
+                // this.swr()
+                Swal.fire({
+                        position:"center",
+                        icon:"error",
+                        title:res.data.errors[i][0],
+                        showConfirmButton:false,
+                        timer:1500
+                      });
               }
               
             }
-        }               
+
+        },              
        }
 }
 </script>

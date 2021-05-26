@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use DB;
 class gstClientController extends Controller
 {
@@ -22,6 +23,7 @@ class gstClientController extends Controller
         return view('admin.gstClient');
     }
     public function store(Request $request){
+        // dd('hello');
         // $users=User::create($request->all());
         $this->validate($request,[
             'name'=>'required',
@@ -47,6 +49,7 @@ class gstClientController extends Controller
     public function update($id){
         // dd(request('password'));
         if(request('password')!=null){
+            // dd('password is definded');
             $users=User::find($id);
             $users->name=request('name');
             $users->email=request('email');
@@ -57,6 +60,7 @@ class gstClientController extends Controller
             }
         }
         else{
+            // dd('password is not definded');
             $users=User::find($id);
             $users->name=request('name');
             $users->email=request('email');
@@ -88,6 +92,11 @@ class gstClientController extends Controller
         // $manager=User::where('is_admin','0')->paginate(5)->get();
         // $manager = DB::select('select * from users where is-admin=0');
         $manager=User::where('is_admin','0')->orderBy('created_at','DESC')->paginate(5);//where('is-admin','=', 0)->
+        foreach($manager as $p){
+            $p->setAttribute('added',Carbon::parse($p->created_at)->diffForHumans());
+            $p->setAttribute('info',$p->getpersonne_info);
+            $p->setAttribute('updated',Carbon::parse($p->updated_at)->diffForHumans());
+        }
         return response()->json($manager);        
     }
     

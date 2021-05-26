@@ -22,7 +22,7 @@ import VueStepWizard from 'vue-step-wizard'
 import 'vue-step-wizard/dist/vue-step-wizard.css'
 Vue.use(VueStepWizard);
 
-
+import store from './store/store'
 // import Multiselect from 'vue-multiselect'
 
 
@@ -78,5 +78,6 @@ Vue.component('app-home', require('./AppHome.vue').default);
 import router from './routes/routes.js';
 const app = new Vue({
     el: '#app',
-    router
+    router,
+    store
 });

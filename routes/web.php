@@ -33,32 +33,28 @@ Route::prefix('admin')->group(function() {
     Route::get('/user-edit/{id}','Admin\gstClientController@edit');
     Route::post('/user-update/{id}','Admin\gstClientController@update');
     Route::delete('/user-delete/{id}','Admin\gstClientController@destroy');
-    // Route::get('/manager-edit','Admin\gstManagerController@update')->middleware('admin');//{id}
-
-    // Route::post('/manager-update/{id}','Admin\gstManagerController@update');
-    
-    // Route::post('/manager-add','Admin\gstManagerController@add');
-    // Route::get('/manager-search/{data}','Admin\gstManagerController@searchData')->name('api.datat');
     Route::get('/gestion_client','Admin\gstClientController@all_liste')->middleware('admin');
 
    }) ;
-    // Route::post('/api/personne','Manager\PersonneController@store');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/test', 'PersonneController@test');
-Route::get('/test2', 'TypeActiviteController@getTypeDomaine');
-Route::get('/test3', 'TypeActiviteController@getDomaineType');
+// Route::get('/test', 'PersonneController@test');
+// Route::get('/test2', 'TypeActiviteController@getTypeDomaine');
+// Route::get('/test3', 'TypeActiviteController@getDomaineType');
 // Route::view('/add', 'admin.dashboard');
 // Route::get('admin/home', 'HomeController@handleAdmin')->name('admin.route')->middleware('admin');
 Route::get('manager/home', 'HomeController@handleManager')->name('manager.route')->middleware('manager');
 Route::get('user/home', 'HomeController@handleUser')->name('user.route')->middleware('user');
-// Route::get('user/home2', 'HomeController@handleUser2')->name('user.route2')->middleware('user','manager');
-Route::get('user/details', 'HomeController@handleUser2')->name('user.details')->middleware('user');
-Route::get('user/instagram', 'HomeController@handleUser2')->name('user.details')->middleware('user');
+Route::get('user/home2', 'HomeController@handleUser2')->name('user.route2');
+Route::get('user/details', 'HomeController@handleUser2')->name('user.details');//->middleware('user')
+Route::get('user/instagram', 'HomeController@handleUser2')->name('user.details');//->middleware('user')
+Route::get('user/facebook', 'HomeController@handleUser2')->name('user.details');//->middleware('user')
+Route::get('user/youtube', 'HomeController@handleUser2')->name('user.details');//->middleware('user')
+Route::get('user/snapchat', 'HomeController@handleUser2')->name('user.details');//->middleware('user')
 
 
-Route::group(['prefix'=>'user','middleware' => ['user']], function () {
-    //
-    Route::get('home2', 'HomeController@handleUser2')->name('user.route2');
-});
+// Route::group(['prefix'=>'user','middleware' => ['manager']], function () {
+//     //
+//     Route::get('home2', 'HomeController@handleUser2')->name('user.route2');
+// });

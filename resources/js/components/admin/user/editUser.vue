@@ -51,12 +51,23 @@ export default {
     props:['hello1'],
     methods:{
       update(){
+          if(this.hello1.name.trim()=='') return this.e('name is required')
+          if(this.hello1.email.trim()=='') return this.e('Email is required')
         axios.post('/admin/user-update/'+this.hello1.id,{
           name:this.hello1.name,
           email:this.hello1.email,
           password:this.newPass,
         })
-        .then(response=>this.$emit('user-updated',response))
+        .then(response=>{
+          this.$emit('user-updated',response);
+            Swal.fire({
+            position:"center",
+            icon:"success",
+            title:"Personne modifie",
+            showConfirmButton:false,
+            timer:1500
+          });
+        })
         .catch(error=>{console.log(error)});
       }
     }

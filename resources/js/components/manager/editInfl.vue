@@ -1,5 +1,5 @@
 <template>
-<div v-if="personne1.data!=null">
+<div >
   <!-- <button type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#updateInfl">
      <Icon type="md-create" />
   </button> -->

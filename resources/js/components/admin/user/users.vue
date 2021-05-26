@@ -23,9 +23,8 @@
                           <template v-if="user3.is_admin ==0">
                         <th scope="row">{{user3.name}}</th>
                         <td>{{user3.email}}</td>
-                        <td>{{user3.created_at }}</td>
-                        <td>{{user3.updated_at }}</td>
-                          
+                        <td>{{user3.added }}</td>
+                        <td>{{user3.updated }}</td>
                         <td><button type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#editModal" @click="getManager(user3.id)">
                         Editer</button>
                         </td>
@@ -85,32 +84,35 @@
             },
             deleteUser(id){
                 Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
+                    position:'center',
+                    title: 'etes vous sur?',
+                    text: "test test test!",
                     icon: 'warning',
                     showCancelButton: true,
+                    showConfirmationButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
+                    confirmButtonText: 'Oui',
+                    camcelButtonText:'Annuler'
                     }).then((result) => {
-                        axios.delete('/admin/user-delete/'+id).then((response)=>{
-                            this.users=response.data;
-                            refresh();
-                            // response=>this.$emit('user-updated',response)
+                        
                             if (result.isConfirmed) {
-                             Swal.fire(
-                            'Deleted!',
-                            'Your file has been deleted.',
-                            'success'
-                            )
-                        }    
-                        }).catch(()=>{
+                                axios.delete('/admin/user-delete/'+id).then(response=>{
+                            this.users=response.data;
+                                Swal.fire(
+                                    'Deleted!',
+                                    'Your file has been deleted.',
+                                    'success'
+                                )
+                                }).catch(()=>{
                              Swal.fire(
                             'Failed!',
                             'something wrong',
                             'warning'
                             )
                         });
+                            }    
+                        
                         
                 })
                 

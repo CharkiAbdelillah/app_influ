@@ -24,8 +24,8 @@
                         <template v-if="user3.is_admin == 2">  
                         <th scope="row">{{user3.name}}</th>
                         <td>{{user3.email}}</td>
-                        <td>{{user3.created_at }}</td>
-                        <td>{{user3.updated_at }}</td>
+                        <td>{{user3.added }}</td>
+                        <td>{{user3.updated }}</td>
                         <td><button type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#editModal" @click="getManager(user3.id)">
                         Editer</button>
                         </td>
@@ -77,15 +77,44 @@
             getManager(id){
                 axios.get('/admin/manager-edit/'+id)
                 .then(response=>this.hello1=response.data)
-                // .then(response1=>console.log(response1.data))
-                // .then(response1=>this.managerEdit=response1.name)
-                // .then(response1=>this.managerEdit=response1.name)
                 .catch(error=>console.log(error));
             },
+            // deleteManager(id){
+            //     axios.delete('/admin/manager-delete/'+id)
+            //     .then(response=>this.managers=response.data) 
+            //     .catch(error=>console.log(error));
+            // },
             deleteManager(id){
-                axios.delete('/admin/manager-delete/'+id)
-                .then(response=>this.managers=response.data) 
-                .catch(error=>console.log(error));
+                Swal.fire({
+                    position:'center',
+                    title: 'etes vous sur?',
+                    text: "test test test!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    showConfirmationButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Oui',
+                    camcelButtonText:'Annuler'
+                    }).then((result) => {
+                        
+                            if (result.isConfirmed) {
+                                axios.delete('/admin/manager-delete/'+id).then(response=>{
+                            this.managers=response.data;
+                                Swal.fire(
+                                    'Deleted!',
+                                    'Your Manager has been deleted',
+                                    'success'
+                                )
+                                }).catch(()=>{
+                             Swal.fire(
+                            'Failed!',
+                            'something wrong',
+                            'warning'
+                            )
+                        });
+                            }        
+                })
             },
             refresh(managers){
                 this.managers=managers.data
