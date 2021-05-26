@@ -478,11 +478,14 @@ class PersonneController extends Controller
         $fb=Facebook::where('personne_id',$personne->id)->first();
         $ytb=Youtube::where('personne_id',$personne->id)->first();
         $snap=Snapchat::where('personne_id',$personne->id)->first();
+        if($insta)
         $fb->domaine()->detach();
         if($insta)
            $insta->domaine()->detach();
-        $ytb->domaine()->detach();
-        $snap->domaine()->detach();
+        if($ytb)            
+            $ytb->domaine()->detach();
+        if($snap)
+            $snap->domaine()->detach();
         $personne->historique()->detach();
         if($personne->getpersonne_info)
             $personne->getpersonne_info->delete();

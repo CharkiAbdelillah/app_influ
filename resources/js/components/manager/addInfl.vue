@@ -15,13 +15,13 @@
       <div class="modal-body">
         <form @submit="addInfl" enctype="multipart/form-data">
           <!-- <input type="hidden" name="_token" v-bind:value="csrf"> -->
-          <div class="form-group">
+          <!-- <div class="form-group">
             <label for="" class="col-from-label">
               Nom de insta:
             </label>
             <input type="text" name="name" v-model="nameInsta" class="form-control">
             <button type="button" @click="getInsta(nameInsta)"></button>
-          </div>
+          </div> -->
           <div class="form-group">
             <label for="" class="col-from-label">
               Nom:
@@ -130,10 +130,11 @@ export default{
         formData.append("daten",this.daten);
         // formData.append("image",this.image);
         axios.post("/api/personne",formData,config).then(res=>{
+          this.$emit('personne-updated',res)
         // $('#addInfl').modal('hide');  
         // this.$emit('infl-added')
         // this.$refs.modalComponent.show();
-        $('#addInfl').modal('hide');  
+        // $('#addInfl').modal('hide');  
         console.log('hi')
       }).catch(err=>console.log('hahaha'));
       }

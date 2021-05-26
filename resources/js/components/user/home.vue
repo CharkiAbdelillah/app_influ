@@ -18,7 +18,11 @@
 						</div>
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
-								<li><a href="index.html" class="active">Home</a></li>
+								<li>
+									<router-link to="/user/home2">
+                                    	Home
+                                	</router-link>
+								</li>
 								<li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
                                         <li><a href="blog.html">Blog List</a></li>
@@ -30,11 +34,11 @@
 							</ul>
 						</div>
 					</div>
-					<div class="col-sm-3">
+					<!-- <div class="col-sm-3">
 						<div class="search_box pull-right">
 							<input type="text" placeholder="Search"/>
 						</div>
-					</div>
+					</div> -->
 				</div>
 			</div>
 		</div><!--/header-bottom-->
@@ -60,7 +64,7 @@
 									<button type="button" class="btn btn-default get">Get it now</button>
 								</div>
 								<div class="col-sm-6">
-									<img src="images/home/slide2.png" class="girl img-responsive" alt="" />
+									<img src="images/home/hslide1.png" class="girl img-responsive" alt="" />
 									<!-- <img src="images/home/logo3_miniv.png"  class="pricing" alt="" /> -->
 								</div>
 							</div>
@@ -73,7 +77,7 @@
 								</div>
 								<div class="col-sm-6">
 									<img src="images/home/slide2.png" class="girl img-responsive" alt="" />
-									<img src="images/home/logo.png"  class="pricing" alt="" />
+									<!-- <img src="images/home/logo.png"  class="pricing" alt="" /> -->
 								</div>
 							</div>
 							
@@ -85,8 +89,8 @@
 									<button type="button" class="btn btn-default get">Get it now</button>
 								</div>
 								<div class="col-sm-6">
-									<img src="images/home/slide2.png" class="girl img-responsive" alt="" />
-									<img src="images/home/logo3_miniv.png" align="left" class="pricing" alt="" />
+									<img src="images/home/hslide3.png" class="girl img-responsive" alt="" />
+									<!-- <img src="images/home/logo3_miniv.png" align="left" class="pricing" alt="" /> -->
 								</div>
 							</div>
 						</div>
@@ -396,7 +400,9 @@
 								</ul>
 							</div>
 						</div><!--/brands_products-->
-						<div class="price-range"><!--price-range-->
+						
+							<!--price-range-->
+						<!-- <div class="price-range">
 							<h2>number test</h2>
 							<div class="well text-center">
 									<label for="vol">Price (between 0 and 1000):</label>
@@ -405,7 +411,8 @@
 									<Slider v-model="value" range></Slider>
 							</div>
 						
-						</div><!--/price-range-->
+						</div> -->
+						<!--/price-range-->
 							
 					</div>
 				</div>

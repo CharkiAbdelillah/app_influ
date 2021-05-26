@@ -52,9 +52,9 @@
                         </td>
                         <td>{{user3.added }}</td>
                         <td>{{user3.updated }}</td>
-                          <td><button type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#updateInfl" @click="getPersonne(user3.id)">
+                          <td><button  type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#updateInfl" @click="getPersonne(user3.id)">
                           Editer1</button>
-                          <button type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#updateInflInfo" @click="getPersonneInfo(user3.id)">
+                          <button v-if="user3.info" type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#updateInflInfo" @click="getPersonneInfo(user3.id)">
                           Editer2</button>
                           <!-- <button type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#updateInflType2" @click="getPersonneType(user3.id)">
                            Editer3</button>-->
@@ -163,12 +163,12 @@
                     </tbody>
                     </table>
                     <pagination :data="personnes.perso" @pagination-change-page="getResults" class="mt-5"></pagination>
-                    <edit-infl v-bind:personne1="personne1" @personne-updated="refresh"></edit-infl>
-                    <edit-inflInfo v-bind:personne2="personne2" @personneInfo-updated="refresh"></edit-inflInfo>
-                    <edit-inflInsta v-bind:personne4="personne4" v-bind:personneid="personneid" @personneInsta-updated="refresh"></edit-inflInsta>
-                    <edit-inflFb v-bind:personne5="personne5"  @personneInsta-updated="refresh"></edit-inflFb>
-                    <edit-inflYtb v-bind:personne6="personne6" @personneInsta-updated="refresh"></edit-inflYtb> 
-                    <edit-inflSnap v-bind:personne7="personne7"  @personneInsta-updated="refresh"></edit-inflSnap> 
+                    <edit-infl v-bind:personne1="personne1" @personne-updated="refresh1"></edit-infl>
+                    <edit-inflInfo v-bind:personne2="personne2" @personneInfo-updated="refresh1"></edit-inflInfo>
+                    <edit-inflInsta v-bind:personne4="personne4" v-bind:personneid="personneid" @personneInsta-updated="refresh1"></edit-inflInsta>
+                    <edit-inflFb v-bind:personne5="personne5"  @personneInsta-updated="refresh1"></edit-inflFb>
+                    <edit-inflYtb v-bind:personne6="personne6" @personneInsta-updated="refresh1"></edit-inflYtb> 
+                    <edit-inflSnap v-bind:personne7="personne7"  @personneInsta-updated="refresh1"></edit-inflSnap> 
 
     <!-- <edit-infl @infl-updated="getPersonnes"></edit-infl> -->
     </div>
@@ -272,43 +272,81 @@
             },
             deletePersonne(id){
                 Swal.fire({
-                    title: 'Etes vous sur?',
-                    // text: "You won't be able to revert this!",
+                    position:'center',
+                    title: 'etes vous sur?',
+                    text: "test test test!",
                     icon: 'warning',
                     showCancelButton: true,
-                    showConfirmButton: true,
+                    showConfirmationButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
-                    cancelButtonText: 'Annuler',
-                    confirmButtonText: 'Oui'
-                    }).then(result => {
-                      if(result.value){
-                        // axios.delete('/api/personneDelete/'+id)
-                        axios.delete('/api/personne/'+id)
-                        .then(res=>{
-                            Swal.fire({
-                            position:'center',
-                            icon:'success',
-                            title:'Personne supprime',
-                            showConfirmButton: flase,
-                            timer:1200
+                    confirmButtonText: 'Oui',
+                    camcelButtonText:'Annuler'
+                    }).then((result) => {
+                        
+                            if (result.isConfirmed) {
+                                axios.delete('/api/personne/'+id).then(response=>{
+                                    // console.log('res : '+response.data);
+                            // this.personnes=response;
+                            this.refresh1();
+                                Swal.fire(
+                                    'Deleted!',
+                                    'Your Manager has been deleted',
+                                    'success'
+                                )
+                                }).catch(()=>{
+                             Swal.fire(
+                            'Failed!',
+                            'something wrong',
+                            'warning'
+                            )
                         });
-                        this.getPersonnes();
-                        }).catch(()=>{  
-                            Swal.fire({
-                            position:'center',
-                            icon:'failed',
-                            title:'Personne non supprime',
-                            showConfirmButton: flase,
-                            timer:1200
-                            }); 
-                        });
-                    }
-                    }
-                    )
-                    },
-            refresh(personnes){
+                            }        
+                })
+            },
+            // deletePersonne(id){
+            //     Swal.fire({
+            //         title: 'Etes vous sur?',
+            //         // text: "You won't be able to revert this!",
+            //         icon: 'warning',
+            //         showCancelButton: true,
+            //         showConfirmButton: true,
+            //         confirmButtonColor: '#3085d6',
+            //         cancelButtonColor: '#d33',
+            //         cancelButtonText: 'Annuler',
+            //         confirmButtonText: 'Oui'
+            //         }).then(result => {
+            //           if(result.value){
+            //             // axios.delete('/api/personneDelete/'+id)
+            //             axios.delete('/api/personne/'+id)
+            //             .then(res=>{
+            //                 Swal.fire({
+            //                 position:'center',
+            //                 icon:'success',
+            //                 title:'Personne supprime',
+            //                 showConfirmButton: flase,
+            //                 timer:1200
+            //             });
+            //             this.getPersonnes();
+            //             }).catch(()=>{  
+            //                 Swal.fire({
+            //                 position:'center',
+            //                 icon:'failed',
+            //                 title:'Personne non supprime',
+            //                 showConfirmButton: flase,
+            //                 timer:1200
+            //                 }); 
+            //             });
+            //         }
+            //         }
+            //         )
+            //         },
+            refresh1(){
+              // console.log('hahahah');
                 this.getPersonnes();
+            },
+            refresh(personnes){
+                this.personnes.perso=personnes.perso.data;
             },
         
         // mounted() {
