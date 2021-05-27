@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Home | 3-Social</title>
+    <title>Home | 3WDEV</title>
     <link href="{{asset('user/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{asset('user/css/font-awesome.min.css')}}" rel="stylesheet">
     <link href="{{asset('user/css/prettyPhoto.css')}}" rel="stylesheet">

@@ -4,7 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Personne_info;
 use App\Personne;
+use App\Youtube;
+use App\Snapchat;
+use App\Facebook;
 use Illuminate\Http\Request;
+use App\Feed;
+use App\Instagrame;
+use App\Story;
 
 class PersonneInfoController extends Controller
 {
@@ -52,7 +58,67 @@ class PersonneInfoController extends Controller
             'situation'=>$request->situation,
             'nombre'=>$request->nombre,
         ]);
-        // Personne_info::create(['personne_id'=>$personne->id]);
+        /////inta 
+        $insta=Instagrame::create([
+            'personne_id'=>$personne->id,
+            'nombre_abonne'=>0,
+            'engagement'=>'3wdev',
+            'qualite'=>'3wdev',
+            'like'=>0,
+            'commentaire'=>0,
+            'followers'=>0,
+        ]);
+        // dd($insta->id);
+        $insta->domaine()->attach('3wdev');
+        // \Log:info($insta->id);
+        Story::create([
+            'instagrame_id'=>$insta->id,
+            'date_1er'=>'3wdev',
+            'nombre_publicaion'=>0, 
+            'taux_reponse'=>0,
+            'nombre_jaime'=>0,
+        ]);
+        Feed::create([
+            'instagrame_id'=>$insta->id,
+            'date_1er'=>'3wdev',
+            'nombre_publicaion'=>0, 
+            'taux_reponse'=>0,
+            'nombre_jaime'=>0,
+        ]);
+        // **** snap
+        $snap=Snapchat::create([
+            'personne_id'=>$personne->id,
+            'nombre_abonne'=>0,
+            'engagement'=>'3wdev',
+            'qualite'=>'3wdev',
+            'like'=>0,
+            'commentaire'=>0,
+            'followers'=>0,
+        ]);
+        $snap->domaine()->attach('3dew');
+        // **** ytb
+        $ytb=Youtube::create([
+            'personne_id'=>$personne->id,
+            'nombre_abonne'=>0,
+            'engagement'=>'3wdev',
+            'qualite'=>'3wdev',
+            'like'=>0,
+            'commentaire'=>0,
+            'followers'=>0,
+        ]);
+        $ytb->domaine()->attach('3wdew');
+        // **** fb
+        $fb=Facebook::create([
+            'personne_id'=>$personne->id,
+            'nombre_abonne'=>0,
+            'engagement'=>'3wdev',
+            'qualite'=>'3wdev',
+            'like'=>0,
+            'commentaire'=>0,
+            'followers'=>0,
+        ]);
+        $fb->domaine()->attach('3wdew');
+        
         return response()->json(['message'=>'Ajout bien fait']);
     }
 

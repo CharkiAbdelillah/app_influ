@@ -57,54 +57,81 @@
       </div>
       <div class="sidebar-wrapper" id="sidebar-wrapper">
         <ul class="nav">
-          <li class="{{'admin/home'== request()->path()? 'active': ''}}"> 
+          {{-- @if(auth()->user()->is_admin == 2)
+                <li class="{{'admin/home'== request()->path()? 'active': ''}}"> 
+                  <a href=".home">
+                    <i class="now-ui-icons design_app"></i>
+                    <p>Dashboard2</p>
+                  </a>
+                </li> 
+								@elseif(auth()->user()->is_admin == 1)
+									<li><a href="/admin/home"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+								@endif --}}
+          {{-- <li class="{{'admin/home'== request()->path()? 'active': ''}}"> 
             <a href="home">
               <i class="now-ui-icons design_app"></i>
               <p>Dashboard</p>
             </a>
-          </li>
-          <li>
+          </li>  --}}
+          {{-- <li>
+            <a href="./dashboard.html">
+              <i class="now-ui-icons design_app"></i>
+              <p>Dashboard</p>
+            </a>
+          </li> --}}
+          @if(auth()->user()->is_admin == 2)
+                <li>
+            <a href="">
+              <i class="now-ui-icons design_app"></i>
+              <p>Gestion des influenceurs</p>
+            </a>
+               </li>
+								@elseif(auth()->user()->is_admin == 1)
+                  <li class="{{'admin/home'== request()->path()? 'active': ''}}"> 
+                    <a href="home">
+                      <i class="now-ui-icons design_app"></i>
+                      <p>Dashboard</p>
+                    </a>
+                  </li> 
+                  <li class="{{'admin/gestion_manger'== request()->path()? 'active': ''}}">
+                    <a href="/admin/gestion_manger">
+                      <i class="now-ui-icons users_single-02"></i>
+                      <p>Gestion des managers</p>
+                    </a>
+                  </li>
+                  <li class="{{'admin/gestion_client'== request()->path()? 'active': ''}}">
+                    <a href="/admin/gestion_client">
+                      <i class="now-ui-icons users_single-02"></i>
+                      <p>Gestion des clients</p>
+                    </a>
+                  </li>
+                  <li>
+								@endif
+                <li>
             <a href="/user/home2">
               <i class="now-ui-icons education_atom"></i>
               <p>Go to</p>
             </a>
           </li>
-          <li>
-            <a href="./map.html">
-              <i class="now-ui-icons location_map-big"></i>
-              <p>Maps</p>
-            </a>
-          </li>
-          <li>
+          {{-- <li>
             <a href="./notifications.html">
               <i class="now-ui-icons ui-1_bell-53"></i>
               <p>Notifications</p>
             </a>
-          </li>
-          <li class="{{'admin/gestion_manger'== request()->path()? 'active': ''}}">
-            <a href="/admin/gestion_manger">
-              <i class="now-ui-icons users_single-02"></i>
-              <p>Gestion des managers</p>
-            </a>
-          </li>
-          <li class="{{'admin/gestion_client'== request()->path()? 'active': ''}}">
-            <a href="/admin/gestion_client">
-              <i class="now-ui-icons users_single-02"></i>
-              <p>Gestion des clients</p>
-            </a>
-          </li>
-          <li>
+          </li> --}}
+          
+          {{-- <li>
             <a href="./typography.html">
               <i class="now-ui-icons text_caps-small"></i>
               <p>Typography</p>
             </a>
-          </li>
-          <li class="active-pro">
+          </li> --}}
+          {{-- <li class="active-pro">
             <a href="./upgrade.html">
               <i class="now-ui-icons arrows-1_cloud-download-93"></i>
               <p>Upgrade to PRO</p>
             </a>
-          </li>
+          </li> --}}
         </ul>
       </div>
     </div>

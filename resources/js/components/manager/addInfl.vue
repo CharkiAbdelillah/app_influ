@@ -113,7 +113,15 @@ export default{
                 })
                 .catch(error=>{console.log(error)})
       },
+       hideModal() {
+            $("#addInfl").removeClass("in");
+            $(".modal-backdrop").remove();
+            $("#addInfl").hide();
+          },
       addInfl(e){
+        // if(this.name.trim()=='') {this.hideModal(); return this.e('name is required');}
+        // if(this.prenom.trim()=='') return this.e('prenom is required');
+			  // if(this.ville.trim()=='') return this.e('ville is required');
         e.preventDefault();//pour ne pas actualiser la page
         const config={
           headers:{"content-type":"multipart/form-data"}
@@ -130,13 +138,42 @@ export default{
         formData.append("daten",this.daten);
         // formData.append("image",this.image);
         axios.post("/api/personne",formData,config).then(res=>{
-          this.$emit('personne-updated',res)
+          this.hideModal();
+          this.s('inf has been created successfully!')
+          this.$emit('personne-added',res)
         // $('#addInfl').modal('hide');  
         // this.$emit('infl-added')
         // this.$refs.modalComponent.show();
         // $('#addInfl').modal('hide');  
         console.log('hi')
-      }).catch(err=>console.log('hahaha'));
+      }).catch(function (error) {
+        if (error.response) {
+          if(error.response.status==500){
+                      // this.e(res.data.errors[i][0])
+                      Swal.fire({
+                        position:"center",
+                        icon:"warning",
+                        title:'vous devez remplire tous les champs',
+                        showConfirmButton:false,
+                        timer:1500
+                      });
+
+          
+        }else{
+                // this.swr()
+                Swal.fire({
+                        position:"center",
+                        icon:"error",
+                        title:'something wrong',
+                        showConfirmButton:false,
+                        timer:1500
+                      });
+              }
+              console.log(error.response.data);
+              console.log(error.response.status);
+              console.log(error.response.headers);
+              }
+      });
       }
     }
 }

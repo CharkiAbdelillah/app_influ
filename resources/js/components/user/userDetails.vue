@@ -140,7 +140,6 @@
 										  <a href=""><img src="images/product-details/sim2.jpg" alt=""></a>
 										</div>
 									</div>
-
 								  <!-- Controls -->
 								  <a class="left item-control" href="#similar-product" data-slide="prev">
 									<i class="fa fa-angle-left"></i>
@@ -236,68 +235,23 @@
 				<div class="row">
 					<div class="col-sm-2">
 						<div class="companyinfo">
-							<h2><span>e</span>-shopper</h2>
+							<h2><span>3</span>WDEV</h2>
 							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,sed do eiusmod tempor</p>
 						</div>
 					</div>
 					<div class="col-sm-7">
-						<div class="col-sm-3">
+						<div class="col-sm-3" v-for="(pp,index) in this.personnes4.data"  :key="index">
 							<div class="video-gallery text-center">
-								<a href="#">
-									<div class="iframe-img">
-										<img src="images/home/iframe1.png" alt="" />
+								<router-link :to="{name:'UserDetails'}">
+									<div class="iframe-img" @click="passId(pp.id)">
+										<img :src="pp.photo" alt="" />
 									</div>
 									<div class="overlay-icon">
 										<i class="fa fa-play-circle-o"></i>
 									</div>
-								</a>
-								<p>Circle of Hands</p>
-								<h2>24 DEC 2014</h2>
-							</div>
-						</div>
-						
-						<div class="col-sm-3">
-							<div class="video-gallery text-center">
-								<a href="#">
-									<div class="iframe-img">
-										<img src="images/home/iframe2.png" alt="" />
-									</div>
-									<div class="overlay-icon">
-										<i class="fa fa-play-circle-o"></i>
-									</div>
-								</a>
-								<p>Circle of Hands</p>
-								<h2>24 DEC 2014</h2>
-							</div>
-						</div>
-						
-						<div class="col-sm-3">
-							<div class="video-gallery text-center">
-								<a href="#">
-									<div class="iframe-img">
-										<img src="images/home/iframe3.png" alt="" />
-									</div>
-									<div class="overlay-icon">
-										<i class="fa fa-play-circle-o"></i>
-									</div>
-								</a>
-								<p>Circle of Hands</p>
-								<h2>24 DEC 2014</h2>
-							</div>
-						</div>
-						
-						<div class="col-sm-3">
-							<div class="video-gallery text-center">
-								<a href="#">
-									<div class="iframe-img">
-										<img src="images/home/iframe4.png" alt="" />
-									</div>
-									<div class="overlay-icon">
-										<i class="fa fa-play-circle-o"></i>
-									</div>
-								</a>
-								<p>Circle of Hands</p>
-								<h2>24 DEC 2014</h2>
+								</router-link>
+								<p>{{pp.nom}}</p>
+								<h2>{{pp.date}}</h2>
 							</div>
 						</div>
 					</div>
@@ -395,13 +349,20 @@ import {mapState,mapGetters} from 'vuex'
 export default{
      data(){
           return {
-            // daten:this.$route.params.date_per,
+            personnes4:{},
        };
     },
     // props:['user1'],
     created(){
+		this.getPersonnes4();
         },
     methods:{
+		getPersonnes4(){
+                axios.get('/api/personneLastFour').then(response=>{
+                    this.personnes4=response.data;
+                })
+                .catch(error=>{console.log(error)})
+            },
     },
 	computed:{
 	...mapGetters(['getOnePersonne']),

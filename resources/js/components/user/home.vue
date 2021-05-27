@@ -58,9 +58,9 @@
 						<div class="carousel-inner">
 							<div class="item active">
 								<div class="col-sm-6">
-									<h1><span>3</span>-SOCIAL</h1>
-									<h2>Free E-Social Template</h2>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+									<h1><span>3</span>WDEV</h1>
+									<h2>FIND INFLUENCERS</h2>
+									<p>If you are a business or entity looking for data then we have solutions for you with our query builder. Filter the results to get laser targeted queries delivered to you.</p>
 									<button type="button" class="btn btn-default get">Get it now</button>
 								</div>
 								<div class="col-sm-6">
@@ -70,9 +70,9 @@
 							</div>
 							<div class="item">
 								<div class="col-sm-6">
-									<h1><span>3</span>-SOCIAL</h1>
-									<h2>100% Responsive Design</h2>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+									<h1><span>3</span>WDEV</h1>
+									<h2>GROW YOU CHANNEL</h2>
+									<p>Allow our YouTube-certified experts to take a look at your channel and bring it to new heights. We'll take you step by step on how to grow your channel!</p>
 									<button type="button" class="btn btn-default get">Get it now</button>
 								</div>
 								<div class="col-sm-6">
@@ -83,9 +83,9 @@
 							
 							<div class="item">
 								<div class="col-sm-6">
-									<h1><span>3</span>-SOCIAL</h1>
-									<h2>Free Social Template</h2>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+									<h1><span>3</span>WDEV</h1>
+									<h2>Simplified Analytics !</h2>
+									<p>Social Blade gives all users access to our public database which, using advanced technology, is able to provide you with global analytics for any content creator</p>
 									<button type="button" class="btn btn-default get">Get it now</button>
 								</div>
 								<div class="col-sm-6">
@@ -428,7 +428,6 @@
                                             <img :src="user1.photo" alt="" />
 											<router-link :to="{name:'UserDetails',params:{user1,date_per:user1.date}}">
 												<p @click="passId(user1.id)">{{user1.nom}}</p>
-
 											</router-link>
 											<!-- <router-link :to="{name:'UserDetails',params:{id:user1.id}}">
 												<p>{{user1.nom}}</p>
@@ -446,7 +445,7 @@
 							</div>
 						</div>
 					</div><!--features_items-->
-					<pagination :data="this.personnes.perso" @pagination-change-page="getResults" class="mt-5"></pagination>
+					<pagination :data="this.personnes.perso" @pagination-change-page="getResults" class="mt-5" style="bgcolor:black;"></pagination>
 				</div>
 			</div>
 		</div>
@@ -458,27 +457,27 @@
 				<div class="row">
 					<div class="col-sm-2">
 						<div class="companyinfo">
-							<h2><span>e</span>-shopper</h2>
+							<h2><span>3</span>WDEV</h2>
 							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,sed do eiusmod tempor</p>
 						</div>
 					</div>
-					<div class="col-sm-7">
-						<div class="col-sm-3">
+					<div class="col-sm-7" >
+						<div class="col-sm-3" v-for="(pp,index) in this.personnes4.data"  :key="index">
 							<div class="video-gallery text-center">
-								<a href="#">
-									<div class="iframe-img">
-										<img src="images/home/iframe1.png" alt="" />
+								<router-link :to="{name:'UserDetails'}">
+									<div class="iframe-img" @click="passId(pp.id)">
+										<img :src="pp.photo" alt="" />
 									</div>
 									<div class="overlay-icon">
 										<i class="fa fa-play-circle-o"></i>
 									</div>
-								</a>
-								<p>Circle of Hands</p>
-								<h2>24 DEC 2014</h2>
+								</router-link>
+								<p>{{pp.nom}}</p>
+								<h2>{{pp.date}}</h2>
 							</div>
 						</div>
 						
-						<div class="col-sm-3">
+						<!-- <div class="col-sm-3">
 							<div class="video-gallery text-center">
 								<a href="#">
 									<div class="iframe-img">
@@ -521,7 +520,7 @@
 								<p>Circle of Hands</p>
 								<h2>24 DEC 2014</h2>
 							</div>
-						</div>
+						</div> -->
 					</div>
 					<div class="col-sm-3">
 						<div class="address">
@@ -617,6 +616,7 @@
         data(){
             return{
                 personnes:{},
+				personnes4:{},
                 personnes2:{},
                 his:{},
                 nom:'',
@@ -657,15 +657,23 @@
             }
         },
         created(){
+			// this.$store.dispatch('getPosts');
             this.getHistorique();
             this.getPersonnes();
             this.getPersonnes2();
+			this.getPersonnes4();
 			this.getDomaine();
         },
-        mounted() {
-            console.log('moooonted');
+          mounted() {
+			this.$store.dispatch('getPosts');
+			// // this.$store.dispatch('passIdd',idd);
+            // console.log('moooonted');
 		},
         methods:{
+			passId(id){
+				this.$store.commit('passId',id)
+				// this.$store.dispatch('getPosts');
+			},
             getHistorique(){
         		axios.get('/api/personneHistorique').then(response=>{
                     console.log('histo : '+response.data);
@@ -700,6 +708,12 @@
                     // this.personnes2=response.data;
                     this.lastId=response.data[0].id;
                     this.lastId2=personnes.data[0].id;
+                })
+                .catch(error=>{console.log(error)})
+            },
+			getPersonnes4(){
+                axios.get('/api/personneLastFour').then(response=>{
+                    this.personnes4=response.data;
                 })
                 .catch(error=>{console.log(error)})
             },

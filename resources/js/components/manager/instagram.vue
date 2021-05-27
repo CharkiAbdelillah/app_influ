@@ -163,15 +163,44 @@ export default{
       this.getLastInfl()
     //   this.getDomaineHis()
     },
+    
     methods:{
+      hideModal() {
+            $("#insta").removeClass("in");
+            $(".modal-backdrop").remove();
+            $("#insta").hide();
+          },
       async addInstagrame(e){
         e.preventDefault();//pour ne pas actualiser la page
         const res=await this.callApi('post','/api/personneTypeInstagram',this.data3)
         if(res.status==200){
+          this.hideModal();
           this.s('Success')
+          this.$emit('personneInsta-added',res)
         }else{
-          this.swr()
-        }
+              if(res.status==500){
+                      // this.e(res.data.errors[i][0])
+                      Swal.fire({
+                        position:"center",
+                        icon:"warning",
+                        title:'vous devez remplire tous les champs',
+                        showConfirmButton:false,
+                        timer:1500
+                      });
+
+          
+        }else{
+                // this.swr()
+                Swal.fire({
+                        position:"center",
+                        icon:"error",
+                        title:'something wrong',
+                        showConfirmButton:false,
+                        timer:1500
+                      });
+              }
+              
+            }
       },
       getDomaine(){
         axios.get('/api/personneTypeDomaine').then(response=>{

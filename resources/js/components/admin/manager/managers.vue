@@ -37,7 +37,7 @@
                     </tbody>
                     <edit1-manager v-bind:hello1="hello1" @manager-updated="refresh"></edit1-manager>
 </table>
-<pagination :data="managers" @pagination-change-page="getResults" class="mt-5"></pagination>
+<pagination  :data="managers" @pagination-change-page="getResults" class="paginate3wdev"></pagination>
     </div>
 </template>
 

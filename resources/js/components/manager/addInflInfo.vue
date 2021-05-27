@@ -24,70 +24,101 @@
               <input type="text" v-model="kg" class="form-control" placeholder="kg">
             </div>
           </div>
-          <select class="custom-select" v-model="cheveux">
-            <option selected>Cheveux</option>
-            <option value="Noir">Noir</option>
-            <option value="Brun">Brun</option>
-            <option value="Chatain">Chatain</option>
-            <option value="Blond">Blond</option>
-            <option value="Roux">Roux</option>            
-          </select>
-          <select class="custom-select" v-model="longueur">
-            <option selected>Longueur</option>
-            <option value="Très court">Très court</option>
-            <option value="Court">Court</option>
-            <option value="Mi-long">Mi-long</option>
-            <option value="Long">Long</option>
-          </select>
-          <select class="custom-select" v-model="nature">
-            <option selected>Nature</option>
-            <option value="Lisse">Lisse</option>
-            <option value="Ondulés">Ondulés</option>
-            <option value="Bouclés">Bouclés</option>
-            <option value="Crépus">Crépus</option>
-          </select>
-          <select class="custom-select" v-model="couleur">
-            <option selected>Couleur de peau</option>
-            <option value="Blanche">Blanche</option>
-            <option value="Beige">Beige</option>
-            <option value="Matte">Matte</option>
-            <option value="Noir">Noir</option>
-          </select>
-          <select class="custom-select" v-model="yeux">
-            <option selected>Yeux</option>
-            <option value="Noir">Noir</option>
-            <option value="Brun">Brun</option>
-            <option value="Vert">Vert</option>
-            <option value="Bleu">Bleu</option>
-          </select>
-          <select class="custom-select" v-model="niveau">
-            <option selected>Niveau éducatif</option>
-            <option value="Bac">Bac</option>
-            <option value="Bac+2 (DEUG)">Bac+2 (DEUG)</option>
-            <option value="Bac+3 (Licence)">Bac+3 (Licence)</option>
-            <option value="Bac+5 (Master)">Bac+5 (Master)</option>
-            <option value="Bac+8 (Doctorat)">Bac+8 (Doctorat)</option>
-          </select>
-          <select class="custom-select" v-model="specialite">
-            <option selected>Spécialité</option>
-            <option value="Journalisme">Journalisme</option>
-            <option value="Économie">Économie</option>
-            <option value="Ingénierie">Ingénierie</option>
-            <option value="Informatique">Informatique</option>
-            <option value="Médecine">Médecine</option>
-            <option value="Autre…">Autre…</option>
-          </select>
-          <select class="custom-select" v-model="situation">
-            <option selected>Situation matrimoniale</option>
-            <option value="Marié">Marié</option>
-            <option value="Célibataire">Célibataire</option>
-          </select>
-          <select class="custom-select" v-model="nombre">
-            <option selected>Nombre d'enfants</option>
-            <option value="1 enfant">1 enfant</option>
-            <option value="2 enfants">2 enfants</option>
-            <option value="3 enfants et plus">3 enfants et plus</option>
-          </select>
+          <!-- <Select v-model="model9" placeholder="hi" style="width:200px">
+        <Option value="New York" label="New York">
+            <span>New York</span>
+            <span style="float:right;color:#ccc">America</span>
+        </Option>
+        </Select> -->
+        <br>
+        <Row>
+            <Col span="12" style="padding-right:10px">
+                <Select placeholder="Cheveux" v-model="cheveux" filterable>
+                    <Option value="Noir">Noir</Option>
+                    <Option value="Brun">Brun</Option>
+                    <Option value="Chatain">Chatain</Option>
+                    <Option value="Blond">Blond</Option>
+                    <Option value="Roux">Roux</Option>
+                </Select>
+            </Col>
+            <Col span="12">
+                <Select placeholder="Longueur" v-model="longueur" filterable>
+                    <Option value="Très court">Très court</Option>
+                    <Option value="Court">Court</Option>
+                    <Option value="Chatain">Chatain</Option>
+                    <Option value="Mi-long">Mi-long</Option>
+                    <Option value="Long">Long</Option>
+                </Select>
+            </Col>
+        </Row><br>
+        <Row>
+            <Col span="12" style="padding-right:10px">
+                <Select placeholder="Nature" v-model="nature" filterable>
+                    <Option value="Lisse">Lisse</Option>
+                    <Option value="Ondulés">Ondulés</Option>
+                    <Option value="Bouclés">Bouclés</Option>
+                    <Option value="Crépus">Crépus</Option>
+                </Select>
+            </Col>
+            <Col span="12">
+                <Select placeholder="Couleur de peau" v-model="couleur" filterable>
+                    <Option value="Blanche">Blanche</Option>
+                    <Option value="Beige">Beige</Option>
+                    <Option value="Matte">Matte</Option>
+                    <Option value="Noir">Noir</Option>
+                </Select>
+            </Col>
+        </Row>
+        <br>
+        <Row>
+            <Col span="12" style="padding-right:10px">
+                <Select placeholder="Yeux" v-model="yeux" filterable>
+                    <Option value="Noir">Noir</Option>
+                    <Option value="Brun">Brun</Option>
+                    <Option value="Vert">Vert</Option>
+                    <Option value="Bleu">Bleu</Option>
+                </Select>
+            </Col>
+            <Col span="12">
+                <Select placeholder="Niveau éducatif" v-model="niveau" filterable>
+                    <Option value="Bac">Bac</Option>
+                    <Option value="Bac+2 (DEUG)">Bac+2 (DEUG)</Option>
+                    <Option value="Bac+3 (Licence)">Bac+3 (Licence)</Option>
+                    <Option value="Bac+5 (Master)">Bac+5 (Master)</Option>
+                    <Option value="Bac+8 (Doctorat)">Bac+8 (Doctorat)</Option>
+                </Select>
+            </Col>
+        </Row>
+        <br>
+        <Row>
+            <Col span="12" style="padding-right:10px">
+                <Select placeholder="Specialite" v-model="specialite" filterable>
+                    <Option value="Spécialité">Spécialité</Option>
+                    <Option value="Journalisme">Journalisme</Option>
+                    <Option value="Économie">Économie</Option>
+                    <Option value="Ingénierie">Ingénierie</Option>
+                    <Option value="Informatique">Informatique</Option>
+                    <Option value="Médecine">Médecine</Option>
+                    <Option value="Autre…">Autre…</Option>
+                </Select>
+            </Col>
+            <Col span="12">
+                <Select placeholder="Situation matrimoniale" v-model="situation" filterable>
+                    <Option value="Marié">Marié</Option>
+                    <Option value="Célibataire">Célibataire</Option>
+                </Select>
+            </Col>
+        </Row>
+        <br>
+        <Row v-if="this.situation!='Célibataire'">
+            <Col span="12">
+                <Select placeholder="Nombre d'enfants" v-model="nombre" filterable>
+                    <Option value="1 enfant">1 enfant</Option>
+                    <Option value="2 enfants">2 enfants</Option>
+                    <Option value="3 enfants et plus">3 enfants et plus</Option>
+                </Select>
+            </Col>
+        </Row>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Retour</button>
             <button type="submit" class="btn btn-success">Cree</button>
@@ -125,6 +156,11 @@ export default{
       show(){
               this.$refs.modal1.show();
             },
+      hideModal() {
+            $("#modal1").removeClass("in");
+            $(".modal-backdrop").remove();
+            $("#modal1").hide();
+      },
       addInflInfo(e){
         e.preventDefault();//pour ne pas actualiser la page
         let formData=new FormData();//pour communiquer avec la form
@@ -140,9 +176,44 @@ export default{
         formData.append("situation",this.situation);
         formData.append("nombre",this.nombre);
         axios.post("/api/personneInfo",formData).then(res=>{
-        // $('#personneInfo').modal('hide');
+          this.hideModal();
+          this.s('inf info has been created successfully!')
+          this.$emit('personneInfo-added',res)
+        // $('#addInfl').modal('hide');  
+        // this.$emit('infl-added')
+        // this.$refs.modalComponent.show();
+        // $('#addInfl').modal('hide');
         console.log('hi')
-      }).catch(err=>console.log('hahaha'));
+      }).catch(function (error) {
+        if (error.response) {
+          if(error.response.status==500){
+                for(let i in error.response.data){
+                      // this.e(res.data.errors[i][0])
+                      Swal.fire({
+                        position:"center",
+                        icon:"warning",
+                        title:'vous devez remplire tous les champs',
+                        showConfirmButton:false,
+                        timer:1500
+                      });
+                  }
+
+          
+        }else{
+                // this.swr()
+                Swal.fire({
+                        position:"center",
+                        icon:"error",
+                        title:'something wrong',
+                        showConfirmButton:false,
+                        timer:1500
+                      });
+              }
+              console.log(error.response.data);
+              console.log(error.response.status);
+              console.log(error.response.headers);
+              }
+      });
       }
     }
 }

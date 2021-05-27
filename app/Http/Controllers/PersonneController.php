@@ -34,14 +34,19 @@ class PersonneController extends Controller
             return $this->refresh2();
         
     }
+    public function index4()
+    {
+        $personne=Personne::orderBy('created_at','DESC')->paginate(4);//where('is-admin','=', 0)->  
+        return $personne;
+    }
     public function indexSearch($q)
     {
-            $per=Personne::where('nom','like','%'.$q.'%')->paginate(5);
+            $per=Personne::where('nom','like','%'.$q.'%')->paginate(9);
             return response()->json(['perso'=>$per]);    
     }   
     private function refresh(){
         Carbon::setlocale('fr');
-        $personne=Personne::orderBy('created_at','DESC')->with('historique','instagram.domaine','instagram.feed','instagram.story','facebook.domaine','snapchat.domaine','youtube.domaine')->paginate(5);//where('is-admin','=', 0)->  
+        $personne=Personne::orderBy('created_at','DESC')->with('historique','instagram.domaine','instagram.feed','instagram.story','facebook.domaine','snapchat.domaine','youtube.domaine')->paginate(9);//where('is-admin','=', 0)->  
         foreach($personne as $p){
             $p->setAttribute('added',Carbon::parse($p->created_at)->diffForHumans());
             $p->setAttribute('info',$p->getpersonne_info);
@@ -59,7 +64,16 @@ class PersonneController extends Controller
         }
         return response()->json(['perso'=>$personne]);
     }
-
+    // private function refresh4(){
+    //     Carbon::setlocale('fr');
+    //     $personne=Personne::orderBy('created_at','DESC')->with('historique','instagram.domaine','instagram.feed','instagram.story','facebook.domaine','snapchat.domaine','youtube.domaine')->get();//where('is-admin','=', 0)->  
+    //     foreach($personne as $p){
+    //         $p->setAttribute('added',Carbon::parse($p->created_at)->diffForHumans());
+    //         $p->setAttribute('info',$p->getpersonne_info);
+    //         $p->setAttribute('updated',Carbon::parse($p->updated_at)->diffForHumans());
+    //     }
+    //     return response()->json(['perso'=>$personne]);
+    // }
     public function getLastId()
     {
         $personne=Personne::orderBy('created_at', 'desc')->first();
@@ -268,38 +282,38 @@ class PersonneController extends Controller
         //         }
 //delete ver
 //verifier
-            $personne=Personne::where('id',27)->get();
-            \Log::info('personne '.$personne);
-            // \Log::info('personne info '.$personne->getpersonne_info);
-        $dom=Type_activite::where('personne_id',27)->get();
-        // \Log::info('dom objetc '.$dom);
-            foreach ($dom as $d){
-                $typeid=$d->id;
-                $typenom=$d->nom;
-                \Log::info('type id '.$typeid);  
-                \Log::info('type nom '.$typenom);
-                // if($d->nom=='Instagram'){
-                //     // $ff2=$d->instagrame;  
-                //     \Log::info('insta id '.$d->instagrame->id);  
-                // }
-                    foreach($d->domaine as $his){
-                        \Log::info('dom '.$his->nom);
-                        $domId=$his->id;
-                        // \Log::info('dom id :'.$domId);
-                        foreach($his->domaine_historique as $his2){
-                                if($his2->pivot->type_id==$typeid && $typenom==$his2->pivot->type_nom && $domId==$his2->pivot->domaine_id){
-                                    \Log::info('his '.$his2->nom); //&& $typenom==$kk->type_id
-                                    // \Log::info('his total : '.$his2->pivot->id); //&& $typenom==$kk->type_id
-                                }   
-                        }   
-                   }   
-            }
-            if(isset($ff2)){
-                $dom2=Feed::where('instagrames_id',$ff2)->get();
-                $dom3=Story::where('instagrames_id',$ff2)->get();
-                \Log::info('feed '.$dom2);
-                \Log::info('story '.$dom3);
-            }
+        //     $personne=Personne::where('id',27)->get();
+        //     \Log::info('personne '.$personne);
+        //     // \Log::info('personne info '.$personne->getpersonne_info);
+        // $dom=Type_activite::where('personne_id',27)->get();
+        // // \Log::info('dom objetc '.$dom);
+        //     foreach ($dom as $d){
+        //         $typeid=$d->id;
+        //         $typenom=$d->nom;
+        //         \Log::info('type id '.$typeid);  
+        //         \Log::info('type nom '.$typenom);
+        //         // if($d->nom=='Instagram'){
+        //         //     // $ff2=$d->instagrame;  
+        //         //     \Log::info('insta id '.$d->instagrame->id);  
+        //         // }
+        //             foreach($d->domaine as $his){
+        //                 \Log::info('dom '.$his->nom);
+        //                 $domId=$his->id;
+        //                 // \Log::info('dom id :'.$domId);
+        //                 foreach($his->domaine_historique as $his2){
+        //                         if($his2->pivot->type_id==$typeid && $typenom==$his2->pivot->type_nom && $domId==$his2->pivot->domaine_id){
+        //                             \Log::info('his '.$his2->nom); //&& $typenom==$kk->type_id
+        //                             // \Log::info('his total : '.$his2->pivot->id); //&& $typenom==$kk->type_id
+        //                         }   
+        //                 }   
+        //            }   
+        //     }
+        //     if(isset($ff2)){
+        //         $dom2=Feed::where('instagrames_id',$ff2)->get();
+        //         $dom3=Story::where('instagrames_id',$ff2)->get();
+        //         \Log::info('feed '.$dom2);
+        //         \Log::info('story '.$dom3);
+        //     }
 //verifier************            
 
 

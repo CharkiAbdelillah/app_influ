@@ -23,6 +23,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::middleware('api')->resource('/personne','PersonneController')->only(['show','store','create','destroy','update']);
 Route::middleware('api')->get('/personne/{q?}','PersonneController@index');
 Route::middleware('api')->get('/personneWithoutPagination','PersonneController@index2');
+Route::middleware('api')->get('/personneLastFour','PersonneController@index4');
 Route::middleware('api')->get('/personneSearch/{q}','PersonneController@indexSearch');
 Route::middleware('api')->get('/personneLast','PersonneController@lastInfl');
 // Route::middleware('api')->delete('/personneDelete','PersonneController@deleteAll');

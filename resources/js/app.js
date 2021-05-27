@@ -64,6 +64,13 @@ Vue.component('edit-inflInsta', require('./components/manager/editInstagram.vue'
 Vue.component('edit-inflFb', require('./components/manager/editFacebook.vue').default);
 Vue.component('edit-inflYtb', require('./components/manager/editYoutube.vue').default);
 Vue.component('edit-inflSnap', require('./components/manager/editSnapchat.vue').default);
+
+Vue.component('add-infl', require('./components/manager/addInfl.vue').default);
+Vue.component('add-inflInfo', require('./components/manager/addInflInfo.vue').default);
+Vue.component('add-inflInsta', require('./components/manager/instagram.vue').default);
+Vue.component('add-inflFb', require('./components/manager/facebook.vue').default);
+Vue.component('add-inflYtb', require('./components/manager/youtube.vue').default);
+Vue.component('add-inflSnap', require('./components/manager/snapchat.vue').default);
 // Vue.component('edit-inflType', require('./components/manager/editInfType.vue').default);
 // Vue.component('edit-inflInsta', require('./components/manager/editInstagram.vue').default);
 

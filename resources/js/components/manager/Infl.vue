@@ -8,13 +8,19 @@
             </div>
         </div>
         
-        <add-infl></add-infl>
+        <!-- <add-infl></add-infl>
         <addInflInfo></addInflInfo>
-        <!-- <type-activite></type-activite> -->
         <instagrame></instagrame>
         <facebook></facebook>
         <youtube></youtube>
-        <snapchat></snapchat>
+        <snapchat></snapchat> -->
+
+        <add-infl @personne-added="refresh1"></add-infl>
+        <add-inflInfo  @personneInfo-added="refresh1"></add-inflInfo>
+        <!-- <add-inflInsta  @personneInsta-added="refresh1"></add-inflInsta>
+        <add-inflFb  @personneInsta-added="refresh1"></add-inflFb>
+        <add-inflYtb  @personneInsta-added="refresh1"></add-inflYtb> 
+        <add-inflSnap @personneInsta-added="refresh1"></add-inflSnap>  -->
         <!-- <wizard></wizard> -->
         <!-- <wizard2></wizard2> -->
      <table id="dataTable" class="table table-stripped">
@@ -169,7 +175,8 @@
                     <edit-inflFb v-bind:personne5="personne5"  @personneInsta-updated="refresh1"></edit-inflFb>
                     <edit-inflYtb v-bind:personne6="personne6" @personneInsta-updated="refresh1"></edit-inflYtb> 
                     <edit-inflSnap v-bind:personne7="personne7"  @personneInsta-updated="refresh1"></edit-inflSnap> 
-
+                    
+                    
     <!-- <edit-infl @infl-updated="getPersonnes"></edit-infl> -->
     </div>
     
