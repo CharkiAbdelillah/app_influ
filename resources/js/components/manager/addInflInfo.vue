@@ -147,7 +147,7 @@ export default{
             niveau:'',
             specialite:'',
             situation:'',
-            nombre:'',
+            nombre:'rien',
             // image:null
             
        };

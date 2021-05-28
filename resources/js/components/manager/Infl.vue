@@ -53,7 +53,7 @@
                         <td>    
                             <!-- Button trigger modal -->
                                 <button type="button" class="btn btn-primary" data-toggle="modal" :data-target="'#info-' + user3.id">
-                                <i class="bi bi-info-circle"></i>
+                                <Icon type="md-person" />
                                 </button>
                         </td>
                         <td>{{user3.added }}</td>

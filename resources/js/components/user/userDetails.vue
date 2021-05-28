@@ -53,7 +53,7 @@
 								<div class="panel-heading">
 									<h4 class="panel-title" >
                                         <router-link :to="{name:'Instagram'}">
-												<p>Instagram<Icon type="logo-instagram" /></p>
+												<p>Instagram  <Icon type="logo-instagram" /></p>
 										</router-link>
 									</h4>
 								</div>
@@ -62,7 +62,7 @@
 								<div class="panel-heading">
 									<h4 class="panel-title" >
 										<router-link :to="{name:'Facebook'}">
-												<p>Facebook<Icon type="logo-facebook" /></p>
+												<p>Facebook  <Icon type="logo-facebook" /></p>
 										</router-link>
 									</h4>
 								</div>
@@ -71,7 +71,7 @@
 								<div class="panel-heading">
 									<h4 class="panel-title" >
 										<router-link :to="{name:'Youtube'}">
-												<p>Youtube<Icon type="logo-youtube" /></p>
+												<p>Youtube  <Icon type="logo-youtube" /></p>
 										</router-link>
 									</h4>
 								</div>
@@ -80,7 +80,7 @@
 								<div class="panel-heading">
 									<h4 class="panel-title" >
 										<router-link :to="{name:'Snapchat'}">
-												<p>Snapchat<Icon type="logo-snapchat" /></p>
+												<p>Snapchat  <Icon type="logo-snapchat" /></p>
 										</router-link>
 									</h4>
 								</div>
@@ -98,7 +98,7 @@
 								<div class="panel-heading">
 									<h4 class="panel-title" >
 										<router-link :to="{name:'UserDetails'}">
-												<p>Info Personelle<Icon type="md-person" /></p>
+												<p>Info Personelle  <Icon type="md-person" /></p>
 										</router-link>
 									</h4>
 								</div>
@@ -113,12 +113,9 @@
 					<div class="product-details"><!--product-details-->
 						<div class="col-sm-5">
 							<div class="view-product">
-								<!--<img src="images/product-details/1.jpg" alt="" /> -->
 								<img :src="getOnePersonne[0].photo"  class="rounded-circle" alt="Cinque Terre" width="304" height="236"/><br/><br/>
-								<!-- <h2>{{user1.nom}} {{user1.prenom}}</h2>
-								<p><b>Age:</b> {{this.calculateAge}}</p>
-								<p><b>Ville:</b>{{user1.ville}}</p> -->
-								<h3>ZOOM</h3>
+								<!-- <h3>ZOOM</h3> -->
+								<h3>{{getOnePersonne[0].prenom}}</h3>
 							</div>
 							<div id="similar-product" class="carousel slide" data-ride="carousel">
 								
@@ -155,8 +152,8 @@
 								<!-- <img src="images/product-details/new.jpg" class="newarrival" alt="" /> -->
 								<img :src="getOnePersonne[0].photo"  class="img-circle" width="304px" height="236px" alt="" /><br/><br/>
 								<h2 >{{getOnePersonne[0].nom}} {{getOnePersonne[0].prenom}}</h2>
-								<p><b>Age:</b> {{this.calculateAge}}</p> 
-								<p><b>Ville:</b>{{getOnePersonne[0].ville}}</p>
+								<p><b>Age: </b> {{this.calculateAge}}</p> 
+								<p><b>Ville: </b>{{getOnePersonne[0].ville}}</p>
 								<!-- <p>{{$store.state.hi}}</p> -->
 							</div><!--/product-information-->
 						</div>
@@ -176,11 +173,11 @@
 										<div class="single-products">
 											<div class="productinfo text-center">
 												<h2>{{getOnePersonne[0].getpersonne_info.cm}}</h2>
-												<p><b>cm:</b> {{getOnePersonne[0].getpersonne_info.cm}}</p>
-												<p><b>niveux:</b> {{getOnePersonne[0].getpersonne_info.niveux}}</p>
-												<p><b>specialite:</b>{{getOnePersonne[0].getpersonne_info.specialite}}</p>
-												<p><b>situation:</b>{{getOnePersonne[0].getpersonne_info.situation}}</p>
-												<p><b>nombre:</b>{{getOnePersonne[0].getpersonne_info.nombre}}</p>
+												<p><b>cm: </b> {{getOnePersonne[0].getpersonne_info.cm}}</p>
+												<p><b>niveux: </b> {{getOnePersonne[0].getpersonne_info.niveux}}</p>
+												<p><b>specialite: </b>{{getOnePersonne[0].getpersonne_info.specialite}}</p>
+												<p><b>situation: </b>{{getOnePersonne[0].getpersonne_info.situation}}</p>
+												<p v-if="getOnePersonne[0].getpersonne_info.situation!='Célibataire'"><b>nombre: </b>{{getOnePersonne[0].getpersonne_info.nombre}}</p>
 											</div>
 										</div>
 									</div>
@@ -190,9 +187,9 @@
 										<div class="single-products">
 											<div class="productinfo text-center">
 												<h2>{{getOnePersonne[0].getpersonne_info.longueur}}</h2>
-												<p><b>longueur:</b> {{getOnePersonne[0].getpersonne_info.longueur}}</p>
-												<p><b>nature:</b> {{getOnePersonne[0].getpersonne_info.nature}}</p>
-												<p><b>cheveux:</b>{{getOnePersonne[0].getpersonne_info.cheveux}}</p>
+												<p><b>longueur: </b> {{getOnePersonne[0].getpersonne_info.longueur}}</p>
+												<p><b>nature: </b> {{getOnePersonne[0].getpersonne_info.nature}}</p>
+												<p><b>cheveux: </b>{{getOnePersonne[0].getpersonne_info.cheveux}}</p>
 											</div>
 										</div>
 									</div>
@@ -202,9 +199,9 @@
 										<div class="single-products">
 											<div class="productinfo text-center">
 												<h2>{{getOnePersonne[0].getpersonne_info.yeux}}</h2>
-												<p><b>yeux:</b> {{getOnePersonne[0].getpersonne_info.yeux}}</p>
-												<p><b>kg:</b> {{getOnePersonne[0].getpersonne_info.kg}}</p>
-												<p><b>couleur:</b>{{getOnePersonne[0].getpersonne_info.couleur}}</p>
+												<p><b>yeux: </b> {{getOnePersonne[0].getpersonne_info.yeux}}</p>
+												<p><b>kg: </b> {{getOnePersonne[0].getpersonne_info.kg}}</p>
+												<p><b>couleur: </b>{{getOnePersonne[0].getpersonne_info.couleur}}</p>
 											</div>
 										</div>
 									</div>	

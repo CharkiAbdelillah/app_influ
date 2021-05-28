@@ -41,13 +41,15 @@
             <input type="text" v-model="personne6.data.ytb.commentaire" class="form-control" id="inputPassword4">
           </div>
         </div>
-        <Select v-model="personne6.data.ytb.followers" placeholder="Select your city">
+        <Row>
+        <Select v-model="personne6.data.ytb.followers" placeholder="Select Number Followers">
                   <Option value="Nano(1k-10k)">Nano(1k-10k)</Option>
                   <Option value="Micro(10k-50k)">Micro(10k-50k)</Option>
                   <Option value="Mid-tier(50k-500k)">Mid-tier(50k-500k)</Option>
                   <Option value="Macro(500k-1m)">Macro(500k-1m)</Option>
                   <Option value="Mega(1m et +)">Mega(1m et +)</Option>
               </Select>
+        </Row><br>
 <multiselect v-model="personne6.data.ytb.domaine" :options="options" :multiple="true"  placeholder="Select domaine" label="nom" track-by="nom"></multiselect>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Retour</button>
@@ -81,6 +83,11 @@ export default{
         },
     props:['personne6'],
     methods:{
+      hideModal() {
+            $("#updateInflYtb").removeClass("in");
+            $(".modal-backdrop").remove();
+            $("#updateInflYtb").hide();
+          },
       getDomaine(){
         axios.get('/api/personneTypeDomaine').then(response=>{
                     console.log(response.data);
@@ -108,6 +115,7 @@ export default{
         formData.append("_method","put");//pour dire que on a en train de modifer
         // formData.append("image",this.image);
         axios.post("/api/personneTypeYoutube/"+this.personne6.data.ytb.id,formData).then(res=>{
+          this.hideModal();
         this.$emit('personneytb-updated',res)
         // $('#updateInfl').modal('hide');  
         // this.$refs.modalComponent.show(); 

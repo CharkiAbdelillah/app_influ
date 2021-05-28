@@ -3,6 +3,7 @@
   <!-- <button type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#updateInfl">
      <Icon type="md-create" />
   </button> -->
+
   <div class="modal fade" id="updateInflSnap" tabindex="-1" role="dialog" aria-labelledby="updateInflSnap" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -41,13 +42,15 @@
             <input type="text" v-model="personne7.data.snap.commentaire" class="form-control" id="inputPassword4">
           </div>
         </div>
-        <Select v-model="personne7.data.snap.followers" placeholder="Select your city">
+        <Row>
+        <Select v-model="personne7.data.snap.followers" placeholder="Select Number Followers">
                   <Option value="Nano(1k-10k)">Nano(1k-10k)</Option>
                   <Option value="Micro(10k-50k)">Micro(10k-50k)</Option>
                   <Option value="Mid-tier(50k-500k)">Mid-tier(50k-500k)</Option>
                   <Option value="Macro(500k-1m)">Macro(500k-1m)</Option>
                   <Option value="Mega(1m et +)">Mega(1m et +)</Option>
               </Select>
+        </Row><br>
 <multiselect v-model="personne7.data.snap.domaine" :options="options" :multiple="true"  placeholder="Select domaine" label="nom" track-by="nom"></multiselect>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Retour</button>
@@ -89,6 +92,11 @@ export default{
         },
     props:['personne7'],
     methods:{
+      hideModal() {
+            $("#updateInflSnap").removeClass("in");
+            $(".modal-backdrop").remove();
+            $("#updateInflSnap").hide();
+          },
       getDomaine(){
         axios.get('/api/personneTypeDomaine').then(response=>{
                     console.log(response.data);
@@ -116,6 +124,7 @@ export default{
         formData.append("_method","put");//pour dire que on a en train de modifer
         // formData.append("image",this.image);
         axios.post("/api/personneTypeSnapchat/"+this.personne7.data.snap.id,formData).then(res=>{
+          this.hideModal();
         this.$emit('personnesnap-updated',res)
         // $('#updateInfl').modal('hide');  
         

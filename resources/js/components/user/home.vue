@@ -126,9 +126,10 @@
 										<Icon type="ios-pin"/>
 										<span>Ville</span>
 									</Radio>
-									<Radio label="All">
+									<!-- <Radio  label="All">
 										<span>All</span>
-									</Radio>
+									</Radio> -->
+									<a @click="fucntionAll"><Icon type="md-refresh-circle" /></a>
 								</RadioGroup>	
 							<div class="well text-center">
 								 <input v-model="filterNom" style="text-align: center" :placeholder="select_search"/>
@@ -746,6 +747,10 @@
             refresh(personnes){
                 this.getPersonnes();
             },
+			fucntionAll(){
+					this.selectedType="All";
+					this.select_search='all';
+			}
     },
     computed:{
         filteredPersonnes () {
@@ -754,7 +759,8 @@
                 var per = this.personnes.perso.data;
     	        var per2 = this.personnes2.perso
             }
-    	
+			// if(select_search=='All')
+			// 	this.filterNom='All';
             if (this.filterNom && this.select_search!=='all') {
 				if(this.select_search=='Nom'){
 					per2 = per2.filter((p) => {
@@ -774,7 +780,7 @@
 				}
 				else{
 					this.selectedType="All";
-					this.select_search=='All';
+					this.select_search='all';
 					return per;
 				}
 				

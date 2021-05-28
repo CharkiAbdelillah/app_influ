@@ -41,17 +41,20 @@
             <input type="text" v-model="personne4.data.insta.commentaire" class="form-control" id="inputPassword4">
           </div>
         </div>
-        <Select v-model="personne4.data.insta.followers" placeholder="Select your city">
+        <Row>
+        <Select v-model="personne4.data.insta.followers" placeholder="Select Number Followers">
                   <Option value="Nano(1k-10k)">Nano(1k-10k)</Option>
                   <Option value="Micro(10k-50k)">Micro(10k-50k)</Option>
                   <Option value="Mid-tier(50k-500k)">Mid-tier(50k-500k)</Option>
                   <Option value="Macro(500k-1m)">Macro(500k-1m)</Option>
                   <Option value="Mega(1m et +)">Mega(1m et +)</Option>
               </Select>
-              <Select v-model="domaineTab" filterable multiple placeholder="Select domaine">
+        </Row><br>
+              <!-- <Select v-model="domaineTab" filterable multiple placeholder="Select domaine">
                       <Option v-for="(c,i) in domaine" :value="c.id" :key="i">{{c.nom}}</Option>
-              </Select>
-<multiselect v-model="personne4.data.insta.domaine" :options="options" :multiple="true"  placeholder="Select domaine" label="nom" track-by="nom"></multiselect>
+              </Select> -->
+              <br>
+        <multiselect v-model="personne4.data.insta.domaine" :options="options" :multiple="true"  placeholder="Select domaine" label="nom" track-by="nom"></multiselect>
               <!-- partie feed story collapse -->
               <p>
                   <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
@@ -157,7 +160,11 @@ export default{
         },
     props:['personne4','personneid'],
     methods:{
-
+      hideModal() {
+            $("#updateInflInsta").removeClass("in");
+            $(".modal-backdrop").remove();
+            $("#updateInflInsta").hide();
+          },
       getDomaine(){
         axios.get('/api/personneTypeDomaine').then(response=>{
                     console.log(response.data);
@@ -193,6 +200,7 @@ export default{
         formData.append("_method","put");//pour dire que on a en train de modifer
         // formData.append("image",this.image);
         axios.post("/api/personneTypeInstagram/"+this.personne4.data.insta.id,formData).then(res=>{
+          this.hideModal();
         this.$emit('personneInsta-updated',res)
         // $('#updateInfl').modal('hide');  
         

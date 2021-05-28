@@ -49,10 +49,10 @@
     -->
       <div class="logo">
         <a href="http://www.creative-tim.com" class="simple-text logo-mini">
-          CT
+          
         </a>
-        <a href="http://www.creative-tim.com" class="simple-text logo-normal">
-          Creative Tim
+        <a href="https://www.3wdev.ma/" class="simple-text logo-normal">
+          3WDEV
         </a>
       </div>
       <div class="sidebar-wrapper" id="sidebar-wrapper">
@@ -246,7 +246,7 @@
           <div class="copyright" id="copyright">
             &copy; <script>
               document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))
-            </script>, Designed by <a href="https://www.invisionapp.com" target="_blank">Invision</a>. Coded by <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a>.
+            </script>, Designed by <a href="https://www.3wdev.ma/" target="_blank">3WDEV</a>. Coded by <a href="https://www.3wdev.ma/" target="_blank">CHARKI</a>.
           </div>
         </div>
       </footer>

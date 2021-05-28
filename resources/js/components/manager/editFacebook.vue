@@ -41,13 +41,15 @@
             <input type="text" v-model="personne5.data.fb.commentaire" class="form-control" id="inputPassword4">
           </div>
         </div>
-        <Select v-model="personne5.data.fb.followers" placeholder="Select your city">
+        <Row>
+        <Select v-model="personne5.data.fb.followers" placeholder="Select Number Followers">
                   <Option value="Nano(1k-10k)">Nano(1k-10k)</Option>
                   <Option value="Micro(10k-50k)">Micro(10k-50k)</Option>
                   <Option value="Mid-tier(50k-500k)">Mid-tier(50k-500k)</Option>
                   <Option value="Macro(500k-1m)">Macro(500k-1m)</Option>
                   <Option value="Mega(1m et +)">Mega(1m et +)</Option>
               </Select>
+        </Row><br>
 <multiselect v-model="personne5.data.fb.domaine" :options="options" :multiple="true"  placeholder="Select domaine" label="nom" track-by="nom"></multiselect>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Retour</button>
@@ -89,6 +91,11 @@ export default{
         },
     props:['personne5','personneid'],
     methods:{
+      hideModal() {
+            $("#updateInflFb").removeClass("in");
+            $(".modal-backdrop").remove();
+            $("#updateInflFb").hide();
+          },
       getDomaine(){
         axios.get('/api/personneTypeDomaine').then(response=>{
                     console.log(response.data);
@@ -116,6 +123,7 @@ export default{
         formData.append("_method","put");//pour dire que on a en train de modifer
         // formData.append("image",this.image);
         axios.post("/api/personneTypeFacebook/"+this.personne5.data.fb.id,formData).then(res=>{
+          this.hideModal();
         this.$emit('personneFb-updated',res)
         // $('#updateInfl').modal('hide');  
         

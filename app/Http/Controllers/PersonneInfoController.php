@@ -69,7 +69,7 @@ class PersonneInfoController extends Controller
             'followers'=>0,
         ]);
         // dd($insta->id);
-        $insta->domaine()->attach('3wdev');
+        $insta->domaine()->attach(0);
         // \Log:info($insta->id);
         Story::create([
             'instagrame_id'=>$insta->id,
@@ -95,7 +95,7 @@ class PersonneInfoController extends Controller
             'commentaire'=>0,
             'followers'=>0,
         ]);
-        $snap->domaine()->attach('3dew');
+        $snap->domaine()->attach(0);
         // **** ytb
         $ytb=Youtube::create([
             'personne_id'=>$personne->id,
@@ -106,7 +106,7 @@ class PersonneInfoController extends Controller
             'commentaire'=>0,
             'followers'=>0,
         ]);
-        $ytb->domaine()->attach('3wdew');
+        $ytb->domaine()->attach(0);
         // **** fb
         $fb=Facebook::create([
             'personne_id'=>$personne->id,
@@ -117,7 +117,7 @@ class PersonneInfoController extends Controller
             'commentaire'=>0,
             'followers'=>0,
         ]);
-        $fb->domaine()->attach('3wdew');
+        $fb->domaine()->attach(0);
         
         return response()->json(['message'=>'Ajout bien fait']);
     }
